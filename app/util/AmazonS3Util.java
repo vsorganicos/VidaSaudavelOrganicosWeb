@@ -5,11 +5,8 @@ package util;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -32,13 +29,10 @@ public class AmazonS3Util implements Serializable {
 	private static final long serialVersionUID = -109897654321L;
 
 	private static AmazonS3Client amazonS3Client = null;
-	private static AWSCredentials credentials = null;
 	
 	static {
 		try {
-			credentials = new BasicAWSCredentials(Messages.get("application.aws.accesKeyId", ""), 
-												Messages.get("application.aws.secretKey", ""));
-			amazonS3Client = new AmazonS3Client(credentials);
+			amazonS3Client = new AmazonS3Client(new DefaultAWSCredentialsProviderChain());
 			amazonS3Client.setRegion(
 					RegionUtils.getRegion(Messages.get("application.aws.region", ""))
 					);
