@@ -1,0 +1,91 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Login
+#{/set}
+
+<div class="defaultContentSize">
+	<div class="boxLogin">
+	#{form @Login.logon()}
+		<table cellpadding="4" cellspacing="0" border="0" width="100%" style="text-align: center">
+			<tr class="bgGray">
+				<td colspan="2" class="fontBoldBrown">&{'form.login.title.isCustomer'}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;
+					<input type="hidden" name="sessionId" id="sessionId" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td width="22%" align="right" class="fontGreen1">&{'form.email'}&nbsp;</td>
+				<td align="left"><input type="text" maxlength="150" size="30" 
+					value="${usuario.email}" name="usuario.email" id="usuario.email" class="textBox1" />
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="right" class="fontGreen1">&{'form.login.password'}&nbsp;</td>
+				<td align="left">
+					<input type="password" size="21" value="${usuario.senha}" 
+								name="usuario.senha" id="usuario.senha" class="textBox1" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td align="left" colspan="2">
+					&nbsp;&nbsp;&nbsp;&{'form.login.forget.password'}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="&{'form.button.next'}" />
+				</td>
+			</tr>
+		</table>
+	</div>
+	#{/form}
+	<div class="boxNewCustomer">
+	#{form @Login.cadastrar()}
+		<table cellpadding="4" cellspacing="0" border="0" width="100%" style="text-align: center">
+			<tr class="bgGray">
+				<td colspan="2" class="fontBoldBrown">&{'form.login.title.newCustomer'}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="19%" align="right" class="fontGreen1">&{'form.email'}&nbsp;</td>
+				<td align="left"><input type="text" maxlength="150" size="33" value="" name="email" id="email" class="textBox1" /></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="right" colspan="2">
+					<input type="submit" value="&{'form.button.cadastro'}" />&nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	#{/form}
+	<div style="float: left; margin-top: 20px; margin-left: 25%; text-align: center; width: 50%; float: left">
+	#{ifErrors}
+		<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+			<span class="fontWhite">&{'validation.failed'}</span>
+		</div>
+		<br />
+		#{errors}
+		<span class="fontRed">${error}</span><br />
+		#{/errors}
+	#{/ifErrors}
+	<script type="text/javascript" charset="utf-8">
+		$("#sessionId").val( $.cookie("vidasaudavel") );
+	</script>
+	#{if (message!=null) }
+	<script type="text/javascript" charset="utf-8">
+		alert("${message}");
+	</script>
+	#{/if}
+	</div>
+</div>

@@ -1,0 +1,116 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+	&{'form.admin.secao.edit'}
+#{/set}
+
+<div class="defaultContentSize">
+	#{ifErrors}
+	<div style="width:280px; height:380px; border-color: red; border:0px solid; position: absolute; float: right; right: 2px;">
+		<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+			<span class="fontWhite">&{'validation.failed'}</span>
+		</div>
+		<br />
+		#{errors}
+			<span class="fontRed">${error}</span><br />
+		#{/errors}
+	</div>
+	#{/ifErrors}
+
+	#{form @Fornecedores.atualizar(), method:'POST', id:'formEditFornecedor'}
+	<table width="95%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="4" align="center">
+				<span class="fontGreen3">&{'form.edit'}&nbsp;&{'form.fornecedor.title'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				&nbsp;
+				<input type="hidden" name="fornecedor.id" id="fornecedor.id" value="${fornecedor.id}" />
+			</td>
+		</tr>
+		<tr>
+			<td width="8%" align="right">
+				<span>&{'form.customer.nome'}</span>
+			</td>
+			<td>
+				<input type="text" id="fornecedor.nome" name="fornecedor.nome" value="${fornecedor.nome}" maxlength="180" size="40" class="textBox1" />*
+			</td>
+			<td width="8%" align="right">
+				<span>&{'form.fornecedor.cnpj'}</span>
+			</td>
+			<td>
+				<input type="text" id="fornecedor.cnpj" name="fornecedor.cnpj" value="${fornecedor.cnpj}" maxlength="14" size="20" class="textBox1" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.email'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="fornecedor.emailContato" id="fornecedor.emailContato" size="45" maxlength="300" value="${fornecedor.emailContato}" />*
+			</td>
+			<td  align="right">&{'form.fornecedor.contato'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="fornecedor.contatoComercial" id="fornecedor.contatoComercial" size="45" maxlength="80" value="${fornecedor.contatoComercial}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.phone.type'}</td>
+			<td align="left">
+				#{if (fornecedor.telefones.isEmpty())}
+					#{select 'fornecedor.telefones[0].tipo', items:telefones, valueProperty:'codigo', class:"select1 fontGreen1"}*
+					#{/select}
+				#{/if}
+				#{else}
+					#{select 'fornecedor.telefones[0].tipo', id:'fornecedor.telefones[0].tipo', items:telefones, value:telefone.tipo, class:"select1 fontGreen1"}*
+					#{/select}
+				#{/else}
+			</td>
+			<td align="right">&{'form.phone'}</td>
+			<td align="left">
+				#{if (fornecedor.telefones.isEmpty())}
+					<input type="text" class="textBox1" name="fornecedor.telefones[0].prefixo" id="fornecedor.telefones[0].prefixo" size="3" maxlength="2" />
+					<span>-</span>
+					<input type="text" class="textBox1" name="fornecedor.telefones[0].numero" id="fornecedor.telefones[0].numero" size="11" maxlength="9" />*
+				#{/if}
+				#{else}
+					<input type="text" class="textBox1" name="fornecedor.telefones[0].prefixo" id="fornecedor.telefones[0].prefixo" size="3" maxlength="2" value="${fornecedor.telefones[0].prefixo}" />
+					<span>-</span>
+					<input type="text" class="textBox1" name="fornecedor.telefones[0].numero" id="fornecedor.telefones[0].numero" size="11" maxlength="9" value="${fornecedor.telefones[0].numero}" />*
+				#{/else}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.complemento'}</td>
+			<td colspan="3">
+				<textarea rows="5" cols="70" name="fornecedor.informacoesAdicionais" id="fornecedor.informacoesAdicionais">${fornecedor.informacoesAdicionais}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.status'}&nbsp;</td>
+			<td align="left" colspan="3">
+				#{select 'fornecedor.ativo', value:fornecedor.ativo}*
+					#{option '1'}Ativo#{/option}
+					#{option '0'}Inativo#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">
+				&nbsp;
+				&{'form.campo.obrigatorio'}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">
+				<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+				<span>|</span>
+				<a href="javascript:document.getElementById('formEditFornecedor').submit();" class="fontBrown">&{'form.button.next'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>

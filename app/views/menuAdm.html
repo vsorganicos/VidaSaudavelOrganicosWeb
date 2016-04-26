@@ -1,0 +1,192 @@
+#{if (session.get("isAdmin").equals("true") || session.get("isEmployee").equals("true")) }
+<!-- In�cio Menu Administrador -->
+<div id="menu">
+	<ul class="menu">
+        <li>
+        	<a href="#" class="parent"><span>&{'form.admin.title'}</span></a>
+            <div>
+            	<ul>
+            		
+	                <li><a href="#" class="parent"><span>&{'form.admin.produto'}</span></a>
+	                    <div>
+	                    	<ul>
+		                        <li><a href="/produtos/cadastrar"><span>&{'form.button.cadastro'}</span></a></li>
+		                        <li><a href="/produtos/consultar"><span>&{'form.admin.consulta'}</span></a></li>
+		                        <li><a href="/fornecedor/atualizar/produtos"><span>&{'form.atualizar'} &{'form.product.title'}(s)</span></a></li>
+		                        <li>
+						        	<a href="#" class="parent"><span>&{'form.admin.secao'}</span></a>
+						        	<div>
+						        		<ul>
+				                        	<li><a href="/secao"><span>&{'form.button.cadastro'}</span></a></li>
+				                        	<li><a href="/secao/all"><span>&{'form.admin.consulta'}</span></a></li>
+				                        </ul>
+									</div>
+						        </li>
+		                        <li><a href="#" class="parent"><span>&{'form.parceiros.title'}</span></a>
+			            			<div><ul>
+				                        <li><a href="/fornecedor/upload/index"><span>&{'form.parceiros.upload.archive'}</span></a></li>
+									</ul></div>
+			            		</li>
+			            		<!-- Estoque --> 
+				                <li><a href="#" class="parent"><span>&{'form.estoque.title'}</span></a>
+				                    <div><ul>
+				                        <li><a href="/estoque/cadastrar"><span>&{'form.button.cadastro'}</span></a></li>
+				                        <li><a href="/estoque/show"><span>&{'form.admin.consulta'}</span></a></li>
+				                    </ul></div>
+				                </li>
+	                    	</ul>
+	                    </div>
+	                </li>
+			        <li>
+			        	<a href="#" class="parent"><span>&{'form.admin.pedido'}</span></a>
+			        	<div>
+			        		<ul>
+	                        	<li><a href="/pedidos/consultar/all"><span>&{'form.admin.consulta'}</span></a></li>
+	                        	<li><a href="/relatorios/rota/entrega"><span>&{'application.route.title'}</span></a></li>
+	                        </ul>
+						</div>
+			        </li>
+			        <li>
+			        	<a href="#" class="parent"><span>&{'form.admin.customer'}</span></a>
+			        	<div>
+			        		<ul>
+	                        	<li><a href="/cliente/show/all"><span>&{'form.admin.consulta'}</span></a></li>
+	                        	<li><a href="/relacionamento/cliente/cupom-desconto"><span>&{'application.crm.cupom.desconto.title'}</span></a></li>
+	                        </ul>
+						</div>
+			        </li>
+			         <li>
+			        	<a href="#" class="parent"><span>&{'form.cesta.title'}</span></a>
+			        	<div>
+			        		<ul>
+	                        	<li><a href="/cesta/cadastrar"><span>&{'form.button.cadastro'}</span></a></li>
+	                        	<li><a href="/cesta/consultar"><span>&{'form.admin.consulta'}</span></a></li>
+	                        </ul>
+						</div>
+			        </li>
+			        #{if (session.get("isAdmin").equals("true")) }
+			         <li>
+			         	<a href="#" class="parent">
+			         		<span>&{'form.label.frete'}</span>
+			         	</a>
+			         	<div>
+			         		<ul>
+			         			<li>
+			         				<a href="/frete"><span>&{'form.edit'}</span></a>
+			         			</li>
+			         		</ul>
+			         	</div>
+			         </li>
+			         <li>
+			         	<a href="#" class="parent">
+			         		<span>&{'form.politicaEntrega.bairros'}</span>
+			         	</a>
+			         	<div>
+			         		<ul>
+			         			<li>
+			         				<a href="/bairrosAtendidos/cadastrar"><span>&{'form.button.cadastro'}</span></a>
+			         			</li>
+			         			<li>
+			         				<a href="/bairrosAtendidos"><span>&{'form.admin.consulta'}</span></a>
+			         			</li>
+			         		</ul>
+			         	</div>
+			         </li>
+			         #{/if}
+			          <li>
+			         	<a href="#" class="parent">
+			         		<span>&{'form.fornecedor.title'}</span>
+			         	</a>
+			         	<div>
+			         		<ul>
+			         			<li>
+			         				<a href="/fornecedor/index"><span>&{'form.button.cadastro'}</span></a>
+			         			</li>
+			         			<li>
+			         				<a href="/fornecedor/all"><span>&{'form.admin.consulta'}</span></a>
+			         			</li>
+			         		</ul>
+			         	</div>
+			         </li>
+			         <!-- Question�rio -->
+			         <li>
+			         	<a href="#" class="parent">
+			         		<span>&{'form.questionario.title'}</span>
+			         	</a>
+			         	<div>
+			         		<ul>
+			         			<li>
+			         				<a href="/questionarios/show">
+			         					<span>&{'form.questionario.todos'}</span>
+			         				</a>
+			         			</li>
+			         			 #{if (session.get("isAdmin").equals("true")) }
+			         			<li>
+			         				<a href="/questionarios/associar">
+			         					<span>&{'form.questionario.novo'}</span>
+			         				</a>
+			         			</li>
+			         			<li>
+			         				<a href="#" class="parent">
+			         					<span>&{'form.questionario.pergunta'}</span>
+			         				</a>
+			         				<div>
+			         					<ul>
+			         						<li>
+			         							<a href="/questionarios/perguntas"><span>&{'form.button.cadastro'}</span></a>
+			         						</li>
+			         					</ul>
+			         				</div>
+			         			</li>
+			         			<li>
+			         				<a href="#" class="parent">
+			         					<span>&{'form.questionario.resposta'}</span>
+			         				</a>
+			         				<div>
+			         					<ul>
+			         						<li>
+			         							<a href="/questionarios/respostas"><span>&{'form.button.cadastro'}</span></a>
+			         						</li>
+			         					</ul>
+			         				</div>
+			         			</li>
+			         			#{/if}
+			         		</ul>
+			         	</div>
+			         </li>
+			         #{if (session.get("isAdmin").equals("true")) }
+			         <li>
+			         	<a href="/email">
+			         		<span>&{'form.mail.mkt.title'}</span>
+			         	</a>
+			         </li>
+			         #{/if}
+			         <li>
+			         	<a href="#" class="parent">
+			         		<span>&{'form.report.title'}</span>
+			         	</a>
+			         	<div>
+			         		<ul>
+			         			<li>
+			         				<a href="/relatorios/produto/fornecedor"><span>&{'form.report.pedidoPorFornecedor'}</span></a>
+			         			</li>
+			         			<li>
+			         				<a href="/relatorios/produto/pedido/cliente"><span>&{'form.report.pedidoAguardandoEntrega'}</span></a>
+			         			</li>
+			         		</ul>
+			         	</div>
+			         </li>
+			         #{if (session.get("isAdmin").equals("true")) }
+			         <li>
+			         	<a href="/admin/clearCache">
+			         		<span>&{'form.admin.clearCache'}</span>
+			         	</a>
+			         </li>
+			         #{/if}
+            	</ul>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- Fim Menu Administrador -->
+#{/if}

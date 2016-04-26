@@ -1,0 +1,11 @@
+#{extends 'layout.html' /}
+#{set 'title'}&{'application.tilte'}#{/set}
+
+<div class="defaultContentSize">
+#{if (params.message!=null)}
+<script type="text/javascript" charset="UTF-8">
+	alert("${params.message.raw()}");
+</script>
+#{/if}
+#{include 'produto.html'/}
+</div>

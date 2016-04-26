@@ -1,0 +1,86 @@
+<div style="margin: 0px; padding: 0px;">
+	<table width="100%" cellpadding="4" cellspacing="4" border="0">
+		<thead>
+			<tr>
+				<td align="center" class="txt_titulo_03">&{'form.questionario.texto'}</td>
+			</tr>
+		</thead>
+		<tr>
+			<td>
+				<input type="hidden" name="usuarioId" id="usuarioId" value="${usuarioId}" />
+				<input type="hidden" name="questionarioId" id="questionarioId" value="${questionario.id}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table align="left" border="0" width="100%" cellpadding="2">
+				#{list items:questionario.perguntas, as:'pergunta'}
+					<thead>
+						<tr>
+							<td colspan="2" align="left"><b>${pergunta.questao}</b></td>
+						</tr>
+					</thead>
+					<tbody>
+					#{list items:pergunta.respostas, as:'resposta'}	
+						<tr>
+							<td align="right" width="15%">
+								<input type="radio" id="pergunta[${pergunta.id}]" name="pergunta[${pergunta.id}]" value="${resposta.resposta.id}"/>
+							</td>
+							<td align="left">
+								<span>${resposta.resposta.descricao}</span>
+							</td>
+						</tr>
+					</tbody>
+					#{/list}
+				#{/list}
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<input type="button" value="Ok" onclick="javascript:responder();" />&nbsp;
+			</td>
+		</tr>
+	</table>
+</div>
+<script type="text/javascript" charset="UTF-8">
+	function responder() {
+		try {
+			var respostas = document.getElementsByTagName("input");
+			var respondido = false;
+			var url = "?usuarioId=" + $("#usuarioId").val() + "&questionarioId=" + $("#questionarioId").val();
+			var indice = 0;
+			
+			for(i=0; i<respostas.length; i++) {
+				if(respostas[i].type=="radio" && respostas[i].checked==true) {
+					url += "&respostas["+indice+"].idResposta="+respostas[i].value+"";
+					url += "&respostas["+indice+"].id="+indice+"";
+					
+					//Extrair id da pergunta
+					var auxIndex = respostas[i].id.indexOf("[");
+					var auxIdPergunta = "" + respostas[i].id;
+					var idPergunta = auxIdPergunta.substr(auxIndex+1, 1);		
+					
+					url += "&respostas["+indice+"].idPergunta="+idPergunta+"";
+					
+					indice++;
+					respondido = true;
+				}
+			}
+
+			if(respondido) {
+				$.post('/questionarios/responder' + url, {}, 
+				function(data) {
+					alert(data)
+					
+					tb_remove();
+				})
+			}else {
+				alert("Selecione uma resposta.");
+			}
+			
+		}catch(e) {
+			alert("Erro ao tentar responder o questionario: " + e);
+		}
+	}
+</script>

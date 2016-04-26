@@ -1,0 +1,98 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Minha Assinatura
+#{/set}
+
+<div class="defaultContentSize">
+	#{if (cestas.isEmpty())}
+	<div align="center">
+		<br /><br />
+		<p>
+			<span class="fontGreen1">
+				<a href='/consulta-cesta'>Clique aqui</a> e fa&ccedil;a sua assinatura de cesta personalizada!
+			</span>
+		</p>
+	</div>
+	#{/if}
+	#{else}
+	<br />
+	<table width="95%" border="0" id="showProdutosCarrinho" cellpadding="0" cellspacing="2" align="center" style="border-bottom-width: 1px; border-bottom-style: dashed; border-bottom-style: solid;">
+		<tr class="tr1">
+			<td align="center">
+				<span>&{'form.title.numero'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.cesta.startDate'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.cesta.interval'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.order.alterar.metodoPagamento'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.global.price'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.cesta.nextDelivery'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.status'}</span>
+			</td>
+			<td align="center">
+				&nbsp;
+			</td>
+			<td align="center">
+				&nbsp;
+			</td>
+		</tr>
+		#{list items:cestas, as:'cesta'}
+		<tr>
+			<td width="8%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${cesta.id}</span>
+			</td>
+			<td width="11%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${cesta.dataInicio.format('dd/MM/yyyy')}</span>
+			</td>
+			<td width="12%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${cesta.periodo.descricao}</span>
+			</td>
+			<td width="17%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${cesta.pagamento?.formaPagamento}</span>
+			</td>
+			<td width="10%" align="center">
+				<span class="fontBlackMainHome">${cesta.valorCesta.formatCurrency('BRL')}</span>
+			</td>
+			<td width="14%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${cesta.dataInicio.format('dd/MM/yyyy')}</span>
+			</td>
+			</td>
+			<td width="8%" align="center">
+				<span class="fontBlackMainHome">${cesta.ativo ? 'Ativo' : 'Inativo'}</span>
+			</td>
+			<td width="14%" align="center">
+				#{a @Cestas.changeStatus(cesta.id), title:"Ativar/Inativar"}
+					<span>${cesta.ativo ? 'Suspender Entrega' : 'Ativar Entrega'}</span>
+				#{/a}
+			</td>
+			<td>
+				<a href="/ajaxCesta?height=520&width=750&idCestaAssinatura=${cesta.id}" class="thickbox fontBrown">
+					&{'form.order.btnViewProducts'}
+				</a>
+			</td>
+		</tr>
+		#{/list}
+	</table>
+	#{/else}
+	<br />
+</div>
+<div style="margin-left: 2%;">
+	<span class="fontGreen1">
+		<a href='/consulta-cesta'>Clique aqui</a> para realizar uma nova assinatura de cesta personalizada!
+	</span>
+</div>
+<div style="text-align: right;">
+	<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+</div>
+<br />
+

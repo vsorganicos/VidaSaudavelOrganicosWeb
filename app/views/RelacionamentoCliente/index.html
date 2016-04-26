@@ -1,0 +1,74 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Cadastar Cupons de Desconto
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @RelacionamentoCliente.gerarCuponsCliente(), id:'cupomDescontoClienteForm', method:'POST'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="100%" align="center" class="fontGreen3">Cadastrar Cupom Desconto</td>
+		</tr>
+		<tr>
+			<td colspan="100%" align="center" class="fontGreen3">&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">(%)</td>
+			<td align="left">
+				<input type="text" class="textBox1" size="10"
+						name="desconto.porcentagem" id="desconto.porcentagem" value="${desconto.porcentagem}"/>
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'application.crm.cupom.desconto.validade'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" size="10"
+						name="validadeCupomEmDias" id="validadeCupomEmDias" />
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'application.crm.cupom.desconto.max.time.title'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" size="10"
+						name="qtdMaxUsoCupom" id="qtdMaxUsoCupom" />
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'application.crm.cupom.flag.all'}</td>
+			<td align="left">
+				<input type="checkbox" name="todosClientes" id="todosClientes" value="true" />
+			</td>
+		</tr>
+		<tr>
+				<td width="38%" align="right">
+					<span>&{'form.mail.mkt.to'}</span>
+				</td>
+				<td>
+					#{select 'clientesSelecionados', id:'clientesSelecionados', items:clientes, valueProperty:id, labelProperty:'nome', class:"fontGreen1", multiple:'multiple', size:'10'}					
+					#{/select}
+				</td>
+			</tr>
+		<tr>
+			<td colspan="2" align="center">&nbsp;
+			#{errors}
+				<span class="fontRed">${error}</span><br />
+			#{/errors}
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<a href="javascript:document.getElementById('cupomDescontoClienteForm').submit();" class="fontBrown">&{'form.button.next'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+			#{if (message!=null)}
+				<span class="fontRed">${message}</span><br />
+			#{/if}
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>

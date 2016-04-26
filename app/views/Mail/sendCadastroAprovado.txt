@@ -1,0 +1,17 @@
+Caro(a) ${cliente.nome},
+
+Obrigado por realizar seu cadastro em nosso site.
+
+Seus dados de usuário são:
+
+Login: ${cliente.usuario.email}
+Senha: ${cliente.usuario.senha}
+				
+Atenciosamente,
+
+Vida Saudável Orgânicos.
+www.vidasaudavelorganicos.com.br
+
+**********************************************************************************				
+	**************** ATENÇÃO NÃO RESPONDA ESSE E-MAIL ****************
+**********************************************************************************

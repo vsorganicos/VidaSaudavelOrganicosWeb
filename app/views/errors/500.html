@@ -1,0 +1,16 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'application.message.error'}
+#{/set}
+
+<div class="defaultContentSize">
+    #{if play.mode.name() == 'DEV'}
+        #{500 exception /}
+    #{/if}
+    #{else}
+    	<br />
+        <h2>
+        	<span class="fontRed">&{'application.message.error'}</span>
+        </h2>
+    #{/else}
+</div>

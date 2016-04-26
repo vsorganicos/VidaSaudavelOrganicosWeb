@@ -1,0 +1,150 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Cadastrar Produto
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @Produtos.salvar(), enctype:'multipart/form-data', id:'cadastroProdutoForm', name:'cadastroProdutoForm'}
+	<table width="100%" cellpadding="4" cellspacing="2" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				#{if (produto.id==null)}
+					&{'form.title.cadastrar.produto'}
+				#{/if}
+				#{else}
+					&{'form.title.editar.produto'}
+				#{/else}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="hidden" name="produto.id" id="produto.id" value="${produto.id}" />&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.label.nome'}</td>
+			<td align="left">
+				<input type="text" maxlength="80" class="textBox1" name="produto.nome" id="produto.nome" size="20" value="${produto.nome}"/>*</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.label.codigoProduto'}</td>
+			<td align="left">
+				<input type="text" maxlength="60" class="textBox1" name="produto.codigoProduto" id="produto.codigoProduto" size="20" value="${produto.codigoProduto}"/>*</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.descricao'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="produto.descricao" id="produto.descricao" size="40" maxlength="150" value="${produto.descricao}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.valorPago'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="produto.valorPago" id="produto.valorPago" size="8" value="${produto.valorPago}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.valorVenda'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="produto.valorVenda" id="produto.valorVenda" size="8" value="${produto.valorVenda}" />*
+			</td>
+		</tr>
+		#{if (!secoes.isEmpty())}
+		<tr>
+			<td align="right">&{'form.admin.secao.description'}</td>
+			<td>
+				#{select 'produto.secao.id', items:secoes, valueProperty:id, labelProperty:'descricao', value:produto.secao, class:"select1 fontGreen1"}
+					#{option ''}Selecione#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		#{/if}
+		#{if (!fornecedores.isEmpty())}
+		<tr>
+			<td align="right">&{'form.fornecedor.title'}</td>
+			<td>
+				#{select 'produto.fornecedor.id', items:fornecedores, valueProperty:id, labelProperty:'nome', value:produto.fornecedor, class:"select1 fontGreen1"}
+					#{option ''}Selecione#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		#{/if}
+		<tr>
+			<td align="right">&{'form.label.imagem'}</td>
+			<td align="left">
+				<input type="file" class="textBox1" 
+						name="produto.imagem" id="produto.imagem" value="${produto.imagem}" accept="image/jpeg" />&{'form.product.type.image'}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.isBasket'}</td>
+			<td>
+				#{select 'produto.ehCesta', id:"produto.ehCesta", value:produto.ehCesta, class:"select1 fontGreen1"}
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}N&atilde;o#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.envioCorreio'}</td>
+			<td>
+				#{select 'produto.podeEnviarPorCorreio', id:"produto.podeEnviarPorCorreio", value:produto.podeEnviarPorCorreio, class:"select1 fontGreen1"}
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}N&atilde;o#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.refrigeracao'}</td>
+			<td>
+				#{select 'produto.ehRefrigerado', id:"produto.ehRefrigerado", value:produto.ehRefrigerado, class:"select1 fontGreen1"}
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}N&atilde;o#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				&{'form.label.detail'}
+			</td>
+			<td align="left">
+				<textarea cols="30" rows="3" name="produto.detalhe" id="produto.detalhe">${produto.detalhe}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+			</td>
+		</td>
+		<tr>
+			<td colspan="2" align="center">
+				#{a @Produtos.show(), class:'fontBrown'}&{'form.button.back'}#{/a}
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:getElementById('cadastroProdutoForm').submit();">&{'form.button.next'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="left">
+				#{ifErrors}
+					#{errors}
+					<li>
+						<span class="fontRed">${error}</span>
+					</li>
+					#{/errors}
+				#{/ifErrors}
+				#{if (params.message!=null)}
+				<script type="text/javascript" charset="utf-8">
+					alert("${params.message}");
+				</script>
+				#{/if}
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+<script type="text/javascript" charset="utf-8">
+$(".datePicker").datepicker({dateFormat:'dd/mm/yy', showAnim:'fadeIn'})
+</script>

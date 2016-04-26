@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta http-equiv="Content-Language" content="pt-br" />
+<body>
+	<p>
+		<span>${message.raw()}</span>
+	</p>
+	#{if (urlImagem!=null) }
+	<a href="http://www.vidasaudavelorganicos.com.br">
+		<img src="${urlImagem}" alt="Vida Saudável Orgânicos" />
+	</a>
+	#{/if}
+	<p>
+		<span>Att,</span>
+		<br />
+		<span>
+			<a href='http://www.vidasaudavelorganicos.com.br'>&{'application.subtilte'}</a>
+		</span>
+		<span>
+			<a href="&{'application.link.facebook'}">Facebook</a>
+		</span>
+	</p>
+	<p>
+		<i>&{'form.mail.mkt.remove'}</i>
+	</p>
+</body>
+</html>

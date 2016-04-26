@@ -1,0 +1,72 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'application.route.title'}
+#{/set}
+<style type="text/css">
+      #map_canvas { height: 600px; }
+</style>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=&{'application.google.maps.key'}&sensor=&{'application.google.maps.sensor'}&region=BR"></script>
+<script src="&{'application.static.content'}/javascripts/gmaps.util.js" type="text/javascript" charset="utf-8"></script>
+<div id="textOrigin" style="float: left; margin: 5px">
+	<span class="fontGreen1">&{'form.cesta.startDate'}: </span><input type="text" id="origin" name="origin" size="55" value="&{'application.google.maps.origin'}" style="background-color: #DDDDDD" />
+</div>
+<div id="textDestination" style="float: left; margin: 5px">
+	<span class="fontGreen1">&{'application.google.maps.destination.title'}: </span><input type="text" id="destination" name="destination" size="55" value="&{'application.google.maps.destination'}" style="background-color: #DDDDDD" />
+</div>
+<div id="textDestination" style="float: left; margin: 5px">
+	<input type="button" id="btnRota" name="btnRota" onclick="javascript:renderCalcRota($('#origin').val(), $('#destination').val())" 
+			value="&{'application.google.maps.route.title'}" style="background-color: #DDDDDD; border-color: #DDDDDD" />
+</div>
+<div class="boxConsultaDefault" id="map_canvas">
+</div>
+<div id="passos" style="height: 100%;"></div>
+<br />
+<div id="listaEnderecoEntrega" style="height: 90%; visibility: hidden;">
+	<div align="left" style="float: left">
+		<a class="a1" href="@{Relatorios.relatorioEnderecosEntregaCSV()}" title="&{'application.form.export'}">&{'application.form.report.format.csv'}</span>
+	</div>
+	<table width="100%" border="1" cellpadding="2" cellspacing="0" class="fontGreen2" align="center">
+		<tr class="tr1">
+			<td>&{'form.admin.customer'}</td>
+			<td>&{'form.address.logradouro'}</td>
+			<td>&{'form.title.numero'}</td>
+			<td width="9%">&{'form.address.complemento'}</td>
+			<td width="5%">&{'form.address.bairro'}</td>
+			<td>&{'form.address.cidade'}</td>
+			<td>&{'form.address.uf'}</td>
+			<td>&{'form.address.cep'}</td>
+		</tr>
+		#{list items:enderecos, as:'endereco'}
+		<tr class="${produto_parity}">
+			<td>${endereco.cliente.nome}</td>
+			<td>${endereco.logradouro}</td>
+			<td>${endereco.numero}</td>
+			<td>${endereco.complemento}</td>
+			<td>${endereco.bairro}</td>
+			<td>${endereco.cidade}</td>
+			<td>${endereco.uf}</td>
+			<td>${endereco.cep}</td>
+		</tr>
+		#{/list}
+	</table>
+	<br />
+</div>
+<script type="text/javascript" charset="utf-8">
+inciarMapa('map_canvas', -23.5505233, -46.6342982);
+
+renderCalcRota('', '');
+
+function renderCalcRota(origem, destino) {
+	try {
+		$.post('@{Relatorios.renderRota()}', {origin: origem, destination: destino},
+			function( data ) {
+				if(data!="") {
+					calcularRota(data);
+				}
+		})
+		
+	}catch(e) {
+		alert(e.description);
+	}
+}
+</script>

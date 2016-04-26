@@ -1,0 +1,4 @@
+# Application dependencies
+require:
+play -> paginate 0.12
+play -> cloudbees 0.2.2

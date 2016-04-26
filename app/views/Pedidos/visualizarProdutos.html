@@ -1,0 +1,77 @@
+#{extends 'Pedidos/menuPedidoCliente.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+<div style="float: right;">
+	<a href="javascript:newOrder();" class="fontBrown">&{'form.order.mypage.newOrder'}</a>
+</div>
+<div class="boxConsultaDefault">
+	#{form @Pedidos.novoPedido(), id:"newOrderForm"}
+	<div>
+		<a href="@{Pedidos.showProdutos(pedido.id)}" class="a1">&{'form.order.edit.products'}</a>
+		<span>|</span>
+		<a href="@{Pedidos.incluirProduto(pedido.id)}" class="a1">&{'form.application.add'} &{'form.product.title'}</a>
+	</div>
+	<table width="100%" border="0">
+		<tr class="tr1">
+			<td align="center" colspan="2">
+				<span>&{'form.label.descricao'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.quantidade'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.valorUnitario'}</span>
+			</td>
+			#{if (session.get("isAdmin").equals("true")) }
+			<td align="center">
+				<span>&{'form.order.produtoNaoEntregue'}</span>
+			</td>
+			#{/if}
+		</tr>
+		#{paginate.list items:itens, as:'item'}
+		<tr>
+			<td width="12%">
+				<img width="50" height="43" src="&{'application.static.content'}&{'application.path.public.images'}${item.produtos[0].imagemProduto}" 
+						title="${item.produtos[0].descricao}" alt="${item.produtos[0].descricao}" class="imgBasket" />
+			</td>
+			<td>
+				#{if (session.get("isAdmin").equals("true")) }
+					<span class="fontBlackMainHome" title="Fornecedor: ${item.produtos[0].fornecedor.nome}">&nbsp;${item.produtos[0].descricao}</span><br />
+				#{/if}
+				#{else}
+					<span class="fontBlackMainHome">&nbsp;${item.produtos[0].descricao}</span><br />
+				#{/else}		
+			</td>
+			<td width="13%" align="center">
+				<span>${item.quantidade}</span>
+			</td>
+			<td width="16%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${item.produtos[0].valorVenda.formatCurrency('BRL').raw()}</span><br />
+			</td>
+			#{if (session.get("isAdmin").equals("true")) }
+			<td width="19%" align="center">
+				<span>${item.excluido.yesno('Sim', 'N&atilde;o').raw()}</span>
+			</td>
+			#{/if}
+		</tr>
+		#{/paginate.list}
+		<tr class="tr1">
+			<td colspan="2" align="center">#{paginate.controls items:itens /}</td>
+			<td colspan="3" align="center">#{paginate.summary items:itens/}</td>	
+		</tr>
+	</table>
+	#{/form}
+</div>
+<script type="text/javascript" charset="UTF-8">
+function newOrder() {
+	try {
+		var url = "/newOrder/" + $.cookie("vidasaudavel") + "/" + "${pedido.id}"; 
+	
+		window.opener.open(url, "_self");
+		
+		window.parent.close();
+	
+	}catch(e) {
+		alert("Erro no processamento: " + e);
+	}
+}
+</script>

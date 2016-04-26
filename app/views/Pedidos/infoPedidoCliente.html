@@ -1,0 +1,213 @@
+#{extends 'Pedidos/menuPedidoCliente.html' /}
+<script src="&{'application.static.content'}/javascripts/jquery-ui-1.8.17.custom.min.js" type="text/javascript" charset="utf-8"></script>
+
+#{form @Pedidos.atualizar(), method:'POST', id:'editPedidoForm'}
+<table width="100%" cellpadding="1" cellspacing="1" border="0" class="fontGreen2">
+	<tr>
+		<td colspan="4" align="center">
+			<input type="hidden" name="pedido.desconto.id" id="pedido.desconto.id" value="${pedido.desconto?.id}" />
+			<input type="hidden" name="pedido.frete.id" id="pedido.frete.id" value="${pedido.frete?.id}" />
+			<span class="fontGreen3">&{'form.order.edit'}</span>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td align="left">
+		</td>
+	</tr>
+	<tr>
+		<td width="25%" align="right">
+			<span>&{'form.admin.customer'}</span>
+		</td>
+		<td width="30%" align="left">
+			<span class="fontBlackMainHome">
+				<a href="/cliente/${pedido.cliente.id}">${pedido.cliente.nome}</a>
+			</span>
+		</td>
+		<td width="25%" align="right">
+			<span>&{'form.label.quantidade'} &{'form.admin.pedido'}(s) </span>
+		</td>
+		<td align="left">
+			<span class="fontBlackMainHome">
+				<b>${pedido.getQuantidadePedidosFinalizados().keySet().iterator().next()}</b>
+			</span>
+			#{if (pedido.getQuantidadePedidosFinalizados().keySet().iterator().next()>0)}
+			<span class="fontBlackMainHome">
+				(<b>${pedido.getQuantidadePedidosFinalizados().get(pedido.getQuantidadePedidosFinalizados().keySet().iterator().next()).formatCurrency('BRL').raw()}</b>)
+			</span>
+			#{/if}
+		</td>
+	</tr>
+	<tr>
+		<td width="25%" align="right">
+			<input type="hidden" name="pedido.id" id="pedido.id" value="${pedido.id}" />
+			<input type="hidden" name="pedido.ultimoStatusEstadoPedido" id="pedido.ultimoStatusEstadoPedido" value="${pedido.ultimoStatusEstadoPedido}" />
+			<span>&{'form.order.number'}&nbsp;</span>
+		</td>
+		<td align="left">
+			<span class="fontBlackMainHome"><b>${pedido.id}</b></span>
+		</td>
+		<td align="right">&{'form.order.code'}&nbsp;</td>
+		<td align="left">
+			<span class="fontBlackMainHome"><b>${pedido.codigoPedido}</b></span>
+		</td>
+	</tr>
+	#{if (pedido.valorPedidoFinalizado!=null)}
+	<tr>
+		<td width="25%" align="right">&{'form.order.value'}&nbsp;Fechado</td>
+		<td align="left" colspan="3">
+			<span class="fontBlackMainHome">${pedido.valorPedidoFinalizado.formatCurrency('BRL').raw()}</span>
+	</tr>
+	#{/if}
+	<tr>
+		<td width="25%" align="right">&{'form.order.value'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<input type="text" maxlength="10" class="textBox1" name="pedido.valorPedido" id="pedido.valorPedido" 
+					size="20" value="${pedido.valorPedido}" />*</td>
+	</tr>
+	<tr>
+		<td width="25%" align="right">&{'form.order.desconto'}&nbsp;<i>(%)</i></td>
+		<td align="left" colspan="3">
+			<input type="text" maxlength="5" class="textBox1" name="pedido.desconto.porcentagem" id="pedido.desconto.porcentagem" 
+					size="20" value="${pedido.desconto?.porcentagem}" /></td>
+	</tr>
+	<tr>
+		<td width="25%" align="right">Valor Desconto&nbsp;</td>
+		<td align="left" colspan="3">
+			<input type="text" maxlength="5" class="textBox1" name="pedido.desconto.valorDesconto" id="pedido.desconto.valorDesconto" 
+					size="20" value="${pedido.desconto?.valorDesconto}" /></td>
+	</tr>
+	<tr>
+			<td width="25%" align="right">&{'form.label.frete'}</td>
+			<td align="left" colspan="3">
+				<input type="text" maxlength="10" class="textBox1" name="pedido.frete.valor" id="pedido.frete.valor" 
+						size="20" value="${pedido.frete?.valor}" />*</td>
+	</tr>
+	<tr>
+		<td width="25%" align="right">&{'form.label.total'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<span>${pedido.getValorTotal().formatCurrency('BRL').raw()}</span>
+	</tr>
+	<!-- Novo campo: valor pago -->
+	<tr>
+		<td width="25%" align="right">&{'form.label.valorPago'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<input type="text" maxlength="10" class="textBox1" name="pedido.valorPago" id="pedido.valorPago" 
+					size="20" value="${pedido.valorPago}" style="background-color: #FFFFCC" />*</td>
+	</tr>
+	<tr>
+		<td align="right">&{'form.order.observacao'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<textarea cols="30" rows="2" name="pedido.observacao" id="pedido.observacao">${pedido.observacao}</textarea>*
+		</td>
+	</tr>
+	<tr>
+		<td align="right">&{'form.order.date'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<input type="text" class="textBox1" name="pedido.dataPedido" id="pedido.dataPedido" size="20" 
+					readonly="readonly" value="${pedido.dataPedido.format('dd/MM/yyyy HH:mm')}" />*
+		</td>
+	</tr>
+	<tr>
+		<td align="right">&{'form.order.date.delivery'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<input type="text" class="datePicker" name="pedido.dataEntrega" id="pedido.dataEntrega" size="16" value="${pedido.dataEntrega?.format('dd/MM/yyyy HH:mm')}" />*
+		</td>
+	</tr>
+	<tr>
+		<td align="right">&{'form.product.lastUpdate'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<span>${pedido.dataAlteracao?.format('dd/MM/yyyy HH:mm')}</span>
+		</td>
+	</tr>
+	<tr>
+			<td align="right">&{'form.estoque.user.lastUpdate'}&nbsp;</td>
+			<td align="left" colspan="3">
+				<span>${pedido.usuarioAlteracao}</span>
+			</td>
+		</tr>
+	<tr>
+		<td align="right">&{'form.politicaEntrega.pagamento.title'}&nbsp;</td>
+		<td align="left" colspan="3">
+			#{if (pedido.pagamento.formaPagamento!=null)}
+				#{if (pedido.pagamento.formaPagamento.getCodigo().equals(5) || pedido.pagamento.formaPagamento.getCodigo().equals(6))}
+					<a href="/ajaxPayPal?height=350&width=550&id=${pedido.id}" title="Ver detalhes" class="thickbox a1">
+						<span>${pedido.pagamento.formaPagamento.getDescricao()}</span>
+					</a>
+				#{/if}
+				#{else}
+					<span class="fontBlackMainHome">${pedido.pagamento.formaPagamento.getDescricao()}</span>
+				#{/else}	
+			#{/if}
+		</td>
+	</tr>
+	<tr>
+		<td align="right">&{'form.order.outrasDespesas'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<input type="text" class="textBox1" name="pedido.outrasDespesas" id="pedido.outrasDespesas" size="20" value="${pedido.outrasDespesas}" />
+		</td>
+	</tr>
+	#{if (session.get("isAdmin").equals("true")) }
+	<tr>
+		<td align="right">&{'form.label.valorCusto'}&nbsp;</td>
+		<td align="left" colspan="3">
+			<input type="text" class="textBox1" readonly="readonly" name="pedido.valorCustoPedido" id="pedido.valorCustoPedido" size="13" value="${pedido.getValorCustoPedido()}" />
+		</td>
+	</tr>
+	#{/if}
+	<tr>
+		<td align="right">&{'form.label.status'}&nbsp;</td>
+		<td align="left" colspan="3">
+			#{select 'pedido.codigoEstadoPedido', items:status, labelProperty:'estado', value:pedido.codigoEstadoPedido, class:"fontGreen1"}*
+			#{/select}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td align="left">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" align="center">
+			<a href="#" class="fontBrown" onclick="document.getElementById('editPedidoForm').submit();">&{'form.button.next'}</a>
+			&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		#{ifErrors}
+		<br />
+		<div style="margin-left: 30%; float:left; text-align: center">
+			<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+				<span class="fontWhite">&{'validation.failed'}</span>
+			</div>
+			<br />
+			#{errors}
+				<span class="fontRed">${error}</span><br />
+			#{/errors}
+		</div>
+		#{/ifErrors}
+		
+		#{if (params.message!=null)}
+		<script type="text/javascript" charset="utf-8">
+			alert("${params.message.raw()}");
+		</script>
+			#{/if}
+		</td>
+	</tr>
+</table>
+#{/form}
+
+<script type="text/javascript" charset="utf-8">
+$(".datePicker").datepicker({dateFormat:'dd/mm/yy 00:00', showAnim:'fadeIn'})
+
+$("select").change(function() {
+	if($(this).val()=="CANCELADO") {
+		alert("&{'application.estoque.pedido'}");
+	}
+});
+</script>

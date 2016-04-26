@@ -1,0 +1,165 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET		/										Home.index
+
+GET		/admin/layout							Administrador.editLayout
+
+GET		/index									Home.index
+GET 	/search									Home.search
+GET		/login									Login.index
+GET		/lembrarSenha							Clientes.lembrarSenha
+GET 	/cliente								Clientes.index
+GET 	/cliente/emails							Clientes.exportEmails
+POST 	/cliente/atualizar/?					Clientes.atualizarEndereco
+GET 	/cliente/{id}							Clientes.edit
+GET		/cliente/show/all						Clientes.showAll
+*		/cliente/endereco/{cep}					Clientes.consultarCep
+GET		/cliente/endereco/cache/{idCliente}		Clientes.consultarEnderecoPeloIdCliente
+GET		/minhapagina							Clientes.mypage
+GET		/produtos/cadastrar						Produtos.cadastrar
+GET		/produtos/consultar						Produtos.show
+GET		/pesquisarProduto						Produtos.findByParams
+GET		/pesquisarProdutoEstoque				Estoque.findByParams
+GET		/pesquisarPedido						Pedidos.findByParams
+GET		/pesquisarCliente						Clientes.findByParams
+GET		/produtos/{id}							Produtos.edit
+GET		/produtos/excluir/{id}					Produtos.excluir
+GET		/produtos/changestatus/{id}				Produtos.changeStatus
+GET		/produtos/ativarinativar/{status}		Produtos.changeProductsStatus
+GET		/produtos/promocao/{id}					Produtos.adicionaStatusPromocao
+GET		/produtos/secao/{id}/{nome}				Produtos.findBySecao
+GET		/produtos/status-promocao/{ehPromocao}	Produtos.mudarStatusPromocao
+GET		/pedidos/produtos/{id}					Pedidos.showProdutos
+*		/pedidos/produtos/alterar				Pedidos.atualizarProdutos
+GET		/pedidos/info/{id}						Pedidos.infoPedidoCliente
+GET		/pedidos/historico/{id}/{idCliente}/{rows}	Pedidos.findUltimosPedidos
+POST	/adicionarProduto						Carrinho.adicionarProduto
+POST	/adicionarCesta							Carrinho.adicionarCesta
+GET		/secao									SecaoProdutos.index
+GET		/secao/all								SecaoProdutos.show
+GET		/secao/{id}								SecaoProdutos.edit
+*		/ajaxView/?								Produtos.view
+GET		/admin/clearCache						Administrador.clearCache
+*		/pagamento/{sessionId}					Carrinho.pagamento
+POST	/pedidos/atualizar						Pedidos.atualizar
+GET		/pedidos/consultar/all					Pedidos.showAll
+GET		/carrinho/clear/{sessionId}				Carrinho.limparCarrinho
+*		/carrinho/excluir/{sessionId}			Carrinho.excluirProdutos
+*		/carrinho/atualizar/{sessionId}			Carrinho.atualizar
+GET		/carrinho/loading/{sessionId}			Carrinho.loading
+GET		/pedidos/edit/{id}						Pedidos.edit
+*		/ajaxProdutos/?							Pedidos.pedidoProdutos
+GET 	/logoff/{sessionId}						Login.logout
+GET		/pedidos/produtos/show/{id}				Pedidos.viewProducts
+GET		/pedidos/incluir/produto/{id}			Pedidos.incluirProduto
+*		/pedidos/zerar/debitos/{idPedido}/{idCliente} Pedidos.zerarDebitosCreditosDoCliente
+#POST	
+*		/ajaxEndereco/?								Clientes.viewEndereco
+*		/newOrder/{sessionId}/{idPedido}			Pedidos.novoPedido
+GET		/frete										Administrador.editFrete
+*		/faleconosco								FaleConosco.index
+GET		/fornecedor/index							Fornecedores.index
+GET		/fornecedor/all								Fornecedores.show
+GET		/fornecedor/{id}							Fornecedores.edit
+GET		/fornecedor/upload/index					Fornecedores.upload
+GET		/fornecedor/produtos/inativar/{idFornecedor}	Fornecedores.inativarProdutosPorFornecedor
+GET		/fornecedor/atualizar/produtos				Produtos.atualizarProdutosFornecedores
+
+GET     /captcha                                Application.captcha
+
+GET     /fornecedores							Administrador.fornecedores
+GET     /parceiros								Administrador.parceiros
+GET     /o-que-sao-organicos					Administrador.oQueSaoOrganicos
+GET     /politica-de-entrega					Administrador.politicaEntrega
+GET		/na-midia								Administrador.naMidia
+GET     /quem-somos								Administrador.quemSomos
+GET		/bairrosAtendidos						Administrador.showBairrosEntrega
+*		/bairrosAtendidos/cadastrar				Administrador.cadastrarBairroEntrega
+GET 	/bairrosAtendidos/edit/{id}				Administrador.editarBairroEntrega
+GET		/bairrosAtendidos/status/{id}			Administrador.changeStatus
+GET		/relatorios								Relatorios.index
+GET		/relatorios/export/msexcel/entrega		Relatorios.exportarRelatorioMSExcel
+GET		/relatorios/export/pdf/entrega			Relatorios.exportarRelatorioView
+GET		/relatorios/produto/fornecedor			Relatorios.relatorioProdutoFornecedor
+GET		/relatorios/produto/pedido/cliente		Relatorios.relatorioProdutoPedidoCliente
+GET		/relatorios/produtos/all				Relatorios.relatorioProdutosCadastrados
+GET		/relatorios/export/csv/fornecedor		Relatorios.exportarRelatorioProdutoFornecedorCSV
+GET		/relatorios/export/excel/fornecedor		Relatorios.exportarRelatorioProdutoFornecedorExcel
+GET		/relatorios/rota/entrega				Relatorios.rotaEntregaPedido
+GET		/relatorios/export/pedidos/entrega		Relatorios.exportarRelatorioPedidosAguardandoEntrega
+GET		/produtos/order/{order}/{asc}			Produtos.order
+GET		/produtos/detail/{id}/{nome}			Produtos.detail
+GET		/produtos-ativos						Produtos.getProdutosAtivos
+
+GET		/pedidos/order/{campo}/{asc}			Pedidos.order
+GET		/pedidos/{id}							Pedidos.view
+*		/ajaxPayPal/?							Pedidos.payPalTransaction
+GET		/ajaxMudarMetodoPagamento/?				Pedidos.alterarMetodoPagamento
+
+GET		/email									EmailMarketing.index
+GET 	/questionarios/changestatus/{id}		Questionarios.changeStatus
+GET		/questionarios/respostas/{id}			Questionarios.showRespostas
+
+GET 	/ajaxQuestion/?							Questionarios.carregarPerguntaResposta
+GET		/ajaxResponderQuestionario/?			Questionarios.questionario
+*		/questionarios/responder/?				Questionarios.responderQuestionario
+
+GET		/estoque/index							Estoque.index
+GET		/estoque/show							Estoque.show
+GET		/estoque/editar/{id}					Estoque.edit
+GET		/estoque/order/{order}/{asc}			Estoque.order
+GET		/estoque/changestatus/{id}				Estoque.changeStatus
+GET		/estoque/reservar/{idProduto}/{qtd}		Estoque.reservarProduto
+GET		/estoque/repor/{idProduto}/{qtd}		Estoque.reporProdutoEstoque
+GET		/estoque/cadastrar						Estoque.lote
+GET		/estoque/consultar/produto				Estoque.pesquisarProdutoPeloNome
+GET		/ajaxEditEstoque/?						Estoque.editarProdutoLoteEstoque
+
+#Nova funcionalidade para as Cestas Prontas
+GET		/cesta/cadastrar						Cestas.cadastrar
+GET		/cesta/consultar						Cestas.show
+GET		/cesta/detail/{id}/{nome}				Cestas.detail
+
+#PayPal Integration
+*		/pedido/paypal/finalizar				Pedidos.finalizarPedidoPayPal
+*		/pedido/paypal/cancelar					Pedidos.cancelarPedidoPayPal
+
+#PagSeguro Integration
+*		/pedido/pagseguro/finalizar/{token}		Pedidos.finalizarPedidoPagSeguro
+
+#CRM Funcionalidades
+GET		/relacionamento/cliente/cupom-desconto	RelacionamentoCliente.index
+
+#Envio Mensagem
+GET		/faleconosco/mensagem/texto				FaleConosco.mensagemTexto
+
+# Ignore favicon requests
+GET     /favicon.ico                            staticFile:public/images/favicon.png
+GET		/images.loadingAnimation.gif			404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /robots.txt                             	staticFile:public/robots.txt
+GET     /sitemap.xml                            	staticFile:public/sitemap.xml
+GET     /ajaxTermoCompromisso/?						staticFile:public/termo_compromisso.html
+GET		/alimentos-organicos-em-higienopolis		staticFile:public/pages/alimentos-organicos-em-higienopolis.html
+GET		/alimentos-organicos-na-vila-madalena		staticFile:public/pages/alimentos-organicos-vila-madalena.html
+GET		/alimentos-organicos-em-perdizes			staticFile:public/pages/alimentos-organicos-em-perdizes.html
+GET		/alimentos-organicos-na-lapa				staticFile:public/pages/alimentos-organicos-lapa.html
+GET		/alimentos-organicos-na-bela-vista			staticFile:public/pages/alimentos-organicos-bela-vista.html
+GET		/alimentos-organicos-na-vila-mariana		staticFile:public/pages/alimentos-organicos-vila-mariana.html
+GET		/alimentos-organicos-em-moema				staticFile:public/pages/alimentos-organicos-em-moema.html
+GET		/alimentos-organicos-no-butanta				staticFile:public/pages/alimentos-organicos-butanta.html
+GET		/alimentos-organicos-no-morumbi				staticFile:public/pages/alimentos-organicos-morumbi.html
+GET		/alimentos-organicos-no-campo-belo			staticFile:public/pages/alimentos-organicos-campo-belo.html
+GET		/alimentos-organicos-nos-jardins			staticFile:public/pages/alimentos-organicos-jardins.html
+GET		/alimentos-organicos-na-vila-olimpia		staticFile:public/pages/alimentos-organicos-vila-olimpia.html
+GET		/alimentos-organicos-no-itaim-bibi			staticFile:public/pages/alimentos-organicos-itaim-bibi.html
+GET		/alimentos-organicos-no-brooklyn			staticFile:public/pages/alimentos-organicos-brooklyn.html
+GET		/alimentos-organicos-em-pinheiros			staticFile:public/pages/alimentos-organicos-pinheiros.html
+GET		/alimentos-organicos-na-vila-leopoldina		staticFile:public/pages/alimentos-organicos-vila-leopoldina.html
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

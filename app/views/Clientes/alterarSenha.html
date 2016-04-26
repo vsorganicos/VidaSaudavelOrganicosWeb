@@ -1,0 +1,66 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Alterar Senha
+#{/set}
+<div class="defaultContentSize">
+	<div class="boxEnviarEmail">
+	#{form @Clientes.cadastrarNovaSenha()}
+		<table cellpadding="4" cellspacing="0" border="0" width="100%" style="text-align: center" class="fontDefaultBlack">
+			<tr class="bgGreenColor">
+				<td colspan="2" class="fontBoldWhite">&{'form.login.title.sendMail'}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="right" class="fontGreen1">&{'form.email'}&nbsp;</td>
+				<td align="left">
+					<span>${usuario.email}</span>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="right" class="fontGreen1">&{'form.login.newPassword'}&nbsp;&nbsp;</td>
+				<td align="left">
+				<input type="password" class="textBox1" name="novaSenha" 
+						id="novaSenha" size="15" maxlength="300" value="" />*
+			</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="right" class="fontGreen1">&{'form.login.confirmPassword'}&nbsp;&nbsp;</td>
+				<td align="left">
+					<input type="password" class="textBox1" name="confirmaSenha" 
+							id="confirmaSenha" size="15" value="" maxlength="300" />*
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="left">
+					<br />
+					<input type="hidden" id="usuario.id" name="usuario.id" value="${usuario.id}" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right" colspan="2">
+					<input type="submit" value="&{'form.button.enviar'}" />&nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="width: 90%; text-align: center; padding-top: 7px; padding-left: 5px;">
+	#{ifErrors}
+		<ul>
+		#{errors}
+		<li>
+			<span class="fontRed">${error}</span>
+		</li>
+		#{/errors}
+		</ul>
+	#{/ifErrors}
+	</div>
+	#{/form}
+</div>

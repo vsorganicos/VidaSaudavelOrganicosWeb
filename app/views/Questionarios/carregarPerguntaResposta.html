@@ -1,0 +1,35 @@
+<div>
+	<table width="100%" cellpadding="4" cellspacing="4" border="0">
+		#{list items:questionario.perguntas, as:'pergunta'}
+		<tr>
+			<td>
+				<span class="fontGreen2">&{'form.questionario.pergunta'}: </span><span class="fontGray"><b>${pergunta.questao}</b></span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="left">
+				<span>&{'form.questionario.resposta'}(s)</span>
+				#{list items:pergunta.respostas, as:'resposta'}
+				<ul>
+					<li style="margin-left: 30px;">
+						<span class="fontBlackNormal">&{resposta.resposta.descricao}</span>
+					</li>
+				</ul>
+				#{/list}		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		#{/list}
+	</table>
+</div>
+
+

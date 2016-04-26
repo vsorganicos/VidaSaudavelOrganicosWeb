@@ -1,0 +1,56 @@
+<div>
+	#{form @Pedidos.novoPedido(), id:"newOrderForm"}
+	<table width="100%" border="0">
+		<tr class="tr1">
+			<td align="center" colspan="2">
+				<span>&{'form.label.descricao'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.quantidade'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.order.produtoNaoEntregue'}</span>
+			</td>
+		</tr>
+		#{list items:itens, as:'item'}
+		<tr>
+			<td width="12%">
+				<img width="50" height="43" src="&{'application.static.content'}&{'application.path.public.images'}${item.produtos[0].imagemProduto}" 
+						title="${item.produtos[0].descricao}" alt="${item.produtos[0].descricao}" class="imgBasket" />
+			</td>
+			<td>
+				#{if (session.get("isAdmin").equals("true")) }
+					<span class="fontBlackMainHome" title="Fornecedor: ${item.produtos[0].fornecedor.nome}">&nbsp;${item.produtos[0].descricao}</span><br />
+				#{/if}
+				#{else}
+					<span class="fontBlackMainHome">&nbsp;${item.produtos[0].descricao}</span><br />
+				#{/else}		
+			</td>
+			<td width="13%" align="center">
+				<span>${item.quantidade}</span>
+			</td>
+			<td width="19%" align="center">
+				<span>${item.excluido.yesno('Sim', 'N&atilde;o').raw()}</span>
+			</td>
+		</tr>
+		#{/list}
+	</table>
+	#{/form}
+</div>
+<div style="float: right;">
+	<a href="javascript:newOrder();" class="fontBrown">&{'form.order.mypage.newOrder'}</a>
+</div>
+<script type="text/javascript" charset="UTF-8">
+function newOrder() {
+	try {
+		var url = "/newOrder/" + $.cookie("vidasaudavel") + "/" + "${pedido.id}"; 
+	
+		$("#newOrderForm").attr('action', url);
+	
+		$("#newOrderForm").submit();
+	
+	}catch(e) {
+		alert("Erro no processamento: " + e.description);
+	}
+}
+</script>

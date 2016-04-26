@@ -1,0 +1,63 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Respostas Question&aacute;rio ${questionario.titulo}
+#{/set}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div class="defaultContentSize">
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center">
+				<span class="txt_titulo_institucional">&{questionario.titulo}</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span>&{'form.questionario.pergunta'}: </span><span class="fontGray"><b>${questionario.perguntas[0].questao}</b></span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="left">
+				<table width="90%" border="1" cellpadding="0" cellspacing="0" bordercolor="rgb(221, 221, 221);">
+					<thead>
+						<tr class="tr1">
+							<td width="40%" align="center">
+								<span>&{'form.admin.customer'}</span>
+							</td>
+							<td width="40%" align="center">
+								<span>&{'form.questionario.resposta'}</span>
+							</td>
+							<td align="center">
+								<span>&{'form.admin.mypage.date'}</span>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						#{paginate.list items:questionario.respostasQuestionarios, as:'resposta'}
+						<tr>
+							<td>${resposta.usuario.cliente.nome}</td>
+							<td>${resposta.respostas.descricao}</td>
+							<td>
+								${new Date(resposta.dataResposta.getTime()).format('dd/MM/yyyy')} 
+							</td>
+						</tr>
+						#{/paginate.list}
+						<tr class="tr1">
+							<td colspan="1" align="center">#{paginate.summary items:questionario.respostasQuestionarios /}</td>
+							<td colspan="2" align="center">#{paginate.controls items:questionario.respostasQuestionarios /}</td>
+						</tr>
+					</tbody>
+				</table>	
+			</td>
+		</tr>
+	</table>
+</div>
+<div align="right">
+	<a href="/questionarios/show" class="fontBrown">&{'form.button.back'}</a>
+</div>
+<br />

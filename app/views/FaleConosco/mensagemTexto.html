@@ -1,0 +1,65 @@
+<link rel="stylesheet" media="screen" href="&{'application.static.content'}/stylesheets/main.css" />
+<script src="&{'application.static.content'}/javascripts/jquery-1.5.2.min.js" type="text/javascript" charset="utf-8"></script>
+<div>
+	#{form @FaleConosco.enviarMensagemTexto(), id:"formEnviarMensagemTexto", method:"POST"}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="2" align="center">
+				 <span class="fontGreen3">&{'application.form.sendMessage'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="13%">
+				<span class="txt_padrao">&{'form.phone'}</span>
+			</td>
+			<td align="left">
+				#{select 'telefone', items:telefones, valueProperty:'id', size:'10', style:'width:150px'}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td width="13%">
+				<span class="txt_padrao">&{'form.faleConosco.message'}</span>
+			</td>
+			<td align="left">
+				<textarea cols="55" rows="4" name="mensagem" id="mensagem">${mensagem}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				 <input type="radio" name="canalMensagem" id="canalMensagem" value="SMS" />
+				 <label for="canalMensagem">&{'form.sms'}</label>
+				 <input type="radio" name="canalMensagem" id="canalMensagem" value="email" checked="checked" />
+				 <label for="canalMensagem">&{'form.email'}</label>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="right">
+				<input type="hidden" value="${clientes.join(',')}" id="clientes" name="clientes" />
+				<a href="javascript:resetForm('formEnviarMensagemTexto')" class="fontBrown">&{'form.admin.button.clear'}</a>
+				<span>|</span>
+				<a href="javascript:enviar()" class="fontBrown">&{'form.button.enviar'}</a>
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+<script type="text/javascript" charset="UTF-8">
+if("${message}"!="") {
+	alert("${message}");
+}
+
+function enviar() {
+	try {
+		if($("#mensagem").val()=="") {
+			alert("Por favor, digite uma mensagem");
+			
+		}else {
+			$("#formEnviarMensagemTexto").submit();
+		}
+	}catch(e) {
+		alert(e);
+	}
+}
+</script>

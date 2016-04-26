@@ -1,0 +1,104 @@
+#{extends 'layout.html' /}
+#{set title:'Meus pedidos' /}
+<div class="defaultContentSize">
+	#{if (pedidos.isEmpty())}
+	<div align="center">
+		<br /><br />
+		<span class="fontGreen3">&{'message.products.notfound'}</span>
+	</div>
+	#{/if}
+	#{else}
+	<br />
+	#{form @Pedidos.novoPedido(), id:"newOrderForm"}
+	<table width="98%" border="0" id="showProdutosCarrinho" cellpadding="0" cellspacing="2" align="center" style="border-bottom-width: 1px; border-bottom-style: dashed; border-bottom-style: solid;">
+		<tr class="tr1">
+			<td align="center">
+				<span>&{'form.admin.pedido'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.admin.mypage.date'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.status'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.valorCompra'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.valorPago'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.order.saldo'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.date.delivery'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.politicaEntrega.pagamento.title'}</span>
+			</td>
+			<td align="center">
+			</td>
+		</tr>
+		#{list items:pedidos, as:'pedido'}
+		<tr>
+			<td width="8%" align="center">
+				<span class="fontBlackMainHome" title="&{'form.order.btnViewProducts'}">
+					<a href="/ajaxProdutos?height=520&width=750&id=${pedido.id}&somenteAtivos=1" class="thickbox fontBrown">${pedido.id}</a>
+				</span>
+			</td>
+			<td width="9%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${pedido.dataPedido.format('dd/MM/yyyy')}</span>
+			</td>
+			<td width="14%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${pedido.codigoEstadoPedido.getEstado()}</span>
+			</td>
+			<td width="12%" align="center">
+				<span class="fontBlackMainHome">${pedido.getValorTotal().formatCurrency('BRL')}</span>
+			</td>
+			<td width="11%" align="center">
+			#{if (pedido.valorPago!=null)}
+				<span class="fontBlackMainHome">${pedido.valorPago.formatCurrency('BRL')}</span>
+			#{/if}
+			#{else}
+				<span class="fontBlackMainHome">${pedido.getValorTotal().formatCurrency('BRL')}</span>
+			#{/else}
+			</td>
+			<td width="9%" align="center">
+				<span class="fontBlackMainHome">${pedido.getSaldoPedido().formatCurrency('BRL')}</span>
+			</td>
+			<td width="14%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${pedido.dataEntrega?.format('dd/MM/yyyy')}</span>
+			</td>
+			<td align="center">
+			#{if (pedido.pagamento.formaPagamento!=null)}
+				<span class="fontBlackMainHome">${pedido.pagamento.formaPagamento.getDescricao()}</span>
+			#{/if}
+			</td>
+			<td>
+				<a href="#" onclick="javascript:newOrder(${pedido.id});" class="fontBrown">&{'form.order.mypage.newOrder'}</a>
+			</td>
+		</tr>
+		#{/list}
+	</table>
+	#{/form}
+	#{/else}
+	<br />
+</div>
+<div style="text-align: right;">
+	<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+</div>
+<br />
+<script type="text/javascript" charset="UTF-8">
+function newOrder(id) {
+	try {
+		var url = "/newOrder/" + $.cookie("vidasaudavel") + "/" +id; 
+	
+		$("#newOrderForm").attr('action', url);
+	
+		$("#newOrderForm").submit();
+	
+	}catch(e) {
+		alert("Erro no processamento: " + e);
+	}
+}
+</script>

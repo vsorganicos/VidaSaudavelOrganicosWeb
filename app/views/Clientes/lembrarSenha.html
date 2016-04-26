@@ -1,0 +1,57 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Lembrar Senha
+#{/set}
+<div class="defaultContentSize">
+	<div class="boxEnviarEmail">
+	#{form @Clientes.enviarSenha()}
+		<table cellpadding="4" cellspacing="0" border="0" width="100%" style="text-align: center">
+			<tr class="bgGreenColor">
+				<td colspan="2" class="fontBoldWhite">&{'form.login.title.sendMail'}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="16%" align="right" class="fontGreen1">&{'form.email'}&nbsp;&nbsp;</td>
+				<td align="left"><input type="text" maxlength="200" size="33" value="" name="email" id="email" class="textBox1" /></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;<span class="fontGreen1">&{'application.captcha.title'}</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<img src="@{Application.captcha(randomID)}" class="imgCaptcha" />
+					<input type="hidden" name="randomID" value="${randomID}" />
+					&nbsp;&nbsp;<input type="text" name="code" id="code" size="10" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right" colspan="2">
+					<input type="submit" value="&{'form.button.enviar'}" class="btnGreen" />&nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="width: 90%; text-align: center; padding-top: 7px; padding-left: 5px;">
+	#{ifErrors}
+		#{errors}
+		<li>
+			<span class="fontRed">${error}</span>
+		</li>
+		#{/errors}
+	#{/ifErrors}
+	#{if (params.message!=null)}
+		<script type="text/javascript">
+			alert("&{'message.send.mail'}");
+		</script>
+	#{/if}
+	</div>
+	#{/form}
+</div>

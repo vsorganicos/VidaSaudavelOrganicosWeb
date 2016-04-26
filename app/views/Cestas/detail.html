@@ -1,0 +1,67 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} ${cesta.titulo}
+#{/set}
+
+<div class="defaultContentSize">
+	<br />
+	<table width="90%" cellpadding="4" cellspacing="4" border="0" align="center">
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<table width="100%" border="0">
+					<tr>
+						<td width="43%">
+							<img src="${cesta.caminhoImagem}" 
+								alt="${cesta.caminhoImagem}"
+								width="&{'application.path.images.width'}"
+								height="&{'application.path.images.height'}" 
+								class="imgDetail" />
+							<span class="fontBlackNormal"><i>Imagem meramente ilustrativa.</i></span>
+						</td>
+						<td align="left">
+							<span class="fontBoldBrown">${cesta.titulo}</span><br /><br />
+							<span class="fontGreen3">${cesta.valorVenda.formatCurrency('BRL').raw()}</span>
+							<input type="hidden" id="quantidade[${cesta.id}]" name="quantidade[${cesta.id}]" value="1" />&nbsp;
+							<img src="&{'application.static.content'}&{'application.path.public.images'}&{'application.path.carrinho'}" 
+									style="cursor: pointer;" alt="&{'form.imgBasket.alt'}" title="&{'form.imgBasket.alt'}"
+									onclick="javascript:adicionarCestaCarrinho(${cesta.id}, document.getElementById('quantidade[${cesta.id}]'), '${cesta.valorVenda}')" />
+
+						</td>	
+					</tr>
+				</table>
+			</td>
+			<td width="35%" align="left" style="vertical-align: top;">
+				<span class="fontGreen1">&{'form.cesta.previsao.text'}</span>&nbsp;<span class="fontGreen3">${cesta.getSemanaEntrega()}</span> - <span class="fontGreen3">${cesta.dataProximaEntrega.format('MMM/yyyy')}</span>
+				<br /><br />
+				<ul style='margin-left: 5%;'>
+				#{list items:produtos, as:'produto'}
+					<li><span class="fontGreen1">${produto.descricao}</span></li>
+				#{/list}
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" style="vertical-align: top;">
+				&nbsp;
+			</td>
+			<td><span class="fontGreen1">${cesta.observacao.raw()}</span></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+</div>
+<div align="right">
+	<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+</div>
+<br />
+
+

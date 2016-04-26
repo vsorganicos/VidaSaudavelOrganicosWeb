@@ -1,0 +1,40 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} 'Fornecedores Cadastrados'
+#{/set}
+
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="35%">&{'form.label.nome'}</td>
+			<td align="center" width="15%">&{'form.fornecedor.cnpj'}</td>
+			<td align="center">&{'form.label.status'}</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{paginate.list items:fornecedores, as:'fornecedor'}
+					<tr class="${produto_parity}">
+						<td width="35%" align="left">
+							<a href="/fornecedor/${fornecedor.id}" class="a1">${fornecedor.nome}</a>
+						</td>
+						<td width="15%" align="center">${fornecedor.cnpj}</td>
+						<td align="center">
+							${fornecedor.ativo ? 'Ativo' : 'Inativo'}
+						</td>
+					</tr>
+					#{/paginate.list}
+					</table>
+				</div>
+			</td
+		</tr>
+		<tr class="tr1">
+			<td colspan="2" align="center">#{paginate.summary items:fornecedores/}</td>
+			<td colspan="1" align="center">#{paginate.controls items:fornecedores /}</td>
+		</tr>
+	</table>
+</div>
+<br />

@@ -1,0 +1,15 @@
+Caro(a) ${nome},
+
+Obrigado por entrar em contato conosco. 
+Já registramos sua mensagem e em breve responderemos com a devida atenção.
+
+Detalhe: ${message}
+
+Atenciosamente,
+
+Vida Saudável Orgânicos.
+www.vidasaudavelorganicos.com.br
+
+**********************************************************************************				
+	**************** ATENÇÃO NÃO RESPONDA ESSE E-MAIL ****************
+**********************************************************************************

@@ -1,0 +1,152 @@
+#{extends 'layout.html' /}
+#{set title:'Produtos Cadastrados' /}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div id="findProducts" class="divFindProducts fontDefaultBlack">
+	<form action="/pesquisarProduto" accept-charset="UTF-8" id="searchProdutoForm">
+	<table border="0" width="100%" cellpadding="4" cellspacing="4">
+		<tr>
+			<td align="center" width="10%"><span><b>&{'application.form.find'}</b></span></td>
+			<td align="left">
+				<input type="text" name="produtoParametro" id="produtoParametro" size="30" />
+				<input input type="button" value="Ok" onclick="javascript:pesquisarProduto(document.getElementById('produtoParametro'), 
+																						document.getElementById('searchProdutoForm'));" />
+			</td>
+			<td width="30%" align="right">
+				<span class="fontGreen2">&{'application.form.export'}:</span>
+				<a name="relatorioExcel" href="/relatorios/produtos/all?separator=VIRGULA" target="_blank" class="a1">&{'application.form.report.format.csv.mac'}</a>
+				<span>|</span>
+				<a name="relatorioExcel" href="/relatorios/produtos/all?separator=PONTO_VIRGULA" target="_blank" class="a1">&{'application.form.report.format.csv'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<input type="radio" name="param" id="param" checked="checked" value="descricao"><span>&{'form.label.descricao'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="codigo"><span>&{'form.label.codigoProduto'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="secao"><span>&{'form.admin.secao'}</span>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<br />
+<br />
+<div class="boxConsultaDefault">
+	<div align="left" style="width: 30%; float: left">
+		#{a @Produtos.cadastrar(), class:'a1'} 
+			&{'form.title.cadastrar.produto'}
+		#{/a}
+	</div>
+	<div align="right" style="width: 70%; float: left">
+		<a href="/produtos/status-promocao/0" class="a1">
+			<span>&{'form.admin.promocao.retirar'}</span>
+		</a>
+		<span>|</span>
+		<a href="javascript:ativarInativar('/produtos/ativarinativar/1');" class="a1"><span>&{'form.application.ativar'}</span></a> / <a href="javascript:ativarInativar('/produtos/ativarinativar/0');" class="a1"><span>&{'form.application.inativar'}</span></a>&nbsp;<span class="fontGreen2">&{'form.application.products.all'}</span>
+	</div>
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="15%">&{'form.label.nome'}</td>
+			<td align="center">
+				<a href="/produtos/order/descricao/1" title="Ordernar" class="a1">&{'form.label.descricao'}</a>
+			</td>
+			<td align="center" width="11%">
+				<a href="/produtos/order/fornecedor.nome/1" title="Ordernar" class="a1">&{'form.fornecedor.title'}</a>
+			</td>
+			<td align="left" width="11%">
+				<a href="/produtos/order/codigoProduto/1" title="Ordernar" class="a1">&{'form.label.codigoProduto'}</a>
+			</td>
+			<td align="center" width="9%">&{'form.admin.secao'}</td>
+			<td align="center" width="9%">&{'form.label.valorPago'}</td>
+			<td align="center" width="10%">&{'form.label.valorVenda'}</td>
+			<td align="center" width="7%">&{'form.label.imagem'}</td>
+			<td align="center" width="5%">
+				<a href="/produtos/order/ativo/1" title="Ordernar" class="a1">&{'form.label.status'}</a>
+			</td>
+			<td align="center" width="6%">&{'form.admin.promocao'}</td>
+		</tr>
+		<tr>
+			<td colspan="10">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{paginate.list items:produtos, as:'produto'}
+					<tr class="${produto_parity}">
+						<td width="15%" align="left">
+							#{if (produto.id!=null)}
+							<a href="/produtos/${produto.id}" class="a1" title="${produto.nome}">
+								#{if (produto.nome.length()>10)}
+									${produto.nome.substring(0, 11)}...
+								#{/if}
+								#{else}
+									${produto.nome}
+								#{/else}
+							</a>
+							#{/if}
+							#{else}
+								COM PROBLEMA
+							#{/else}
+						</td>
+						<td align="left">
+							<span title="${produto.descricao}">
+							#{if (produto.descricao.length()>15)}
+								${produto.descricao.substring(0, 16)}...
+							#{/if}
+							#{else}
+								${produto.descricao}
+							#{/else}
+							</span>
+						</td>
+						<td width="11%" align="left">${produto.fornecedor?.nome}</td>
+						<td width="10%" align="center">${produto.codigoProduto}</td>
+						<td width="11%" align="center">${produto.secao?.descricao}</td>
+						<td width="9%" align="center">${produto.valorPago.formatCurrency('BRL').raw()}</td>
+						<td width="10%" align="center">${produto.valorVenda.formatCurrency('BRL').raw()}</td>
+						<td width="7%" align="center">
+							<a href="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}" title="${produto.imagemProduto}" class="thickbox">
+								&{'form.label.view'}
+							</a>
+						</td>
+						<td width="5%" align="center">
+							<a href="/produtos/changestatus/${produto.id}" class="a1">
+								${produto.ativo ? 'Ativo' : 'Inativo'}
+							</a>
+						</td>
+						<td width="5%" align="center">
+							<a href="/produtos/promocao/${produto.id}" class="a1">
+								${produto.ehPromocao.yesno('Sim', 'N&atilde;o').raw()}
+							</a>
+						</td>
+					</tr>
+					#{/paginate.list}
+					</table>
+				</div>
+			</td
+		</tr>
+		<tr class="tr1">
+			<td colspan="3" align="center">#{paginate.summary items:produtos /}</td>
+			<td colspan="7" align="center">#{paginate.controls items:produtos /}</td>
+		</tr>
+	</table>
+</div>
+<br />
+<script type="text/javascript" charset="utf-8">
+	function ativarInativar(acao) {
+		try {
+			var confirmacao = confirm("&{'message.ativar.inativar.todos'}");
+			
+			if(confirmacao==true) {
+				var url = acao;
+				
+				$("#searchProdutoForm").attr('action', url);
+			
+				$("#searchProdutoForm").submit();
+			}
+
+		}catch(e) {
+			alert("Erro ao tentar ativar/inativar os produtos. " + e)
+		}
+	}
+</script>

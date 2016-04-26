@@ -1,0 +1,97 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} E-mail Marketing
+#{/set}
+<div class="defaultContentSize">
+	<br />
+	<div class="txt_titulo_institucional" style="text-align: center;">&{'form.mail.mkt.title'}</div>
+	<br />
+	<div>
+	#{form @EmailMarketing.send(), id:'formEmailMkt', method:'POST'}
+	<table width="99%" cellpadding="4" cellspacing="4" border="0">
+		<tbody>
+			<tr>
+				<td colspan="2">
+					#{ifErrors}
+					<div style="width:250px; height:280px; border-color: red; border:0px solid; position: absolute; float: right; right: 2px;">
+						<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+							<span class="fontWhite">&{'validation.failed'}</span>
+						</div>
+						<br />
+						#{errors}
+							<span class="fontRed">${error}</span><br />
+						#{/errors}
+					</div>
+					#{/ifErrors}
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.customer.nome'}</span>
+				</td>
+				<td>
+					<input type="text" id="nomeFrom" name="nomeFrom" class="textBox1" size="30" value="${nomeFrom}" />
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.label.imagem'}</span>
+				</td>
+				<td>
+					<input type="text" id="nomeImagem" name="nomeImagem" maxlength="80" class="textBox1" size="30" value="${nomeImagem}" />
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.email'}</span>
+				</td>
+				<td>
+					<input type="text" id="emailFrom" name="emailFrom" class="textBox1" size="30" value="${emailFrom}" />
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.subject.text'}</span>
+				</td>
+				<td>
+					<input type="text" id="assunto" name="assunto" maxlength="80" class="textBox1" size="30" value="${assunto}" />
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.faleConosco.message'}</span>
+				</td>
+				<td>
+					<textarea cols="30" rows="3" name="mensagem" id="mensagem">${mensagem}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.mail.mkt.to'}</span>
+				</td>
+				<td>
+					<textarea cols="30" rows="3" name="para" id="para">${para}</textarea>
+					<span class="txt_padrao"><i>&{'form.mail.mkt.to.mask'}</i></span>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="left">
+					<a href="#" class="fontBrown" onclick="javascript:document.getElementById('formEmailMkt').submit();">&{'form.button.enviar'}</a>
+					<span>|</span>
+					#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					&nbsp;
+					#{if (flash.success!=null)}
+						<span class="fontBrown">${flash.success}</span>
+					#{/if}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	#{/form}
+	</div>
+</div>

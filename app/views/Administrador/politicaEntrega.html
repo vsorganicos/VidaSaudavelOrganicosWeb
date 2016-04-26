@@ -1,0 +1,47 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'form.politicaEntrega.title'}
+#{/set}
+<div>
+#{set 'url'}
+	&{'application.static.content'}
+#{/set}
+<br />
+<div class="txt_titulo_institucional">&{'form.politicaEntrega.title'}</div>
+	<br />
+	<div id="politicaEntregaContent" style="padding-left: 1%;padding-right: 1%;">
+		<span class="fontGreen1">&{'form.politicaEntrega.order.title'}</span><br />
+		<span class="fontGreen1">&{'form.politicaEntrega.order'}</span><br />
+		<span class="fontGreen1">&{'form.politicaEntrega.entrega.title'}</span><br />
+		<span class="fontGreen1">&{'form.politicaEntrega.entrega', '5%'}</span><br />
+		<span class="fontGreen1"><p><h3>&{'form.politicaEntrega.pagamento.title'}</h3></p></span><br />
+		<span class="fontGreen1">&{'form.politicaEntrega.pagamento'}</span>
+		<span class="fontBlackMainHome">&{'form.politicaEntrega.pagamento.paypal', url, url}</span><br /><br />
+		<span class="fontGreen1">&{'form.politicaEntrega.observacao'}</span><br />
+		<span class="fontGreen1">&{'form.politicaEntrega.bairros.title'}</span><br />
+		#{if (!bairrosAtendidos.isEmpty())}
+			<ul>
+			#{list items:bairrosAtendidos, as:'bairro'}
+				<li style="margin-left: 5%;">
+					<span class="fontGreen1">
+					#{if (bairro.url==null)}
+						<strong>${bairro.nome}</strong>
+					#{/if}
+					#{else}
+						<a href="/${bairro.url}" class="a1">
+							<strong>${bairro.nome}</strong>
+						</a>
+					#{/else}
+					</span>
+				</li>
+			#{/list}
+			<ul>
+		#{/if}
+		<br />
+		<span class="fontGreen1">&{'form.politicaEntrega.baixada'}</span>
+	</div>
+</div>
+<div align="right">
+	#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+</div>
+<br />

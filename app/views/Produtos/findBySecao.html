@@ -1,0 +1,12 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Ver Produtos
+#{/set}
+
+<div class="defaultContentSize">
+	<div align="right" style="background-color: #DDDDDD;">
+		<span class="fontBlackNormal">&{'message.secao.em'}&nbsp;${flash.success.raw()}</span>
+	</div>
+	<br />
+#{include 'produto.html'/}
+</div>

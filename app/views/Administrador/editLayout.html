@@ -1,0 +1,61 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Editar Layout
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @Administrador.sendArchive(), method:'POST', id:'changeLayoutForm', enctype:'multipart/form-data'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="100%" align="center" class="fontGreen3">&{'form.admin.layout'}</td>
+		</tr>
+		<tr>
+			<td colspan="100%" align="center" class="fontGreen3">&nbsp;
+			#{ifErrors}
+				#{errors}
+				<li>
+					<span class="fontRed">${error}</span>
+				</li>
+				#{/errors}
+			#{/ifErrors}
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.admin.banner.home'}</td>
+			<td align="left">
+				<input type="file"
+						name="arquivo" id="arquivo" value="arquivo" accept="image/jpeg" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<a href="#" onclick="javascript:changeLayout();" class="fontBrown">&{'form.button.next'}</a>
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+<script type="text/javascript" charset="UTF-8">
+	function changeLayout() {
+		try {
+			var formulario = document.getElementById("changeLayoutForm");
+			
+			if(document.getElementById("arquivo").value=="") {
+				alert("Por favor, selecione uma imagem.");
+				
+			}else {
+				formulario.submit();
+			}
+			
+		}catch(e) {
+			alert("Erro-->" + e.description);
+		}
+	}
+	#{if (params.message!=null)}
+	alert("${params.message}");		
+	#{/if}
+</script>

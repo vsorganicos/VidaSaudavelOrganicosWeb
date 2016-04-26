@@ -1,0 +1,44 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'form.admin.mypage.home'}
+#{/set}
+
+<div class="defaultContentSize">
+	<div class="divMyPageContatc">
+		&{'form.admin.mypage.imgMeusDados'}&nbsp;<span class="fontGreen4">&{'form.admin.mypage.meusDados'}</span>
+		
+		<p>
+			<br />
+			<ul class="ul1">
+				<li>
+					<a href="#" onclick="javascript:alterarDados();" class="a1">&{'form.admin.mypage.alterarDados'}</a>
+				</li>
+			</ul>
+		</p>
+	</div>
+	<div class="divMyPageContatc">
+		&{'form.admin.mypage.imgMeusPedidos'}&nbsp;<span class="fontGreen4">&{'form.admin.mypage.meusPedidos'}</span>
+		<p>
+			<br />
+			<ul class="ul1">
+				<li>
+					<a href="#" onclick="javascript:meusPedidos();" class="a1">&{'form.admin.consulta'}</a>
+				</li>
+			</ul>
+		</p>
+	</div>
+</div>
+
+<script type="text/javascript">
+function alterarDados() {
+	var url = "/cliente/${session.clienteId}";
+	
+	window.open(url, "_self");
+}
+
+function meusPedidos() {
+	var url = "/pedidos/${session.clienteId}";
+	
+	window.open(url, "_self");
+}
+</script>

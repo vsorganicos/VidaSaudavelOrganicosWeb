@@ -1,0 +1,103 @@
+#{extends 'Pedidos/menuPedidoCliente.html' /}
+
+<div class="boxConsultaDefault" style="height: 400px; overflow: auto">
+	#{form @Pedidos.atualizarProdutos(), id:"updateProdutosForm"}
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+			<td colspan="100%" align="center">
+				#{ifErrors}
+					<ul>
+					#{errors}
+						<li><span class="fontRed">${error}</span></li>
+					#{/errors}
+					</ul>
+				#{/ifErrors}
+				#{if (itens.isEmpty())}
+					<span>&{'message.norecordfound'}</span>
+				#{/if}
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td align="left">
+				<span>&{'form.excluir'}</span>
+			</td>
+			<td align="center" colspan="2" width="50%">
+				<span>&{'form.label.descricao'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.quantidade'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.valorUnitario'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="100%">
+			<table width="100%" border="0">
+				#{list items:itens, as:'item'}
+				<tr>			
+					<td width="6%" align="center">
+						<input type="checkbox" name="produto[${item.produtos[0].id}]" id="produto[${item.produtos[0].id}]" value="${item.produtos[0].id}" />
+					</td>
+					<td width="12%">
+						<img width="50" height="43" src="&{'application.static.content'}&{'application.path.public.images'}${item.produtos[0].imagemProduto}" 
+								title="${item.produtos[0].descricao}" alt="${item.produtos[0].descricao}" class="imgBasket" />
+					</td>
+					<td>
+						<span class="fontBlackMainHome">&nbsp;${item.produtos[0].descricao}</span><br />
+					</td>
+					<td width="19%" align="left">
+						<input type="text" class="textBox1" name="produto[${item.produtos[0].id}].qtd" id="produto[${item.produtos[0].id}].qtd" 
+								size="5" value="${item.quantidade}" />
+					</td>
+					<td width="16%" align="left">
+						<span class="fontBlackMainHome">&nbsp;${item.produtos[0].valorVenda.formatCurrency('BRL').raw()}</span><br />
+					</td>
+				</tr>
+				#{/list}
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="100%">&nbsp;</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+<br />
+<a href="/pedidos/info/${pedido.id}" class="fontBrown">&{'form.button.back'}</a>
+#{if (session.get("isAdmin").equals("true")) }
+<span>|</span>
+<a href="#" class="fontBrown" onclick="javascript:enviar('${pedido.id}', true);">&{'form.excluir'} do &{'form.admin.pedido'}</a>
+#{/if}
+<span>|</span>
+<a href="#" class="fontBrown" onclick="javascript:enviar('${pedido.id}', false);">&{'form.order.removerEntrega'}</a>
+<script>
+	function enviar(id, remover) {
+		try {
+			var url = '/pedidos/produtos/alterar?id='+id+'&excluir='+remover;
+			
+			var arrayProdutos = document.getElementsByTagName("input");
+			
+			var cont = 0;
+						
+			for(i=0; i<arrayProdutos.length; i++) {
+				if(arrayProdutos[i].type=="checkbox" && arrayProdutos[i].name!="selectAll") {
+					var textQuantidade = arrayProdutos[i].id + ".qtd";
+			
+					url += "&produtoQuantidade["+cont+"].id="+arrayProdutos[i].value+"";
+					url += "&produtoQuantidade["+cont+"].quantidade="+document.getElementById(textQuantidade).value+"";
+					url += "&produtoQuantidade["+cont+"].excluir="+arrayProdutos[i].checked;
+
+					cont++;
+				}
+			}
+
+			$("#updateProdutosForm").attr('action', url);
+			$("#updateProdutosForm").submit();
+			
+		}catch(e) {
+			alert("Erro ao tentar excluir os produtos: " + e);
+		}
+	}
+</script>

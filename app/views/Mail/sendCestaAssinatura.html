@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="pt-br" />
+		<title>&{'application.subtilte'} &{'form.cesta.personal'}</title>
+	</head>
+	<body style="padding: 0px; margin: 0px;">
+		<table width="70%" border="0" cellpadding="4" cellspacing="0" style="font-family: Verdana; border-color: #DDDDDD;">
+			<tr>
+				<td align="left" colspan="100%">
+					<table width="100%" border="0">
+						<tr>
+							<td width="15%">
+								<a href='http://www.vidasaudavelorganicos.com.br'>
+									<img title="Logo" alt="Logo" src="${staticContent}logo-relatorio.jpg" width="144" height="112" />
+								</a>
+							</td>
+							<td>
+								<span>&{'form.cesta.email'}</span>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="100%">
+					#{a @@Cestas.consultaCestaCliente(cestaAssinatura.cliente.id)}&{'form.cesta.personal'}#{/a}
+				</td>
+			</tr>
+			<tr>
+				<td align="center">Produto</td>
+				<td align="left">Op&ccedil;&atilde;o</td>
+			</tr>
+			#{list items:assinaturaProdutos, as:'produto'}
+			<tr>
+				<td align="left" width="60%">
+					${produto.produto.nome}
+				</td>
+				<td align="left">
+					${produto.opcional ? 'Segunda' : 'Primeira'}
+				</td>
+			</tr>
+			#{/list}
+		</table>
+	</body>
+</html>

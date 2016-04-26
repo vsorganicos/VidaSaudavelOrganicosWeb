@@ -1,0 +1,13 @@
+Caro(a) ${cliente.nome},
+
+
+Sua senha é: ${cliente.usuario.senha}
+				
+Atenciosamente,
+
+Vida Saudável Orgânicos.
+www.vidasaudavelorganicos.com.br
+
+**********************************************************************************				
+	**************** ATENÇÃO NÃO RESPONDA ESSE E-MAIL ****************
+**********************************************************************************

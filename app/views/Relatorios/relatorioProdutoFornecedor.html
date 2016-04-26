@@ -1,0 +1,58 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Relatório de Pedidos Aguardando Entrega
+#{/set}
+
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+	<div align="right" style="margin-right: 2%;">
+		<span class="fontGreen2">&{'application.form.export'}:</span>
+		<a name="relatorioCSV" href="/relatorios/export/csv/fornecedor" target="_blank" class="a1">&{'application.form.report.format.csv'}</a>
+		<span>|</span>
+		<a name="relatorioExcel" href="/relatorios/export/excel/fornecedor" target="_blank" class="a1">&{'application.form.report.format.excel'}</a>
+	</div>
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="5%">Id</td>
+			<td align="center" width="16%">&{'form.label.codigoProduto'}</td>
+			<td align="left">&{'form.label.descricao'}</td>
+			<td align="center" width="18%">&{'form.fornecedor.title'}</td>
+			<td align="center" width="11%">&{'form.label.quantidade'}</td>
+			<td align="center" width="20%">&{'form.label.valorVenda'}</td>
+		</tr>
+		<tr>
+			<td colspan="6">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0">
+					#{if (vProdutos==null)}
+					<tr>
+						<td colspan="6" align="center">
+							<span class="fontGreen2">&{'message.norecordfound'}</span>
+						</td>
+					</tr>
+					#{/if}
+					#{else}
+					#{paginate.list items:vProdutos, as:'produto'}
+					<tr>
+						<td width="5%" align="center">
+							${produto.id}
+						</td>
+						<td width="16%" align="center">${produto.codigoProduto}</td>
+						<td align="left">${produto.descricao}</td>
+						<td width="18%" align="center">${produto.fornecedor}</td>
+						<td width="11%" align="center">${produto.quantidade}</td>
+						<td width="20%" align="center">${produto.valor}</td>
+					</tr>
+					#{/paginate.list}
+					#{/else}
+					</table>
+				</div>
+			</td
+		</tr>
+		<tr class="tr1">
+			<td colspan="3" align="center">#{paginate.summary items:vProdutos /}</td>
+			<td colspan="3" align="center">#{paginate.controls items:vProdutos /}</td>
+		</tr>
+	</table>
+</div>
+<br />

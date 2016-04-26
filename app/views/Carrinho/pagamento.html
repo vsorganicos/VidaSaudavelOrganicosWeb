@@ -1,0 +1,337 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Finalizar Pedido
+#{/set}
+
+#{form @Carrinho.finalizar(), id:"finalizarForm",}
+<div class="defaultContentSize">
+	<br />
+	<table width="97%" border="0" id="showProdutosCarrinho" cellpadding="0" cellspacing="2" align="center" style="border-bottom-width: 1px; border-bottom-style: dashed; border-bottom-style: solid;">
+		<tr>
+			<td colspan="3" align="center" class="fontGreen3">Finalizar Pedido</td>
+		</tr>
+		<tr>
+			<td colspan="3">&nbsp;</td>
+		</tr>
+		#{if (session.get("isAdmin").equals("true") && clientes!=null) }
+		<tr height="19px">
+			<td colspan="100%" align="center">
+				<div class="divFindProducts">
+					<span class="fontBlackMainHome"><b>&{'form.admin.customer'}</b>&nbsp;</span>
+					#{select 'cliente', id:'cliente', items:clientes, valueProperty:id, labelProperty:'nome', class:"fontGreen1"}
+						#{option '-1'}Selecione#{/option}						
+					#{/select}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		#{/if}
+		<input type="hidden" id="sessionId" name="sessionId" value="${sessionId}" />
+		<tr class="tr1">
+			<td align="center" colspan="2">
+				<span>&{'form.label.descricao'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.quantidade'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.valorUnitario'}</span>
+			</td>
+		</tr>
+		#{list items:carrinho.cestas, as:'cesta'}
+		<tr>
+			<td width="12%">
+				<img width="50" height="43" src="${cesta.caminhoImagem}" 
+						title="${cesta.titulo}" alt="${cesta.titulo}" class="imgBasket" />
+			</td>
+			<td>
+				<span class="fontBlackMainHome">&nbsp;${cesta.titulo}</span><br />
+			</td>
+			<td width="16%" align="center">
+				<span class="fontBlackMainHome">1</span>
+			</td>
+			<td width="11%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${cesta.valorVenda.formatCurrency('BRL').raw()}</span><br />
+			</td>
+		</tr>
+		#{/list}
+		#{list items:carrinho.itens, as:'item'}
+		<tr>
+			<td width="12%">
+				<a href="/ajaxView?height=370&width=450&id=${item.produtos[0].id}" title="${item.produtos[0].descricao}" class="thickbox">
+					<img width="50" height="43" src="&{'application.static.content'}&{'application.path.public.images'}${item.produtos[0].imagemProduto}" 
+						title="${item.produtos[0].descricao}" alt="${item.produtos[0].descricao}" class="imgBasket" />	
+				</a>
+			</td>
+			<td>
+				<span class="fontBlackMainHome">&nbsp;${item.produtos[0].descricao}</span><br />
+			</td>
+			<td width="16%" align="center">
+				<span class="fontBlackMainHome">${item.quantidade}</span>
+			</td>
+			<td width="11%" align="center">
+				<span class="fontBlackMainHome">&nbsp;${item.produtos[0].valorVenda.formatCurrency('BRL').raw()}</span><br />
+			</td>
+		</tr>
+		#{/list}
+	</table>
+	<table width="97%" border="0" id="showProdutosCarrinho" cellpadding="0" cellspacing="0" align="center">
+		<tr class="tr1">
+			<td>
+				<div style="width: 100%; float: left; position:relative;">
+					<div style="width:85%; float: left; border: 0px solid; position: relative; text-align: right;">&{'form.label.subtotal'}</div>
+					<div style="width:10%; float: right; text-align: center; border: 0px solid; position: relative;">
+						<span class="fontBlackMainHome">${carrinho.valorTotalCompra.formatCurrency('BRL').raw()}</span>&nbsp;
+					</div>
+				</div>
+			</td>
+		</tr>
+		#{if (credito > 0)}
+		<tr class="tr1">
+			<td>
+				<div style="width: 100%; float: left; position:relative;">
+					<div style="width:85%; float: left; border: 0px solid; position: relative; text-align: right;">&{'form.order.customer.credit'}</div>
+					<div style="width:10%; float: right; text-align: center; border: 0px solid; position: relative;">
+						<span class="fontBlackMainHome">${credito.formatCurrency('BRL').raw()}</span>&nbsp;
+					</div>
+				</div>
+			</td>
+		</tr>
+		#{/if}
+		<tr class="tr1">
+			<td>
+				<div style="width: 100%; float: left; position:relative;">
+					<div style="width:85%; float: left; border: 0px solid; position: relative; text-align: right;">&{'form.label.frete'}</div>
+					<div style="width:10%; float: right; text-align: center; border: 0px solid; position: relative;">
+						<span class="fontBlackMainHome">${frete.valor.formatCurrency('BRL').raw()}</span>&nbsp;
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td>
+				<div style="width: 100%; float: left; position:relative;">
+					<div style="width:85%; float: left; border: 0px solid; position: relative; text-align: right;">&{'form.label.total'}</div>
+					<div style="width:10%; float: right; text-align: center; border: 0px solid; position: relative;">
+						<span class="fontBlackMainHome">
+							#{if (credito > 0)}
+								${(carrinho.valorTotalCompra + frete.valor - credito).formatCurrency('BRL').raw()}
+							#{/if}
+							#{else}
+								${(carrinho.valorTotalCompra + frete.valor).formatCurrency('BRL').raw()}
+							#{/else}
+						</span>&nbsp;
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">&nbsp;
+			#{ifErrors}
+				#{errors}
+					<span class="fontRed">${error}</span><br />
+				#{/errors}
+			#{/ifErrors}
+			</td>
+		</tr>
+	</table>
+	#{ifnot errors}
+	<div id="payment-address" class="tabPaymentAddressMain">
+		<div class="tabPaymentAddressContent">
+			<table width="100%" border="0" cellspacing="3" cellpadding="2">
+				<thead>
+					<tr>
+						<td style="background-color: #DDDDDD;" align="center">
+							<span class="fontDefaultBlack"><b>&{'form.title.endereco'}</b></span>
+						</td>
+					</tr>
+				</thead>
+				#{if (endereco!=null) }
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">${endereco.logradouro}, ${endereco.numero}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">${endereco.bairro}</span>
+						<span>-</span>
+						<span class="fontBlackMainHome">${endereco.cidade}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">&{'form.address.cep'}:&nbsp;${endereco.cep}</span>
+						<span>-</span>
+						<span class="fontBlackMainHome">${endereco.uf}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">&{'form.order.endereco.delivery', endereco.id}</span>
+					</td>
+				</tr>
+				#{/if}
+			</table>
+		</div>
+		<div class="tabPaymentAddressContent">
+			<table width="100%" border="0" cellspacing="3" cellpadding="2">
+				<thead>
+					<tr>
+						<td colspan="2" style="background-color: #DDDDDD;" align="center">
+							<span class="fontDefaultBlack"><b>&{'form.payment.title'}</b></span>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					#{if ((carrinho.valorTotalCompra) >= valorMinPagPayPal)}
+					<tr>
+						<td width="5%" align="center">
+							<input type="radio" name="formaPagamento" id="formaPagamento" value="${pagamento.getFormaPagamento('PayPal')}" />
+						</td>
+						<td>
+							<img src="&{'application.static.content'}&{'application.path.public.images'}paypal_logo.gif" alt="paypal logo" />
+							<div id="valorPayPal" style="width: 65%; float: right; position: relative; margin-top: 8px;">
+								<span class="fontGreen3">
+									#{if (cupom!=null)}
+										#{if (credito > 0)}
+											${(valorComDesconto + frete.valor - credito).formatCurrency('BRL').raw()}
+										#{/if}
+										#{else}
+											${(valorComDesconto + frete.valor).formatCurrency('BRL').raw()}
+										#{/else} 
+										&{'form.politicaEntrega.desconto', cupom.desconto.porcentagem+'%'}
+									#{/if}
+									#{else}
+										#{if (credito > 0)}
+											${(carrinho.valorTotalCompra + frete.valor - credito).formatCurrency('BRL').raw()}
+										#{/if}
+										#{else}
+											${(carrinho.valorTotalCompra + frete.valor).formatCurrency('BRL').raw()}
+										#{/else}
+									#{/else}
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td width="5%" align="center">
+							<input type="radio" name="formaPagamento" id="formaPagamento" value="${pagamento.getFormaPagamento('PagSeguro')}" />
+						</td>
+						<td>
+							<img src="&{'application.static.content'}&{'application.path.public.images'}logo_pagseguro.gif" alt="paypal logo" />
+							<div id="valorPayPal" style="width: 65%; float: right; position: relative; margin-top: 8px;">
+								<span class="fontGreen3">
+									#{if (cupom!=null)}
+										#{if (credito > 0)}
+											${(valorComDesconto + frete.valor - credito).formatCurrency('BRL').raw()}
+										#{/if}
+										#{else}
+											${(valorComDesconto + frete.valor).formatCurrency('BRL').raw()}
+										#{/else} 
+										&{'form.politicaEntrega.desconto', cupom.desconto.porcentagem+'%'}
+									#{/if}
+									#{else}
+										#{if (credito > 0)}
+											${(carrinho.valorTotalCompra + frete.valor - credito).formatCurrency('BRL').raw()}
+										#{/if}
+										#{else}
+											${(carrinho.valorTotalCompra + frete.valor).formatCurrency('BRL').raw()}
+										#{/else}
+									#{/else}
+								</span>
+							</div>
+						</td>
+					</tr>
+					#{/if}
+					<tr>
+						<td width="5%" align="center">
+							#{if (valorMinPagPayPal >= (carrinho.valorTotalCompra))}
+								<input type="radio" name="formaPagamento" id="formaPagamento" checked="checked" value="${pagamento.getFormaPagamento('Dinheiro')}" />
+							#{/if}
+							#{else}
+								<input type="radio" name="formaPagamento" id="formaPagamento" value="${pagamento.getFormaPagamento('Dinheiro')}" />
+							#{/else}
+						</td>
+						<td>
+							<span class="fontBlackMainHome">${pagamento.getFormaPagamento('DINHEIRO').descricao}</span>
+							#{if (cupom!=null)}
+							<div id="valorDinheiroCheque" style="width: 65%; float: right; position: relative;">
+								<span class="fontGreen3">${(valorComDesconto + frete.valor).formatCurrency('BRL').raw()} &{'form.politicaEntrega.desconto', cupom.desconto.porcentagem+'%'}</span>
+							</div>
+							#{/if}
+							#{else}
+								#{if (carrinho.valorTotalCompra > valorPagamentoComDesconto)}
+									<div id="valorDinheiroCheque" style="width: 65%; float: right; position: relative;">
+										<span class="fontGreen3">
+										#{if (credito > 0)}
+											${(valorComDesconto+ frete.valor - credito).formatCurrency('BRL').raw()}
+										#{/if}
+										#{else}
+											${(valorComDesconto+ frete.valor).formatCurrency('BRL').raw()}
+										#{/else}
+										&{'form.politicaEntrega.desconto', '5%'}</span>
+									</div>
+								#{/if}
+								#{else}
+								<div id="valorDinheiroCheque" style="width: 65%; float: right; position: relative;">
+									<span class="fontGreen3">
+										#{if (credito > 0)}
+											${(carrinho.valorTotalCompra + frete.valor - credito).formatCurrency('BRL').raw()}
+										#{/if}
+										#{else}
+											${(carrinho.valorTotalCompra + frete.valor).formatCurrency('BRL').raw()}
+										#{/else}
+									</span>
+								</div>
+								#{/else}
+							#{/else}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br />
+	#{/ifnot}
+	<br />
+	<div align="right" style="width: 97%;">
+		<div id="btn-end">
+			<a href="javascript:finalizarPedido();"><span>&nbsp;</span></a>
+		</div>
+		<div id="btn-back">
+			<a href="/carrinho/view?sessionId=${sessionId}"><span>&nbsp;</span></a>
+		</div>
+	</div>
+	<br /><br />
+</div>
+#{/form}
+<br />
+<script type="text/javascript" charset="UTF-8">
+	function finalizarPedido() {
+		try {
+			loadingAnimation();
+			
+			var pagamentoSolicitado = $("input[type=radio]:checked").val();
+		
+			if(pagamentoSolicitado==undefined) {
+				unloadingAnimation();
+				alert("&{'application.error.paymentMethod'}");
+				
+			}else {
+				if(pagamentoSolicitado=="DINHEIRO") {
+					document.getElementById("finalizarForm").submit();
+					
+				}else {
+					window.open("/carrinho/loading/${sessionId}?pagamentoSolicitado="+pagamentoSolicitado, "_self");
+				}
+			}
+			
+		}catch(e) {
+			unloadingAnimation();
+			alert("Erro ao tentar finalizar o pedido:" + e.description);
+		}
+	}
+</script>

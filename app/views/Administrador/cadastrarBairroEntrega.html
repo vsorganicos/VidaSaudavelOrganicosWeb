@@ -1,0 +1,90 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Cadastrar Bairro de Entrega
+#{/set}
+
+<div class="defaultContentSize">
+	#{ifErrors}
+	<div style="width:250px; height:380px; border-color: red; border:0px solid; position: absolute; float: right; right: 29px;">
+		<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+			<span class="fontWhite">&{'validation.failed'}</span>
+		</div>
+		<br />
+		#{errors}
+			<span class="fontRed">${error}</span><br />
+		#{/errors}
+	</div>
+	#{/ifErrors}
+	
+	<div>
+	#{form @Administrador.inserirBairroEntrega(), id:'formCadastroBairroEntrega', method:'POST'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">&{'form.title.endereco'}</td>
+			<input type="hidden" name="bairro.id" id="bairro.id" value="${bairro.id}" />
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="right" width="40%">&{'form.address.bairro'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="bairro.nome" id="bairro.nome" 
+						size="25" maxlength="150" value="${bairro.nome}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="40%">&{'form.address.cidade'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="bairro.cidade" id="bairro.cidade" 
+						size="25" maxlength="150" value="${bairro.cidade}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="40%">&{'form.address.uf'}</td>
+			<td align="left">
+				#{select 'bairro.uf', items:ufs, valueProperty:'uf', value:bairro.uf, class:"select fontGreen1"}*
+				#{/select}
+		</td>
+		<tr>
+			<td align="right" width="40%">URL</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="bairro.url" id="bairro.url" 
+						size="40" maxlength="200" value="${bairro.url}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<span>&{'form.campo.obrigatorio'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">
+				<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+				<span>|</span>
+				<a href="javascript:cadastrar();" class="fontBrown">&{'form.button.next'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+	</table>
+	</div>
+	#{/form}
+</div>
+<script charset="utf-8">
+	function cadastrar() {
+		try {
+			var formulario = document.getElementById('formCadastroBairroEntrega')
+			
+			formulario.submit();
+		
+		}catch(e) {
+			alert(e);
+		}
+	}
+</script>

@@ -1,0 +1,53 @@
+#{extends 'layout.html' /}
+#{set title:'Cestas Cadastradas' /}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="6%">&{'form.label.codigoProduto'}</td>
+			<td align="center">&{'form.questionario.titulo'}</td>
+			<td align="left" width="11%">&{'form.label.valorVenda'}</td>
+			<td align="center" width="11%">Data Entrega</td>
+			<td align="center" width="11%">&{'form.cesta.active'}</td>
+			<td align="center" width="19%">&{'form.estoque.date.lastUpdate'}</td>
+			<td align="center" width="7%">&{'form.label.imagem'}</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{paginate.list items:cestas, as:'cesta'}
+					<tr class="${produto_parity}">
+						<td width="6%" align="center">
+							#{a @Cestas.edit(cesta.id), class:'a1'}
+								${cesta.id}
+							#{/a}
+						</td>
+						<td>${cesta.titulo}</td>
+						<td width="19%" align="center">${cesta.valorVenda.formatCurrency('BRL').raw()}</td>
+						<td width="11%" align="center">${cesta.dataProximaEntrega?.format('dd/MM/yyyy')}</td>
+						<td width="11%" align="center">
+							#{a @Cestas.changeStatusCesta(cesta.id), class:'a1'}
+								<span>${cesta.ativo ? 'Ativo' : 'Inativo'}</span>
+							#{/a}
+						</td>
+						<td width="19%" align="center">${cesta.dataAlteracao?.format('dd/MM/yyyy HH:mm')}</td>
+						<td width="7%" align="center">
+							<a href="${cesta.caminhoImagem}" title="${cesta.caminhoImagem}" class="thickbox">
+								&{'form.label.view'}
+							</a>
+						</td>
+					</tr>
+					#{/paginate.list}
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td colspan="4" align="center">#{paginate.summary items:cestas /}</td>
+			<td colspan="3" align="center">#{paginate.controls items:cestas /}</td>
+		</tr>
+	</table>
+</div>
+<br />

@@ -1,0 +1,49 @@
+<div>
+	<table width="100%" cellpadding="4" cellspacing="4" border="0">
+		<tr>
+			<td colspan="2">
+				<span class="fontGreen2">&{'form.admin.secao'}: </span><span class="fontGray"><b>${produto.secao?.descricao}</b></span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="55%">
+				<img src="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}" alt="${produto.imagemProduto}" class="imgDetail" />
+			</td>
+			<td>
+				<span class="fontGreen2">${produto.nome}</span><br /><br />
+				<span class="fontGreen3">${produto.valorVenda.formatCurrency('BRL').raw()}</span><br /><br />
+				<a href="/produtos/detail/${produto.id}/${produto.nome.slugify()}">&{'form.label.descricao'}</a>
+				<br /><br />
+				#{if (produto.podeEnviarPorCorreio)}
+				<img src="&{'application.static.content'}&{'application.path.public.images'}logo-correios.jpg" 
+						alt="&{'form.product.envioProdutoCorreio'}" title="&{'form.product.envioProdutoCorreio'}" />
+				#{/if}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="left">
+				<span class="fontBlackNormal"><i>Imagem meramente ilustrativa.</i></span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="left">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				#{if (produto.ehCesta==false)}
+					<span class="fontGreen2"><b>&{'form.label.detail'}: </b></span><span class="fontBlackNormal">${produto.detalhe.raw()}</span>
+				#{/if}
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+</div>
+
+

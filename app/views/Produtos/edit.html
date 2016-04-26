@@ -1,0 +1,205 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Editar Produto
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @Produtos.atualizar(), enctype:'multipart/form-data', method:'POST', id:'editProdutoForm'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center">
+				<span class="fontGreen3">&{'form.title.editar.produto'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="hidden" id="produto.imagemProduto" name="produto.imagemProduto" value="${produto.imagemProduto}" />&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">Id&nbsp;</td>
+			<td align="left">
+				<input type="text" readonly="readonly" class="textBox1" name="produto.id" id="produto.id" size="8" value="${produto.id}" /></td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.label.nome'}&nbsp;</td>
+			<td align="left">
+				<input type="text" maxlength="80" class="textBox1" name="produto.nome" id="produto.nome" size="30" value="${produto.nome}" />*</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.label.codigoProduto'}</td>
+			<td align="left">
+				<input type="text" maxlength="60" class="textBox1" name="produto.codigoProduto" id="produto.codigoProduto" size="20" value="${produto.codigoProduto}"/>*</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.descricao'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="produto.descricao" id="produto.descricao" size="50" maxlength="150" value="${produto.descricao}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.valorPago'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="produto.valorPago" id="produto.valorPago" size="11" value="${produto.valorPago}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.valorVenda'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="produto.valorVenda" id="produto.valorVenda" size="11" value="${produto.valorVenda}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">(%)&nbsp;</td>
+			<td align="left">
+				<span>${produto.valorMargemLucro}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.status'}&nbsp;</td>
+			<td align="left">
+				#{select 'produto.ativo', value:produto.ativo, class:"fontGreen1"}*
+					#{option 'true'}Ativo#{/option}
+					#{option 'false'}Inativo#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.envioCorreio'}</td>
+			<td>
+				#{select 'produto.podeEnviarPorCorreio', value:produto.podeEnviarPorCorreio, class:"select1 fontGreen1"}
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}N&atilde;o#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.refrigeracao'}</td>
+			<td>
+				#{select 'produto.ehRefrigerado', id:"produto.ehRefrigerado", value:produto.ehRefrigerado, class:"select1 fontGreen1"}
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}N&atilde;o#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.lastUpdate'}&nbsp;</td>
+			<td align="left">
+				<span>${produto.dataAlteracao?.format('dd/MM/yyyy HH:mm')}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.isBasket'}</td>
+			<td>
+				#{select 'produto.ehCesta', value:produto.ehCesta, class:"select1 fontGreen1"}
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}N&atilde;o#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.admin.secao.description'}&nbsp;</td>
+			<td>
+				#{select 'produto.secao.id', items:secoes, valueProperty:id, labelProperty:'descricao', value:produto.secao?.id, class:"fontGreen1"}
+					#{option ''}Selecione#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.fornecedor.title'}</td>
+			<td>
+				#{select 'produto.fornecedor.id', items:fornecedores, valueProperty:id, labelProperty:'nome', value:produto.fornecedor?.id, class:"select1 fontGreen1"}
+					#{option ''}Selecione#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.imagem'}&nbsp;</td>
+			<td align="left">
+				<a href="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}" title="${produto.imagemProduto}" class="thickbox a1" id="viewImgProduct">
+					&{'form.label.view'}
+				</a>
+				&nbsp;&nbsp;&nbsp;
+				<a href="javascript:showFileUpload();" class="a1">
+					<span>Alterar</span>
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				&nbsp;
+			</td>
+			<td align="left">
+				<div id="fileUpload" class="inputFileUpload">
+					<input type="file" class="textBox1" 
+						name="produto.imagem" id="produto.imagem" value="${produto.imagem}" accept="image/jpeg" />&{'form.product.type.image'}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				&{'form.label.detail'}
+			</td>
+			<td align="left">
+				<textarea cols="30" rows="3" name="produto.detalhe" id="produto.detalhe">${produto.detalhe}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="left">
+				#{ifErrors}
+					#{errors}
+					<li>
+						<span>${error}</span>
+					</li>
+					#{/errors}
+				#{/ifErrors}
+				#{if (params.message!=null)}
+				<script type="text/javascript" charset="utf-8">
+					alert("${params.message}");
+				</script>
+				#{/if}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:remover(${produto.id});">&{'form.excluir'}</a>
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="document.getElementById('editProdutoForm').submit();">&{'form.button.next'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	<script type="text/javascript" charset="utf-8">
+		function showFileUpload() {
+			$("#fileUpload").removeClass('inputFileUpload');
+		}
+	</script>
+	#{/form}
+</div>
+<script type="text/javascript">
+	function remover(id) {
+		try {
+			var excluir = confirm("Deseja realmente excluir esse produto?");
+		
+			if(excluir==true) {
+				var url = "/produtos/excluir?id=" + id;
+				$("#editProdutoForm").attr('action', url);
+				
+				$("#editProdutoForm").submit();
+			}
+		
+		}catch(e) {
+			alert(e);
+		}
+	}
+</script>

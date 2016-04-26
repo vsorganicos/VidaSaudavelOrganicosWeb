@@ -1,0 +1,23 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Assinatura Finalizada
+#{/set}
+
+<div class="defaultContentSize">
+	<br /><br />
+	<div align="center">
+		<span class="fontGreen3">&{'form.cesta.success'}</span>
+	</div>
+	<br /><br />
+	<div align="center">
+		<span class="txt_titulo_01">&{'form.final.order.faleConosco', _cestaAssinatura.cliente.nome, _cestaAssinatura.cliente.usuario.email}</span>
+	</div>
+	<br />
+	<div align="center">
+		<span class="txt_titulo_01">&{'form.cesta.order.delivery'}</span>
+	</div>
+</div>
+<div align="right">
+	#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+</div>
+<br />

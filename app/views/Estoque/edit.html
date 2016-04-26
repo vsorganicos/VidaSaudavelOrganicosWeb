@@ -1,0 +1,107 @@
+<div class="defaultContentSize">
+	#{ifErrors}
+	<div style="width:250px; height:380px; border-color: red; border:0px solid; position: absolute; float: right; right: 29px;">
+		<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+			<span class="fontWhite">&{'validation.failed'}</span>
+		</div>
+		<br />
+		#{errors}
+			<span class="fontRed">${error}</span><br />
+		#{/errors}
+	</div>
+	#{/ifErrors}
+	
+	<div>
+	#{form @Estoque.atualizar(), id:'formUpdateEstoque', method:'POST'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<input type="hidden" id="produtoLoteEstoque.lote.id" name="produtoLoteEstoque.lote.id" value="${produtoLoteEstoque.lote.id}" />
+				<span>&{'form.edit'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<span>&nbsp;</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="28%">
+				&{'form.lote.title'}
+				<input type="hidden" id="produtoLoteEstoque.id" name="produtoLoteEstoque.id" value="${produtoLoteEstoque.id}" />	
+			</td>
+			<td align="left" colspan="3">
+				<span>${produtoLoteEstoque.lote.codigo}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.title'}</td>
+			<td align="left">
+				<span>${produtoLoteEstoque.produto.nome}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.dataValidade'}</td>
+			<td align="left">
+				<input type="text" class="datePicker" name="produtoLoteEstoque.dataValidadeLote" id="produtoLoteEstoque.dataValidadeLote" size="15" value="${produtoLoteEstoque.dataValidadeLote.format('dd/MM/yyyy')}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.order.code'} &{'form.product.title'}</td>
+			<td align="left">
+				<span>${produtoLoteEstoque.produto.codigoProduto}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<span>&{'form.global.price'}</span>
+			</td>
+			<td align="left">
+				<span>${produtoLoteEstoque.produto.valorPago.formatCurrency('BRL').raw()}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<span>&{'form.label.quantidade'}</span>
+			</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="produtoLoteEstoque.quantidade" id="produtoLoteEstoque.quantidade" size="8" value="${produtoLoteEstoque.quantidade}" />*
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<span>&nbsp;</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<a href="javascript:cadastrar();" class="fontBrown">&{'form.button.next'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+	</table>
+	</div>
+	#{/form}
+</div>
+<script charset="utf-8">
+function cadastrar() {
+	try {
+		var formulario = document.getElementById('formUpdateEstoque');
+		
+		if(document.getElementById('produtoLoteEstoque.dataValidadeLote').value=="") {
+			alert("Por favor, digite um valor correto para a data");
+			
+		}else if(document.getElementById('produtoLoteEstoque.quantidade').value=="" || document.getElementById('produtoLoteEstoque.quantidade').value<0) {
+			alert("Por favor, digite um valor correto para a quantidade");
+		
+		}else {
+			document.getElementById('produtoLoteEstoque.dataValidadeLote').value = document.getElementById('produtoLoteEstoque.dataValidadeLote').value + ' 00:00';
+		
+			formulario.submit();
+		}
+	
+	}catch(e) {
+		alert(e);
+	}
+}
+</script>

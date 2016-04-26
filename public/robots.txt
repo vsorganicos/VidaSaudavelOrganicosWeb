@@ -1,0 +1,16 @@
+User-agent: *
+
+Disallow: /admin
+Disallow: /relatorios
+Disallow: /cliente/show/all
+Disallow: /produtos
+Disallow: /pedidos
+Disallow: /questionarios
+Disallow: /secao
+Disallow: /fornecedor
+Disallow: /frete
+Disallow: /bairrosAtendidos
+Disallow: /login
+Disallow: /cliente
+Disallow: /cesta
+Sitemap: http://www.vidasaudavelorganicos.com.br/sitemap.xml

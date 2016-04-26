@@ -1,0 +1,99 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Cadastrar Questionário
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @Questionarios.salvar(), id:'cadastroQuestionario', method:'POST'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<span>&{'form.questionario.title'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.questionario.titulo'}</td>
+			<td align="left">
+				<input type="text" maxlength="100" class="textBox1" name="questionario.titulo" id="questionario.titulo" 
+						size="35" value="${questionario.titulo}"/>*
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.questionario.pergunta'}</td>
+			<td align="left">
+				<input type="text" maxlength="180" class="textBox1" name="pergunta" id="pergunta" size="40" />
+				<input type="button" name="adicionarPergunta" id="adicionarPergunta" value=" >> " title="Adicionar" onclick="javascript:addPergunta();" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="left">
+				<textarea cols="40" rows="5" name="perguntas" id="perguntas">${perguntas}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:document.getElementById('cadastroQuestionario').submit();">&{'form.button.next'}</a>
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:limparPerguntas();">&{'form.admin.button.clear'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="left">
+				#{ifErrors}
+					#{errors}
+						<span class="fontRed">${error}</span><br />
+					#{/errors}
+				#{/ifErrors}
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+
+<script type="text/javascript">
+<!--
+	function addPergunta() {
+		try {
+			var pergunta = $("#pergunta").val();
+			
+			var todasPerguntas = $("textarea").val();
+			
+			var auxPergunta = "";
+			
+			auxPergunta = todasPerguntas + pergunta + ";\n";
+			
+			$("textarea").val(auxPergunta);
+			
+			$("#pergunta").val("");
+			
+			alert("Pergunta adicionada com sucesso.");
+			
+		}catch(e) {
+			alert("Erro ao tentar adicionar pergunta: " + e);
+		}
+	}
+	
+	function limparPerguntas() {
+		$("textarea").val("");
+		
+		alert("As perguntas foram limpas! Cadastre novamente.");
+	}
+	
+//-->
+</script>

@@ -1,0 +1,92 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Fale Conosco
+#{/set}
+<div class="defaultContentSize">
+	<br />
+	<div class="txt_titulo_institucional" style="text-align: center;">&{'form.faleConosco.title'}</div>
+	<br />
+	<div>
+	#{form @FaleConosco.enviarFaleConosco(), id:'formFaleConosco', method:'POST'}
+	<table width="99%" cellpadding="4" cellspacing="4" border="0">
+		<thead>
+			<tr>
+				<td align="center" colspan="2">
+					<span class="txt_padrao"><h2>&{'form.faleConosco.text'}</span></h2>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="2">
+					#{if (params.result!=null)}
+					<script type="text/javascript">
+						alert("&{'message.faleConosco.success'}");
+					</script>
+					#{/if}
+					#{ifErrors}
+					<div style="width:250px; height:280px; border-color: red; border:0px solid; position: absolute; float: right; right: 2px;">
+						<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+							<span class="fontWhite">&{'validation.failed'}</span>
+						</div>
+						<br />
+						#{errors}
+							<span class="fontRed">${error}</span><br />
+						#{/errors}
+					</div>
+					#{/ifErrors}
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.customer.nome'}</span>
+				</td>
+				<td>
+					<input type="text" id="nome" name="nome" class="textBox1" size="30" value="${nome}" />
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.subject.text'}</span>
+				</td>
+				<td>
+					<input type="text" id="assunto" name="assunto" maxlength="80" class="textBox1" size="30" value="${assunto}" />
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.email'}</span>
+				</td>
+				<td>
+					<input type="text" id="email" name="email" class="textBox1" size="30" value="${email}" />
+				</td>
+			</tr>
+			<tr>
+				<td width="38%" align="right">
+					<span class="txt_padrao">&{'form.faleConosco.message'}</span>
+				</td>
+				<td>
+					<textarea cols="30" rows="3" name="mensagem" id="mensagem">${mensagem}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="left">
+					<a href="#" class="fontBrown" onclick="javascript:document.getElementById('formFaleConosco').submit();">&{'form.button.enviar'}</a>
+					<span>|</span>
+					#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<span class="txt_padrao">&{'form.faleConosco.phoneNumber'}</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	#{/form}
+	</div>
+</div>

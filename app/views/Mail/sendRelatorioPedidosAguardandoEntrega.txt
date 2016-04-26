@@ -1,0 +1,5 @@
+Olá,
+
+O Relatório de Pedidos Aberto para Entregas segue em anexo.
+
+${message}

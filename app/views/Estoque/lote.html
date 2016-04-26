@@ -1,0 +1,166 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Cadastrar Estoque
+#{/set}
+<script src="&{'application.static.content'}/javascripts/jquery.autocomplete.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+<div class="defaultContentSize">
+	<div>
+	#{form @Estoque.cadastarLote(), id:'formCadastroEstoque', method:'POST'}
+	<table width="96%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="4" align="center" class="fontGreen3">
+				#{if (lote.id==null)}
+					<span>&{'form.button.cadastro'}&nbsp;&{'form.estoque.title'}</span>
+				#{/if}
+				#{else}
+					<input type="hidden" id="lote.id" name="lote.id" value="${lote.id}" />
+					<span>&{'form.edit'}&nbsp;&{'form.estoque.title'}</span>
+				#{/else}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="right" width="11%">&{'form.lote.title'}</td>
+			<td align="left" colspan="3">
+				<input type="text" class="textBox1" name="lote.codigo" id="lote.codigo" size="25" value="${lote.codigo}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.title'}</td>
+			<td align="left" width="52%">
+				<input type="text" class="textBox1" name="nomeProduto" id="nomeProduto" size="69" value="" />*
+			</td>
+			<td align="right">&{'form.product.dataValidade'}</td>
+			<td align="left">
+				<input type="text" class="datePicker" name="produtoLote.dataValidadeLote" id="produtoLote.dataValidadeLote" size="15" value="${produtoLote?.dataValidadeLote}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.order.code'} &{'form.product.title'}</td>
+			<td align="left">
+				<input type="text" readonly="readonly" class="textBox1" name="codigoProduto" id="codigoProduto" size="15" />
+				<span>&{'form.global.price'}</span>
+				<input type="text" readonly="readonly" disabled="disabled" class="textBox1" name="preco" id="preco" size="15" />
+				<span>&{'form.label.quantidade'}</span>
+				<input type="text" class="textBox1" name="produtoLote.quantidade" id="produtoLote.quantidade" size="8" />*
+			</td>
+			<td>&nbsp;</td>
+			<td align="right">
+				<a href="@{Estoque.show()}" class="fontBrown">&{'form.button.back'}</a>
+				<span>|</span>
+				<a href="javascript:resetForm('formCadastroEstoque')" class="fontBrown">&{'form.admin.button.clear'}</a>
+				<span>|</span>
+				<a href="javascript:cadastrar()" class="fontBrown">&{'form.button.cadastro'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">&nbsp;
+				#{ifErrors}
+				<div style="width: 50%;" align="center">
+					<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+						<span class="fontWhite">&{'validation.failed'}</span>
+					</div>
+					<br />
+					#{errors}
+						<span class="fontRed">${error}</span><br />
+					#{/errors}
+				</div>
+				#{/ifErrors}
+			</td>
+		</tr>
+	</table>
+	<table width="96%" cellpadding="1" cellspacing="0" border="1" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="15%">&{'form.lote.title'}</td>
+			<td align="center">&{'form.product.title'}</td>
+			<td align="center" width="11%">&{'form.order.code'}</td>
+			<td align="center" width="10%">&{'form.global.price'}</td>
+			<td align="center" width="18%">&{'form.product.dataValidade'}</td>
+			<td align="center" width="7%">&{'form.label.quantidade'}</td>
+			<td align="center" width="7%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+						#{list items:itens, as:'estoque'}
+						<tr class="${estoque_parity}">
+							<td align="left" width="17%">
+								<a href="/ajaxEditEstoque?height=250&width=560&id=${estoque.id}" class="thickbox">
+									<span>${lote.codigo}</span>
+								</a>
+							</td>
+							<td align="left" width="39%">
+								<span>${estoque?.produto?.nome}</span>
+							</td>
+							<td align="center">
+								<span>${estoque?.produto?.codigoProduto}</span>
+							</td>
+							<td align="left">
+								<span>${estoque?.produto?.valorPago.formatCurrency('BRL').raw()}</span>
+							</td>
+							<td align="left">
+								<span>${estoque?.dataValidadeLote.format('dd/MM/yyyy')}</span>
+							</td>
+							<td align="left">
+								<span>${estoque?.quantidade}</span>
+							</td>
+							<td align="center">
+								<a href="@{Estoque.excluirProdutoLote(estoque.id)}">&{'form.excluir'}</a>
+							</td>
+						</tr>
+						#{/list}
+					</table>
+				</div>
+				
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td colspan="3" align="center">#{paginate.summary items:itens /}</td>
+			<td colspan="4" align="center">#{paginate.controls items:itens /}</td>
+		</tr>
+	</table>
+	</div>
+	#{/form}
+	<br />
+</div>
+<script charset="utf-8">
+$("#nomeProduto").autocomplete("/estoque/consultar/produto", {minChars:3,
+															formatItem:formatItem,
+															maxItemsToShow:20
+															});
+
+$(".datePicker").datepicker({dateFormat:'dd/mm/yy', showAnim:'fadeIn'})
+
+function formatItem(row) {
+	return row.nome + " [Codigo: " + row.codigoProduto +"]";
+}
+
+function resetForm(idForm) {
+	try {
+		var formulario = document.getElementById(idForm);
+		
+		formulario.reset();
+	
+	}catch(e) {
+		alert(e);
+	}
+}
+
+function cadastrar() {
+	try {
+		var formulario = document.getElementById('formCadastroEstoque')
+		
+		document.getElementById('produtoLote.dataValidadeLote').value = document.getElementById('produtoLote.dataValidadeLote').value + ' 00:00';
+		
+		formulario.submit();
+	
+	}catch(e) {
+		alert(e);
+	}
+}
+</script>

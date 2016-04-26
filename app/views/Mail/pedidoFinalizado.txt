@@ -1,0 +1,21 @@
+Caro(a) ${pedido.cliente.nome},
+
+Obrigado por realizar sua compra em nosso site.
+
+O seu pedido foi processado com sucesso e será entregue no endereço informado.
+
+Valor Total da Compra
+R$ ${pedido.getValorTotal()}
+Pedido nº: ${pedido.id}
+				
+				
+OBSERVAÇÃO: Para pedidos fechados até Domingo, a entrega será realizada na próxima Terça-feira.
+
+Importante: No ato da entrega poderá haver a falta de algum produto, em função de condições climáticas ou outros fatores, 
+como por exemplo, imprevistos no transporte.
+
+				
+Atenciosamente,
+
+Vida Saudável Orgânicos.
+www.vidasaudavelorganicos.com.br

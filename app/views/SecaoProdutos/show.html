@@ -1,0 +1,37 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Seções Cadastradas
+#{/set}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="40%">&{'form.label.nome'}</td>
+			<td align="center" width="20%">&{'form.label.status'}</td>
+			<td align="center">&{'form.admin.secao.pai'}</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0">
+					#{paginate.list items:secoes, as:'secao'}
+					<tr>
+						<td align="center" width="40%">
+							<a href="/secao/${secao.id}">${secao.descricao}</a>
+						</td>
+						<td align="center" width="20%">${secao.ativo ? 'Ativo' : 'Inativo'}</td>
+						<td align="center">${secao.secaoPai?.descricao}</td>
+					</tr>
+					#{/paginate.list}
+					</table>
+				</div>
+			</td
+		</tr>
+		<tr class="tr1">
+			<td colspan="1" align="center">#{paginate.summary items:secoes /}</td>
+			<td colspan="2" align="center">#{paginate.controls items:secoes /}</td>
+		</tr>
+	</table>
+</div>
+<br />

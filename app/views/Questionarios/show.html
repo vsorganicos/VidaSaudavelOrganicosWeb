@@ -1,0 +1,97 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Questionários
+#{/set}
+
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+#{ifErrors} 
+	#{errors}
+		<li><span class="fontRed">${error}</span></li>
+	#{/errors} 
+#{/ifErrors}
+
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="7%">ID</td>
+			<td align="center" width="39%">&{'form.questionario.titulo'}</td>
+			<td align="center" width="15%">&{'form.admin.mypage.date'}</td>
+			<td align="center" width="12%">&{'form.label.status'}</td>
+			<td align="center" width="15%">&nbsp;</td>
+			<td align="center" width="12%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="6">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0">
+					#{if (vQuestionarios==null)}
+					<tr>
+						<td colspan="6" align="center">
+							<span class="fontGreen2">&{'message.norecordfound'}</span>
+						</td>
+					</tr>
+					#{/if}
+					#{else}
+					#{paginate.list items:vQuestionarios, as:'questionario'}
+					<tr>
+						<td width="6%" align="center">
+							<a href="/">
+								<span >${questionario.id}</span>
+							</a>
+						</td>
+						<td width="38%" align="center">${questionario.titulo}</td>
+						<td width="15%" align="center">${new Date(questionario.dataCadastro.getTime()).format('dd/MM/yyyy HH:mm')}</td>
+						<td width="24%" align="center">
+							<a href="/questionarios/changestatus/${questionario.id}" class="a1">
+								${questionario.ativo ? 'Ativo' : 'Inativo'}
+							</a>
+						</td>
+						<td width="15%" align="center">
+							<a href="/ajaxQuestion?height=300&width=450&id=${questionario.id}" title="${questionario.titulo}" class="thickbox">
+								<span>&{'form.questionario.pergunta'}(s)</span>
+							</a>
+						</td>
+						<td width="12%" align="center">
+							<a href="/questionarios/respostas/${questionario.id}">
+								<span>&{'form.questionario.resposta'}s</span>
+							</a>
+						</td>
+					</tr>
+					#{/paginate.list}
+					#{/else}
+					</table>
+				</div>
+			</td
+		</tr>
+		<tr class="tr1">
+			<td colspan="3" align="center">#{paginate.summary items:vQuestionarios /}</td>
+			<td colspan="3" align="center">#{paginate.controls items:vQuestionarios /}</td>
+		</tr>
+	</table>
+</div>
+<br />
+<script type="text/javascript" charset="UTF-8">
+function pesquisar() {
+	var valor = document.getElementById('paramPedido');
+	var parametro = $("input[name='param']:checked").val();
+
+	try {
+		if(valor.value=="") {
+			alert("Digite um valor correto para a pesquisa!");
+			valor.focus();
+			
+		}else { 
+
+			if(parametro=="id" && isNaN(valor.value)) {
+				alert("Digite somente números!");
+				valor.focus();
+				
+			}else {
+				document.getElementById('searchOrderForm').submit();
+			} 
+		}
+	}catch(e) {
+		alert("Erro ao tentar pesquisar o pedido: " + e);
+	}
+}
+</script>

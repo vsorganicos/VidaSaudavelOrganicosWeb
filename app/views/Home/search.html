@@ -1,0 +1,95 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} ${produtos.getRowCount()} Produtos Encontrados para ${nome}
+#{/set}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/custom-play-pagination.css">
+
+<div class="defaultContentSize">
+	<br />
+	#{if (flash.success!=null) }
+	<div align="right" style="width:96%; background-color: #DDDDDD; position: relative; float: left">
+		<span class="fontBlackNormal">&{'message.secao.em'}&nbsp;${flash.success.raw()}</span>
+	</div>
+	<br />
+	#{/if}
+	<br />
+	<table width="96%" border="0" id="showProdutosCarrinho" cellpadding="0" cellspacing="2" align="center" style="border-bottom-width: 1px; border-bottom-style: solid;">
+		<tr class="tr1">
+			<td width="9%">&nbsp;</td>
+			<td align="center">&{'form.label.descricao'}</td>
+			<td align="center" width="11%">&{'form.admin.secao'}</td>
+			<td align="center" width="10%">&{'form.global.price'}</td>
+			<td align="center" width="17%">&{'form.imgBasket.alt'}</td>
+			<td align="center" width="13%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="100%">
+				<div>
+					<table width="100%" border="0">
+					#{if (produtos.getRowCount()>0)}
+						#{paginate.list items:produtos, as:'produto'}
+						<tr>
+							<td align="center" width="9%">
+							#{if (produto.getEhCesta())}
+								<a href="/produtos/detail/${produto.id}/${produto.nome.slugify()}">
+									<img width="50" height="43" src="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}" 
+										title="${produto.descricao}" alt="${produto.descricao}" class="imgBasket" />
+							#{/if}
+							#{else}
+								<a href="/ajaxView?height=400&width=486&id=${produto.id}" title="${produto.descricao}" class="thickbox">
+									<img width="50" height="43" src="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}" 
+										title="${produto.descricao}" alt="${produto.descricao}" class="imgBasket" />
+								</a>
+							#{/else}
+							</td>
+							<td>
+								#{if (produto.getEhCesta())}
+									<a href="/produtos/detail/${produto.id}/${produto.nome.slugify()}" class="fontBoldWhite1">
+										<span>${produto.descricao}</span>
+									</a>
+								#{/if}
+								#{else}
+									<a href="/ajaxView?height=370&width=450&id=${produto.id}" class="thickbox fontBoldWhite1">
+										<span>${produto.descricao}</span>
+									</a>
+								#{/else}
+							</td>
+							<td width="11%" align="center">
+								<span class="fontBoldWhite1">${produto.secao?.descricao}</span>
+							</td>
+							<td width="10%" align="center">
+								<span class="fontBoldWhite1">${produto.valorVenda.formatCurrency('BRL').raw()}</span>
+							</td>
+							<td align="center" width="19%">
+								<input type="text" class="textBox1" maxlength="3" id="quantidade[${produto.id}]" name="quantidade[${produto.id}]" size="3" value="1" />
+							</td>
+							<td align="center" width="13%">
+								#{if (produto.isAvailable())}
+								<img src="&{'application.static.content'}&{'application.path.public.images'}&{'application.path.carrinho'}" style="cursor: pointer;" alt="&{'form.imgBasket.alt'}" 
+									onclick="javascript:adicionarProdutoCarrinho(${produto.id}, document.getElementById('quantidade[${produto.id}]'), '${produto.valorVenda}')"/>
+								#{/if}
+								#{else}
+									<img src="&{'application.static.content'}&{'application.path.public.images'}&{'form.estoque.img.indisponivel'}" />
+								#{/else}
+							</td>
+						</tr>
+						#{/paginate.list}
+					#{/if}
+					#{else}
+						<tr>
+							<td align="center"><span class="fontBlackNormal">&{'message.notfound.product'}</span></td>
+						</tr>
+					#{/else}
+					</table>
+				</div>
+			</td
+		</tr>
+	</table>
+	#{if (produtos.getHasPreviousPage() || produtos.getHasNextPage())}
+		<div style="width: 50%; text-align: center; position: relative; 
+					float: left; margin-left: 28%; margin-top: 10px; margin-bottom: 10px;">#{paginate.controls items:produtos /}</div>
+	#{/if}
+	#{else}
+		<br />
+	#{/else}
+</div>

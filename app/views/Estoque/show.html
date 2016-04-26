@@ -1,0 +1,73 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Consulta Estoque
+#{/set}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css"> 
+<div id="findEstoque" class="divFindProducts fontDefaultBlack">
+	<form action="/pesquisarProdutoEstoque" accept-charset="UTF-8" id="searchProdutoEstoqueForm">
+	<table border="0" width="100%" cellpadding="4" cellspacing="4">
+		<tr>
+			<td align="center" width="10%"><span><b>&{'application.form.find'}</b></span></td>
+			<td align="left">
+				<input type="text" name="produtoParametro" id="produtoParametro" size="30" />
+				<input input type="button" value="Ok" onclick="javascript:pesquisarProduto(document.getElementById('produtoParametro'), 
+																						document.getElementById('searchProdutoEstoqueForm'));" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<input type="radio" name="param" id="param" checked="checked" value="produto.nome"><span>&{'form.product.title'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="produto.dataValidade"><span>&{'form.product.dataValidade'}</span>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<br />
+<br />
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="16%">&{'form.lote.title'}</td>
+			<td align="center">&{'form.order.date'}</td>
+			<td align="center" width="19%">&{'form.estoque.user.lastUpdate'}</td>
+			<td align="center" width="19%">&{'form.product.lastUpdate'}</td>
+			<td align="center" width="22%">&{'form.product.title'}(s)</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{list items:posicaoEstoque, as:'estoque'}
+						<tr class="${estoque_parity}">
+							<td align="center" width="16%">
+							<a href="@{Estoque.consultarLote(estoque.id)}" class="a1">
+								<span>${estoque.codigo}</span>
+							</a>
+							</td>
+							<td align="center">
+								<span>${estoque.dataCadastro?.format('dd/MM/yyyy HH:mm')}</span>
+							</td>
+							<td align="center" width="23%">
+								<span>${estoque.usuarioAlteracao}</span>
+							</td>
+							<td align="center" width="19%">
+								<span>${estoque.dataAlteracao?.format('dd/MM/yyyy HH:mm')}</span>
+							</td>
+							<td align="center" width="10%">
+								<span>${estoque.itens.size()}</span>
+							</td>
+							<td align="right">
+								<a href="@{Estoque.excluirLote(estoque.id)}">&{'form.excluir'}</a>
+							</td>
+						</tr>
+					#{/list}
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<br />

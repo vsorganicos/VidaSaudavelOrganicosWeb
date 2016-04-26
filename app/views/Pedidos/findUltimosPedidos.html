@@ -1,0 +1,87 @@
+#{extends 'Pedidos/menuPedidoCliente.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+#{ifErrors} 
+	#{errors}
+		<li><span class="fontRed">${error}</span></li>
+	#{/errors} 
+#{/ifErrors}
+<div class="boxConsultaDefault">
+	<div align="left" style="width: 25%; float: left">&{'form.order.debitos'}&nbsp;<b>${debito.formatCurrency('BRL').raw()}</b></div>
+	<div align="left" style="width: 25%; float: left">&{'form.order.creditos'}&nbsp;<b>${credito?.formatCurrency('BRL').raw()}</b></div>
+	<div align="right" style="width: 50%; float: left">
+		<a href="javascript:atualizarDebitosCreditos('${pedido.id}', '${idCliente}');" class="a1">&{'form.order.creditosDebitos'}</a>
+	</div>
+	#{form @Pedidos.zerarDebitosCreditosDoCliente(), id:"debitosCreditosClienteForm"}
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="9%">
+				<input type="hidden" name="idCliente" id="idCliente" value="${idCliente}" />
+				<span>&{'form.admin.pedido'}</span>
+			</td>
+			<td align="center" width="11%">Data</td>
+			<td align="center" width="9%">
+				<span>Valor</span>
+			</td>
+			<td align="center" width="9%">Desconto</td>
+			<td align="center" width="5%">&{'form.label.frete'}</td>
+			<td align="right" width="8%">Valor Total</td>
+			<td align="right" width="8%">Valor Pago</td>
+			<td align="center" width="15%">
+				<span>Status</span>
+			</td>
+			<td align="center" width="13%">
+				<span>&{'form.order.date.delivery'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="9">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0">
+					#{list items:pedidos, as:'_ped'}
+					<tr class="${_ped_parity}">
+						<td width="8%" align="center">
+							<a href="/pedidos/info/${_ped.id}">
+								<span title="&{'form.order.observacao'}: ${_ped.observacao}">${_ped.id}</span>
+							</a>
+						</td>
+						<td width="12%" align="center">${new Date(_ped.dataPedido.getTime()).format('dd/MM/yyyy')}</td>
+						<td width="9%" align="center">${_ped.valorPedido.formatCurrency('BRL').raw()}</td>
+						<td width="9%" align="center">
+							<span title="${_ped.desconto?.porcentagem}%">${_ped.desconto?.valorDesconto.formatCurrency('BRL').raw()}</span>
+						</td>
+						<td width="8%" align="center">
+							<span>${_ped.getFrete()!=null ? _ped.frete?.valor?.formatCurrency('BRL').raw() : pedido.frete.valor.formatCurrency('BRL').raw()}</span>
+						</td>
+						<td width="7%" align="center">${_ped.getValorTotal().formatCurrency('BRL').raw()}</td>
+						<td width="7%" align="center">${_ped.valorPago!=null ? _ped.valorPago?.formatCurrency('BRL').raw() : _ped.getValorTotal().formatCurrency('BRL').raw()}</td>
+						<td width="15%" align="center">
+							${_ped.codigoEstadoPedido.estado}
+						</td>
+						<td width="10%" align="center">${_ped.dataEntrega!=null ? new Date(_ped.dataEntrega.getTime()).format('dd/MM/yyyy') : _ped.dataEntrega}</td>
+					</tr>
+					#{/list}
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+<script>
+function atualizarDebitosCreditos(idPedido, idCliente) {
+	var url = '/pedidos/zerar/debitos';
+	
+	try {	
+		if(confirm("Deseja realmente atualizar os dados desse cliente?")) {
+			url+= '/'+ idPedido;
+			url+= '/'+ idCliente;
+			
+			$("#debitosCreditosClienteForm").attr('action', url);
+			
+			$("#debitosCreditosClienteForm").submit();
+		}
+	}catch(e) {
+		alert("Erro: " + e);
+	}
+} 
+</script>

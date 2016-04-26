@@ -1,0 +1,99 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Clientes Cadastrados
+#{/set}
+
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div id="findCustomer" class="divFindProducts fontDefaultBlack">
+	<form action="/pesquisarCliente" accept-charset="UTF-8" id="searchCustomerForm">
+	<table border="0" width="100%" cellpadding="4" cellspacing="4">
+		<tr>
+			<td align="center" width="10%"><span><b>&{'application.form.find'}</b></span></td>
+			<td align="left">
+				<input type="text" name="clienteParam" id="clienteParam" size="40" />
+				<input input type="button" value="Ok" onclick="javascript:pesquisarProduto(document.getElementById('clienteParam'), 
+																						document.getElementById('searchCustomerForm'));" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<input type="radio" name="param" id="param" checked="checked" value="nome"><span>&{'form.customer.nome'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="cpf"><span>&{'form.customer.cpf'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="email"><span>&{'form.email'}</span>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<br />
+<br />
+
+<div class="boxConsultaDefault">
+	<div align="right">
+		<a href="/cliente/emails" target="_blank" class="a1"><span>&{'form.customer.export.email'}</span></a>
+	</div>
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="27%">&{'form.label.nome'}</td>
+			<td align="left" width="4%">&{'form.customer.cpf'}</td>
+			<td align="left" width="8%">&{'form.customer.dataNascimento'}</td>
+			<td align="left" width="9%">&{'form.admin.mypage.meusDados'}</td>
+			<td align="right" width="8%">&{'form.order.lastOrder'}</td>
+			<td align="center">&{'form.email'}</td>
+			<td align="right" width="5%">&{'form.mail.mkt.title'}</td>
+		</tr>
+		<tr>
+			<td colspan="100%">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0">
+					#{paginate.list items:clientes, as:'cliente'}
+					<tr>
+						<td width="23%" align="left">
+							<a href="/cliente/${cliente.id}" title="&{'form.edit'}">
+							#{if (cliente.nome.length()>=20)}
+								${cliente.nome.substring(0, 20)}
+							#{/if}
+							#{else}
+								${cliente.nome}
+							#{/else}
+							</a>
+						</td>
+						<td width="11%" align="left">${cliente.cpf}</td>
+						<td width="12%" align="center">${new Date(cliente.dataNascimento.getTime()).format('dd/MM/yyyy')}</td>
+						<td width="12%" align="center">${new Date(cliente.dataCadastro.getTime()).format('dd/MM/yyyy')}</td>
+						<td width="11%" align="right">
+							#{if (cliente.getUltimoPedido()!=null)}
+								<span>${new Date(cliente.getUltimoPedido().getTime()).format('dd/MM/yyyy')}</span>
+							#{/if}
+							#{else}
+								<span>&nbsp;</span>
+							#{/else}
+						</td>
+						<td align="center">
+							<span title="${cliente.usuario?.email}">
+							#{if (cliente.usuario?.email.length()>=30)}
+								${cliente.usuario?.email.substring(0, 30)}
+							#{/if}
+							#{else}
+								${cliente.usuario?.email}
+							#{/else}
+							</span>
+						</td>
+						<td align="right">${cliente.usuario.recebeMail ? 'Sim' : 'Nao'}</td>
+					</tr>
+					#{/paginate.list}
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td colspan="3" align="center">#{paginate.summary items:clientes /}</td>
+			<td colspan="4" align="center">#{paginate.controls items:clientes /}</td>
+		</tr>
+	</table>
+</div>
+<br />

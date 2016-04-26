@@ -1,0 +1,16 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'application.page.notfound'}
+#{/set}
+
+<div class="defaultContentSize">
+    #{if play.mode.name() == 'DEV'}
+        #{404 result /}
+    #{/if}
+    #{else}
+    	<br />
+        <h2>
+        	<span class="fontRed">&{'application.page.notfound'}</span>
+        </h2>
+    #{/else}
+</div>

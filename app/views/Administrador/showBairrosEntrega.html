@@ -1,0 +1,43 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Bairros Atendidos
+#{/set}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="20%">&{'form.address.bairro'}</td>
+			<td align="center" width="20%">&{'form.address.cidade'}</td>
+			<td align="center" width="10%">&{'form.address.uf'}</td>
+			<td align="center" width="40%">URL</td>
+			<td align="center" width="10%">&{'form.label.status'}</td>
+		</tr>
+		<tr>
+			<td colspan="100%">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{paginate.list items:bairrosAtendidos, as:'bairro'}
+					<tr class="${produto_parity}">
+						<td width="26%" align="center">
+							<a href="/bairrosAtendidos/edit/${bairro.id}" class="a1">${bairro.nome}</a>
+						</td>
+						<td align="center">${bairro.cidade}</td>
+						<td width="10%" align="center">${bairro.uf}</td>
+						<td width="40%" align="center">${bairro.url}</td>
+						<td width="10%" align="center">
+							<a href='/bairrosAtendidos/status/${bairro.id}'>${bairro.ativo ? 'Ativo' : 'Inativo'}</a>
+						</td>
+					</tr>
+					#{/paginate.list}
+					</table>
+				</div>
+			</td
+		</tr>
+		<tr class="tr1">
+			<td colspan="2" align="center">#{paginate.summary items:bairrosAtendidos /}</td>
+			<td colspan="3" align="center">#{paginate.controls items:bairrosAtendidos /}</td>
+		</tr>
+	</table>
+</div>
+<br />

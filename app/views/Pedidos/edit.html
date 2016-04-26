@@ -1,0 +1,181 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Editar Pedido
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @Pedidos.atualizar(), method:'POST', id:'editPedidoForm'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center">
+				<span class="fontGreen3">&{'form.order.edit'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">
+				<input type="hidden" name="pedido.id" id="pedido.id" value="${pedido.id}" />
+				<input type="hidden" name="pedido.ultimoStatusEstadoPedido" id="pedido.ultimoStatusEstadoPedido" value="${pedido.ultimoStatusEstadoPedido}" />
+				<span>&{'form.order.number'}&nbsp;</span>
+			</td>
+			<td align="left">
+				<span class="fontBlackMainHome"><b>${pedido.id}</b></span>
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.order.value'}&nbsp;</td>
+			<td align="left">
+				<input type="text" maxlength="10" class="textBox1" name="pedido.valorPedido" id="pedido.valorPedido" 
+						size="20" value="${pedido.valorPedido}" />*</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.order.desconto'}&nbsp;<i>(%)</i></td>
+			<td align="left">
+				<input type="text" maxlength="5" class="textBox1" name="pedido.desconto.porcentagem" id="pedido.desconto.porcentagem" 
+						size="20" value="${pedido.desconto?.porcentagem}" /></td>
+		</tr>
+				<tr>
+			<td width="40%" align="right">Valor Desconto&nbsp;</td>
+			<td align="left">
+				<input type="text" maxlength="5" class="textBox1" name="pedido.desconto.valorDesconto" id="pedido.desconto.valorDesconto" 
+						size="20" value="${pedido.desconto?.valorDesconto}" /></td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.label.frete'}</td>
+			<td align="left">
+				<input type="text" maxlength="10" class="textBox1" name="pedido.frete.valor" id="pedido.frete.valor" 
+						size="20" value="${pedido.frete?.valor}" />*</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.order.code'}&nbsp;</td>
+			<td align="left">
+				<span>${pedido.codigoPedido}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.order.observacao'}&nbsp;</td>
+			<td align="left">
+				<textarea cols="30" rows="3" name="pedido.observacao" id="pedido.observacao">${pedido.observacao}</textarea>*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.order.date'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="pedido.dataPedido" id="pedido.dataPedido" size="20" 
+						readonly="readonly" value="${pedido.dataPedido.format('dd/MM/yyyy HH:mm')}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.order.date.delivery'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="datePicker" name="pedido.dataEntrega" id="pedido.dataEntrega" size="16" value="${pedido.dataEntrega?.format('dd/MM/yyyy HH:mm')}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.product.lastUpdate'}&nbsp;</td>
+			<td align="left">
+				<span>${pedido.dataAlteracao?.format('dd/MM/yyyy HH:mm')}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.estoque.user.lastUpdate'}&nbsp;</td>
+			<td align="left">
+				<span>${pedido.usuarioAlteracao}</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.politicaEntrega.pagamento.title'}&nbsp;</td>
+			<td align="left">
+				#{if (pedido.pagamento.formaPagamento!=null)}
+					#{if (pedido.pagamento.formaPagamento.getCodigo().equals(5))}
+						<a href="/ajaxPayPal?height=350&width=550&id=${pedido.id}" title="Ver detalhes" class="thickbox a1">
+							<span>${pedido.pagamento.formaPagamento.getDescricao()}</span>
+						</a>
+					#{/if}
+					#{else}
+						<span class="fontBlackMainHome">${pedido.pagamento.formaPagamento.getDescricao()}</span>
+					#{/else}	
+				#{/if}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.label.status'}&nbsp;</td>
+			<td align="left">
+				#{select 'pedido.codigoEstadoPedido', items:status, labelProperty:'estado', value:pedido.codigoEstadoPedido, class:"fontGreen1"}*
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.order.outrasDespesas'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="pedido.outrasDespesas" id="pedido.outrasDespesas" size="20" value="${pedido.outrasDespesas}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				&{'form.order.customer'}
+			</td>
+			<td align="left">
+				<a href="/ajaxEndereco?height=350&width=550&id=${pedido.cliente.enderecos[0].id}" title="Endere&ccedil;o" class="thickbox a1">
+					<span>${pedido.cliente?.nome}</span>
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="left">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+				<span>|</span>
+				<a href="/pedidos/produtos/${pedido.id}" class="fontBrown">&{'form.order.edit.products'}</a>
+				<span>|</span>
+				<a href="/ajaxProdutos?height=520&width=750&id=${pedido.id}" class="thickbox fontBrown">
+					&{'form.order.btnViewProducts'}
+				</a>
+				#{if (pedido.podeAlterarMetodoPagamento())}
+					<span>|</span>
+					<a href="/ajaxMudarMetodoPagamento?height=220&width=300&id=${pedido.id}" title="&{'form.admin.mypage.alterarDados'}" class="thickbox fontBrown">&{'form.order.alterar.metodoPagamento'}</a>
+				#{/if}
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="document.getElementById('editPedidoForm').submit();">&{'form.button.next'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				#{ifErrors}
+				<br />
+				<div style="margin-left: 30%; float:left; text-align: center">
+					<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+						<span class="fontWhite">&{'validation.failed'}</span>
+					</div>
+					<br />
+					#{errors}
+						<span class="fontRed">${error}</span><br />
+					#{/errors}
+				</div>
+				#{/ifErrors}
+				
+				#{if (params.message!=null)}
+				<script type="text/javascript" charset="utf-8">
+					alert("${params.message.raw()}");
+				</script>
+				#{/if}
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+<script type="text/javascript" charset="utf-8">
+	$(".datePicker").datepicker({dateFormat:'dd/mm/yy 00:00', showAnim:'fadeIn'})
+	
+	$("select").change(function() {
+		if($(this).val()=="CANCELADO") {
+			alert("&{'application.estoque.pedido'}");
+		}
+	});
+</script>

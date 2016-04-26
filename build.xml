@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." name="VidaSaudavelOrganicosWeb">
+	<description>Vida Saudavel Organicos</description>
+
+	<property file="build.properties"/>
+	<property environment="windowsEnviroment" />
+	<property name="project.name" value="VidaSaudavelOrganicosWeb" />
+	<property name="bea.home" value="C:/bea_103" />
+	
+	<property name="weblogic.home" value="C:/bea_103/wlserver_10.3" />
+	<property name="lib.home" value="${basedir}\lib" />
+	<property name="wsdlGrepCepFile" value="\public\wsdl\GrepCep.wsdl" />
+	<property name="wsdlPayPal" value="\public\wsdl\PayPalSvc.wsdl" />
+	<property name="build.classes.dir" value="${basedir}\precompiled\java" />
+
+	<tstamp>	
+		<format property="NOW" pattern="yyyy-MM-dd HH:mm:ss" timezone="GMT-3" />
+	</tstamp>
+	
+	<path id="cpServer">
+		<fileset dir="${bea.home}/modules">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="cp">
+		<fileset dir="${weblogic.home}/server/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+  <target name="build_clientGrepCep" >
+    <taskdef name="clientgen" classname="weblogic.wsee.tools.anttasks.ClientGenTask" classpathref="cpServer" />
+      
+    <clientgen
+        failonerror="true"
+        type="JAXWS"
+    	verbose="true"
+        wsdl="${basedir}${wsdlGrepCepFile}"
+        destFile="${lib.home}/CrepCep_client.jar"
+        serviceName="GrepCepService"
+        copyWsdl="true"
+        generateRuntimeCatalog="true"
+    	debug="true"
+    	
+        >
+    </clientgen>
+  </target>
+	
+	<target name="buildClientPayPal">
+		<taskdef name="clientgen" classname="weblogic.wsee.tools.anttasks.ClientGenTask" classpathref="cpServer" />
+		  
+		<clientgen
+		    failonerror="true"
+		    type="JAXWS"
+			verbose="true"
+		    wsdl="${basedir}${wsdlPayPal}"
+		    destFile="${lib.home}/PayPalSvc_client.jar"
+		    serviceName="PayPalAPIService"
+		    copyWsdl="true"
+		    generateRuntimeCatalog="true"
+			debug="true"
+			
+		    >
+		</clientgen>
+	  </target>	
+
+	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/> 
+		
+	<target name="findbugs">
+		<findbugs home="${findbugs.home}"
+	              output="html"
+	              outputFile="${basedir}/public/Report_FindBugs_${project.name}.html" >
+			<class location="${build.classes.dir}" />
+		</findbugs>
+	</target>
+		
+	
+</project>

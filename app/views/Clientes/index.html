@@ -1,0 +1,282 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Cadastrar Cliente
+#{/set}
+
+<script src="&{'application.static.content'}/javascripts/jquery.validate.js" type="text/javascript" charset="utf-8"></script>
+<script src="&{'application.static.content'}/javascripts/additional-methods.js" type="text/javascript" charset="utf-8"></script>
+<script src="&{'application.static.content'}/javascripts/util.validate.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	$(function() {
+		$("#formCadastroCliente").validate({
+			rules: {
+				"cliente.cpf" : { 
+                        cpf: 'valid'
+				}
+			}
+		});
+	});
+</script>
+<div>
+	
+	#{ifErrors}
+	<div style="width:280px; height:380px; border-color: red; border:0px solid; position: absolute; float: right; right: 2px;">
+		<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+			<span class="fontWhite">&{'validation.failed'}</span>
+		</div>
+		<br />
+		#{errors}
+			<span class="fontRed">${error}</span><br />
+		#{/errors}
+	</div>
+	#{/ifErrors}
+	
+	<div>
+	#{form @Clientes.cadastrar(), id:'formCadastroCliente', method:'POST'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">&{'form.title.cadastro.pessoafisica'}</td>
+		</tr>
+		<tr>
+			<td width="35%" align="right">&{'form.customer.nome'}</td>
+			<td align="left"><input type="text" class="textBox1" name="cliente.nome" id="cliente.nome" size="40" value="${cliente.nome}"/>*</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.cpf'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="cliente.cpf" id="cliente.cpf" size="15" maxlength="11" value="${cliente.cpf}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.rg'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="cliente.rg" id="cliente.rg" size="15" maxlength="10" value="${cliente.rg}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.sexo'} </td>
+			<td align="left">
+				#{select 'cliente.sexo', value:cliente.sexo, class:"select1 fontGreen1"}*
+					#{option ''}Selecione#{/option}
+					#{option 'F'}Feminino#{/option}
+					#{option 'M'}Masculino#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.estadoCivil'}</td>
+			<td align="left">
+				#{select 'cliente.estadoCivil', value:cliente.estadoCivil, class:"select1 fontGreen1"}*
+					#{option ''}Selecione#{/option}
+					#{option 'Solteiro'}Solteiro#{/option}
+					#{option 'Casado'}Casado#{/option}
+					#{option 'Divorciado'}Divorciado#{/option}
+					#{option 'Viúvo'}Vi&uacute;vo#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.dataNascimento'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="cliente.dataNascimento" 
+						id="cliente.dataNascimento" size="11" maxlength="10" onkeyup="mascaraData(this);" value="${cliente.dataNascimento?.format('dd/MM/yyyy')}" />*
+				<span><i>&{'form.customer.mask.dataNascimento'}</i></span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.email'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="usuario.email" id="usuario.email" size="45" maxlength="300" value="${usuario.email}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.login.password'}</td>
+			<td align="left">
+				<input type="password" class="textBox1" name="usuario.senha" id="usuario.senha" size="15" maxlength="300" value="${usuario.senha}" /><i>&{'form.customer.mask.password'}</i>*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.login.confirmPassword'}</td>
+			<td align="left">
+				<input type="password" class="textBox1" name="senha" id="senha" size="15" maxlength="300" /><i>&{'form.customer.mask.password'}</i>*
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">
+				<input type="checkbox" id="usuario.recebeMail" name="usuario.recebeMail" checked="checked" value="true" />
+				<span>&{'form.customer.mailing.active'}</span>
+			</td>
+		</tr>
+		<!-- Telefone -->
+		<tr>
+			<td align="right">&{'form.phone'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="telefone.prefixo" id="telefone.prefixo" size="3" maxlength="2" value="${telefone.prefixo}" />
+				<span>-</span>
+				<input type="text" class="textBox1" name="telefone.numero" id="telefone.numero" size="11" maxlength="9" value="${telefone.numero}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.phone.type'}</td>
+			<td align="left">
+				#{select 'tipoTelefone', items:telefones, valueProperty:'codigo', value:descricao, class:"select1 fontGreen1"}*
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.phone'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="otherTelefone.prefixo" id="otherTelefone.prefixo" size="3" maxlength="2" value="${otherTelefone.prefixo}" />
+				<span>-</span>
+				<input type="text" class="textBox1" name="otherTelefone.numero" id="otherTelefone.numero" size="11" maxlength="9" value="${otherTelefone.numero}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.phone.type'}</td>
+			<td align="left">
+				#{select 'tipoOtherTelefone', items:telefones, valueProperty:'codigo', labelProperty:'descricao', value:2, class:"select1 fontGreen1"}
+				#{/select}
+			</td>
+		</tr>
+		<!-- 	Fim	 -->
+		<tr>
+			<td colspan="4" align="center">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">&{'form.title.endereco'}</td>
+		</tr>
+		<tr>
+			<td align="right">Tipo: </td>
+			<td align="left">
+				<select id="endereco.tipoEndereco" name="endereco.tipoEndereco" class="select1 fontGreen1">
+					<option value="Residencial" selected="selected">Residencial</option>
+					<option value="Comercial">Comercial</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.cep'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.cep" id="endereco.cep" 
+						size="10" maxlength="9" value="${endereco.cep}" onblur="javascript:carregarEndereco();" />* &{'form.customer.dicaCep'}
+			</td>
+		</tr>
+		<tr>
+			<td width="35%" align="right">&{'form.address.logradouro'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.logradouro" 
+						id="endereco.logradouro" size="40" value="${endereco.logradouro}"/>*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.title.numero'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.numero" id="endereco.numero" 
+						size="10" maxlength="5" value="${endereco.numero}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.complemento'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.complemento" id="endereco.complemento" 
+						size="20" maxlength="100" value="${endereco.complemento}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.bairro'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.bairro" id="endereco.bairro" 
+						size="25" maxlength="150" value="${endereco.bairro}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.cidade'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.cidade" id="endereco.cidade" 
+						size="25" maxlength="150" value="${endereco.cidade}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.uf'}</td>
+			<td align="left">
+				#{select 'endereco.uf', id:'ufs', items:ufs, valueProperty:'uf', value:endereco.uf, class:"select fontGreen1"}*
+				#{/select}
+		</td>
+		<tr>
+			<td colspan="2" align="center">
+				#{if (params.message!=null)}
+				<script type="text/javascript" charset="utf-8">
+					alert("&{'form.customer.success'}");
+					window.location = "/index";
+				</script>
+				#{/if}
+				#{else}
+					&{'form.campo.obrigatorio'}
+				#{/else}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="right">
+				#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+				<span>|</span>
+				<a href="javascript:cadastrar();" class="fontBrown">&{'form.button.next'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+	</table>
+	</div>
+	#{/form}
+</div>
+<script charset="utf-8">
+	function cadastrar() {
+		try {
+			var formulario = document.getElementById('formCadastroCliente');
+			
+			document.getElementById('cliente.dataNascimento').value = document.getElementById('cliente.dataNascimento').value + ' 00:00'; 
+			
+			formulario.submit();
+		
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	function carregarEndereco() {
+		try {
+			var valor = document.getElementById('endereco.cep').value;
+			
+			if(valor!="") {
+				loadingAnimation();
+			
+				$.post('@{Clientes.consultarCep()}',
+						{cep: valor},
+						function(data) {
+							if(data!=null) {
+								document.getElementById('endereco.logradouro').value = data.logradouro;
+								document.getElementById('endereco.cidade').value = data.cidade;
+								document.getElementById('endereco.bairro').value = data.bairro;
+								$("#ufs option[value="+data.uf+"]").attr("selected", true);
+							}
+							unloadingAnimation();
+						}
+						).error(function()
+							{
+								unloadingAnimation();
+							})
+			}
+		
+		}catch(e) {
+			alert("Erro ao tentar carregar o endereço, digite manualmente." + e);
+		}
+	}
+</script>

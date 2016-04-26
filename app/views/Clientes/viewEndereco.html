@@ -1,0 +1,178 @@
+<div>
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">&{'form.title.endereco'}</td>
+			<input type="hidden" name="endereco.id" id="endereco.id" value="${endereco.id}" />
+			<input type="hidden" name="idCliente" id="idCliente" value="${endereco.cliente.id}" />
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="right">Tipo: </td>
+			<td align="left">
+				#{select 'endereco.tipoEndereco', id:'tipo', value:endereco.tipoEndereco, class:"fontGreen1"}*
+					#{option 'Residencial'}Residencial#{/option}
+					#{option 'Comercial'}Comercial#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td width="25%" align="right">&{'form.address.logradouro'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.logradouro" id="endereco.logradouro"
+						id="cliente.enderecos.logradouro" size="40" value="${endereco.logradouro}"/>*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.title.numero'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.numero" id="endereco.numero" 
+						size="10" maxlength="5" value="${endereco.numero}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.complemento'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.complemento" id="endereco.complemento" 
+						size="20" maxlength="100" value="${endereco.complemento}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.bairro'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.bairro" id="endereco.bairro" 
+						size="25" maxlength="150" value="${endereco.bairro}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.cidade'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.cidade" id="endereco.cidade" 
+						size="25" maxlength="150" value="${endereco.cidade}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.cep'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="endereco.cep" id="endereco.cep" 
+						size="10" maxlength="9" value="${endereco.cep}" />* &{'form.customer.dicaCep'}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.address.uf'}</td>
+			<td align="left">
+				#{select 'endereco.uf', id:'uf', items:ufs, valueProperty:'uf', value:endereco.uf, class:"select fontGreen1"}*
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		#{list items:allPhones, as:'telefone'}
+		<!-- Telefone -->
+		<tr>
+			<td align="right">&{'form.phone'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="telefone.prefixo" id="telefones[${telefone_index-1}].prefixo" size="3" maxlength="2" value="${telefone.prefixo}" />
+				<span>-</span>
+				<input type="text" class="textBox1" name="telefone.numero" id="telefones[${telefone_index-1}].numero" size="11" maxlength="9" value="${telefone.numero}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.phone.type'}</td>
+			<td align="left">
+				#{select 'telefone.tipo.codigo', id:telefone_index, items:telefones, onchange:'javascript:changeTypePhone(this);',
+						valueProperty:'codigo', value:telefone.tipo.codigo, class:"select fontGreen1"}*
+				#{/select}
+				<input type="hidden" name="telefone.id" id="telefones[${telefone_index-1}].id" value="${telefone.id}">
+				<input type="hidden" name="telefone.tipo" id="telefones[${telefone_index-1}].tipo" value="${telefone.tipo.codigo}">
+			</td>
+		</tr>
+		#{/list}
+		#{if (allPhones.size()==1)}
+		<tr>
+			<td align="right">&{'form.phone'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="telefone.prefixo" id="telefones[1].prefixo" size="3" maxlength="2" />
+				<span>-</span>
+				<input type="text" class="textBox1" name="telefone.numero" id="telefones[1].numero" size="11" maxlength="9" /><span>&nbsp;<i>(&{'form.application.add'})</i></span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.phone.type'}</td>
+			<td align="left">
+				#{select 'telefone.tipo.codigo', id:'2', items:telefones, onchange:'javascript:changeTypePhone(this);',
+						valueProperty:'codigo', class:"select fontGreen1"}
+				#{/select}
+				<input type="hidden" name="telefone.id" id="telefones[1].id">
+				<input type="hidden" name="telefone.tipo" id="telefones[1].tipo" value="1">
+			</td>
+		</tr>
+		#{/if}
+		<!-- 	Fim	 -->
+		<tr>
+			<td colspan="2" align="center">&{'form.campo.obrigatorio'}</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="right" colspan="2">
+				<a href="#" class="fontBrown" onclick="javascript:atualizarDadosCliente();">&{'form.button.next'}</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+function atualizarDadosCliente() {
+	try {
+		var arrayPrefixos = document.getElementsByName("telefone.prefixo");
+		var arrayTelefones = document.getElementsByName("telefone.numero");
+		var arrayTelefoneTipo = document.getElementsByName("telefone.tipo");
+		var arrayIdTelefone = document.getElementsByName("telefone.id");
+		var parametros = "?"; 
+		
+		parametros += "id=" + document.getElementById('endereco.id').value;
+		parametros += "&idCliente=" + document.getElementById('idCliente').value;
+		parametros += "&logradouro=" + document.getElementById('endereco.logradouro').value;
+		parametros += "&numero=" + document.getElementById('endereco.numero').value;
+		parametros += "&complemento=" + document.getElementById("endereco.complemento").value;
+		parametros += "&bairro=" + document.getElementById("endereco.bairro").value;
+		parametros += "&cidade=" + document.getElementById("endereco.cidade").value;
+		parametros += "&uf=" + $("#uf option:selected").val();
+		parametros += "&cep=" + document.getElementById("endereco.cep").value;
+		parametros += "&tipo=" + $("#tipo option:selected").val();
+		
+		for(i=0; i<arrayTelefones.length; i++) {
+			var prefixo = arrayPrefixos[i];
+			var phone = arrayTelefones[i];
+			var tipo = arrayTelefoneTipo[i];
+			var id = arrayIdTelefone[i];
+			
+			parametros += "&" + id.id + "=" + id.value + "&" + prefixo.id + "=" + prefixo.value + "&" + phone.id + "=" + phone.value + "&" + tipo.id + "=" + tipo.value ; 
+		}
+		
+		$.post('/cliente/atualizar' + parametros, {}, 
+			function(data) {
+				alert(data)
+				
+				tb_remove();
+			})
+
+	}catch(e) {
+		alert("Erro: " + e);
+	}
+}
+
+function changeTypePhone(selectBox) {
+	try {
+		var idTipoTelefone = document.getElementById("telefones["+(selectBox.id-1)+"].tipo");
+
+		idTipoTelefone.value = selectBox.value;		
+
+	}catch(e) {
+		alert("Erro ao mudar o tipo do telefone: " + e);
+	}
+}
+</script>
+

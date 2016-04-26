@@ -1,0 +1,62 @@
+#{extends 'Pedidos/menuPedidoCliente.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div class="boxConsultaDefault">
+	<table width="100%" border="0" cellpadding="4" cellspacing="2">
+		<tr class="tr1">
+			<td colspan="2">
+				<span>&{'form.application.add'} &{'form.product.title'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" name="id" id="id" value="${pedido.id}" />
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td align="left" width="21%">
+				<span>&{'form.product.title'}</span>
+			</td>
+			<td>
+				#{select 'produtoId', id:'produtoId', items:produtos, valueProperty:'id', labelProperty:'nome', class:"select fontGreen1"}*
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="left" width="25%">
+				<span>&{'form.label.quantidade'}</span>
+			</td>
+			<td>
+				<input type="text" maxlength="10" class="textBox1" name="quantidade" id="quantidade" size="13" value="1" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="left">
+				<a href="#" class="fontBrown" onclick="javascript:inserirProduto();">&{'form.atualizar'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+function inserirProduto() {
+	try {
+		$.post('@{Pedidos.adicionarProdutoPedido()}', {id:document.getElementById('id').value, 
+														produtoId:$("#produtoId option:selected").val(),
+														quantidade:document.getElementById('quantidade').value 
+														}, 
+			function(data) {
+				alert(data)
+			})
+	
+	}catch(e) {
+		alert("Erro: " + e);
+	}
+} 
+</script>

@@ -1,0 +1,41 @@
+<div style="width: 100%; margin-bottom: 5px; float: left">
+	#{if (!produtos.isEmpty())}
+	#{list items:produtos, as:'produto'}
+	<div class="boxMainProduct">
+		<div style="float: left">
+			#{if (produto.getEhCesta())}
+				<a href="/produtos/detail/${produto.id}/${produto.nome.slugify()}">
+					<img src="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}" title="${produto.descricao}" 
+						height="&{'application.path.images.height'}" width="&{'application.path.images.width'}"
+						alt="${produto.descricao}" class="imgBoxMain" />
+				</a>
+			#{/if}
+			#{else}
+				<a href="/ajaxView?height=400&width=486&id=${produto.id}" title="${produto.descricao}" class="thickbox">
+				<img src="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}" title="${produto.descricao}" 
+						height="&{'application.path.images.height'}" width="&{'application.path.images.width'}"
+						alt="${produto.descricao}" class="imgBoxMain" />
+				</a>
+			#{/else}
+		</div>
+		<span class="fontBlackMainHome">&nbsp;<strong>${produto.nome}</strong></span><br />
+		<span class="fontBlackMainHome" id="valorVenda">&nbsp;${produto.valorVenda.formatCurrency('BRL')}</span><br />
+		&nbsp;<input type="text" class="textBox1" maxlength="3" id="quantidade[${produto.id}]" name="quantidade[${produto.id}]" size="3" value="1" />		
+		#{if (produto.isAvailable())}
+			<img src="&{'application.static.content'}&{'application.path.public.images'}&{'application.path.carrinho'}" 
+				style="cursor: pointer;" alt="&{'form.imgBasket.alt'}" title="&{'form.imgBasket.alt'}"
+				onclick="javascript:adicionarProdutoCarrinho(${produto.id}, document.getElementById('quantidade[${produto.id}]'), '${produto.valorVenda}')" /><br />
+		#{/if}
+		#{else}
+			<img src="&{'application.static.content'}&{'application.path.public.images'}&{'form.estoque.img.indisponivel'}" />
+		#{/else}
+	</div>	
+	#{/list}
+	#{/if}
+	#{else}
+	<div align="center">
+		<br /><br />
+		<span class="fontGreen3">&{'message.notfound.product'}</span>
+	</div>
+	#{/else}
+</div>

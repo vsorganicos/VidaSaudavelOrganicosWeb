@@ -1,0 +1,65 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'form.services.title'}
+#{/set}
+<div>
+	<br />
+	<div class="txt_titulo_institucional">&{'form.services.title'}</div>
+	<div id="quemSomosContent" style="padding-left: 1%;padding-right: 1%;">
+		<br />
+		<span class="fontGreen1"><h3>Assinatura de Cesta Personalizada</h3></span>
+		<br />
+		<p>
+			<span class="fontGreen1">A <strong>Vida Saud&aacute;vel Org&acirc;nicos</strong>, no intuito de fornecer os servi&ccedil;os que s&atilde;o demandados pelos nossos clientes, amigos e parceiros, apresenta a <a href='/consulta-cesta'>Assinatura de Cesta Personalizada</a>.</span>
+		</p>
+		<br />
+		<p>
+			<span class="fontGreen1">O servi&ccedil;o consiste em oferecer  os produtos dispon&iacute;veis no site, para que voc&ecirc; cliente possa montar sua cesta personalizada, e receb&ecirc;-las periodicamente, <strong>semanalmente</strong> ou a cada <strong>15 dias</strong>. Optando pelo servi&ccedil;o, o cliente realiza a assinatura e come&ccedil;a a receber j&aacute; na pr&oacute;xima entrega, optando pela suspens&atilde;o quando quiser, como em caso de f&eacute;rias, viagens, etc.</span>
+		</p>
+		<br />
+		<p>
+			<span class="fontGreen1">A seguir, uma lista com o diferencial do servi&ccedil;o:</span>
+		</p>
+		<br />
+		<div style="width: 100%; float: left;">
+			<div style="width: 61%;float: left">
+				<ul>
+					<span class="fontGreen1">
+					<li style="margin-left: 5%;">N&atilde;o &eacute; necess&aacute;rio acessar o site semanalmente para realizar um pedido</li>
+					<li style="margin-left: 5%;">As cestas ter&atilde;o uma Segunda Op&ccedil;&atilde;o para a se&ccedil;&atilde;o de Hortifruti, caso ocorra a falta de algum dos produtos</li>
+					<li style="margin-left: 5%;">A suspens&atilde;o da entrega pode ser feita a qualquer momento, via e-mail ou pela p&aacute;gina personalizada do cliente no site</li>
+					<li style="margin-left: 5%;">O pagamento pode ser feito no final do per&iacute;odo de um m&ecirc;s, via transfer&ecirc;ncia banc&aacute;ria, cheque ou dinheiro*</li>
+					<li style="margin-left: 5%;">A Assinatura da Cesta pode ser alterada, incluindo ou retirando um determinado produto**</li>
+					</span>
+				</ul>
+				<br />
+				<p>
+					<span class="fontGreen1">Lembrando, que as assinaturas seguem os mesmos crit&eacute;rios da nossa <a href="/politica-de-entrega">Pol&iacute;tica de Entrega:</a></span>
+				</p>
+				<br />
+				<ul>
+					<span class="fontGreen1"><li style="margin-left: 5%;">Pedido m&iacute;nimo: <b>R$ 40,00</b></li></span>
+					<span class="fontGreen1"><li style="margin-left: 5%;">Taxa de entrega: <b>R$ 6,00</b></li></span>
+					<span class="fontGreen1"><li style="margin-left: 5%;">Caso o valor dos produtos da Assinatura da Cesta ultrapasse <b>R$ 150,00</b>, haver&aacute; <b>5%</b> de desconto sobre o valor do pedido da semana</li></span>
+				</ul>
+				<br />
+				<p>
+					<span class="fontGreen1">
+						<a href='/consulta-cesta'>Clique aqui</a> e fa&ccedil;a sua assinatura personalizada!
+					</span>
+				</p>
+				<br />
+				<p>
+					<span class="fontBlackMainHome">&{'form.services.obs.1'}</span><br />
+					<span class="fontBlackMainHome">&{'form.services.obs.2'}</span>
+				</p>
+			</div>
+			<div style="float: right;">
+				<img src="&{'application.static.content'}&{'application.path.public.images'}cesta_assinatura.jpg" alt="imagem campanha assinatura" />
+			</div>
+		</div>
+	</div>
+	<div style="float: right; padding: 5px;">
+	#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+	</div>
+</div>

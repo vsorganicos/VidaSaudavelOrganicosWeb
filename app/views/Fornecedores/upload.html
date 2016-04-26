@@ -1,0 +1,81 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'form.parceiros.upload.archive'}
+#{/set}
+
+<div class="defaultContentSize">
+	<br />
+	#{form @Fornecedores.sendArchive(), enctype:'multipart/form-data', id:'envioArquivoForm', name:'envioArquivoForm'}
+	<table width="100%" cellpadding="4" cellspacing="2" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<span>&{'form.parceiros.upload.archive'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="40%">&{'form.parceiros.archive'}</td>
+			<td align="left">
+				<input type="file" class="textBox1" name="arquivo" id="arquivo" value="${arquivo}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.fornecedor.title'}</td>
+			<td>
+				#{select 'idFornecedor', id:'idFornecedor', items:fornecedores, valueProperty:id, labelProperty:'nome', class:"select1 fontGreen1"}
+					#{option ''}Selecione#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="left">
+				<input type="radio" name="atualizarProdutos" id="atualizarProdutos" value="1" checked="checked" />
+				<span>&{'form.atualizar'} &{'form.product.title'}(s)</span>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="left">
+				<input type="radio" name="atualizarProdutos" id="atualizarProdutos" value="2" />
+				<span>&{'form.admin.mypage.alterarDados'} &{'form.product.title'}(s)</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<a href="#" class="fontBrown" onclick="javascript:getElementById('envioArquivoForm').reset();">&{'form.admin.button.clear'}</a>
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:getElementById('envioArquivoForm').submit();">&{'form.button.next'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="left">
+				#{ifErrors}
+					#{errors}
+					<li>
+						<span class="fontRed">${error}</span>
+					</li>
+					#{/errors}
+				#{/ifErrors}
+				#{if (params.message!=null)}
+				<script type="text/javascript" charset="utf-8">
+					alert("${params.message}");
+				</script>
+				#{/if}
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>

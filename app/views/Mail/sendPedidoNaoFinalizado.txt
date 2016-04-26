@@ -1,0 +1,6 @@
+Um pedido não foi fechado nesse momento [${new Date().format('dd/MM/yyyy HH:mm')}], pois o cliente ${cliente.nome} não atingiu o valor do pedido mínimo.
+
+Os dados de contato são:
+
+E-mail: ${cliente.usuario.email}
+Telefone: ${cliente.telefones[0].toString()} / ${cliente.telefones[1].toString()}

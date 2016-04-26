@@ -1,0 +1,163 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Pedidos
+#{/set}
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+#{ifErrors} 
+	#{errors}
+		<li><span class="fontRed">${error}</span></li>
+	#{/errors} 
+#{/ifErrors}
+<div id="findOrders" class="divFindProducts fontDefaultBlack">
+	<form action="/pesquisarPedido" accept-charset="UTF-8" id="searchOrderForm">
+	<table border="0" width="100%" cellpadding="4" cellspacing="4">
+		<tr>
+			<td align="center" width="7%">
+				<span><b>&{'application.form.find'}</b></span>
+			</td>
+			<td align="left">
+				<input type="text" name="paramPedido" id="paramPedido" size="50" />
+				<input type="button" value="Ok" onclick="javascript:pesquisar();" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+				<input type="hidden" name="criterioPedido" id="criterioPedido" value="${flash.param}" />
+				<input type="hidden" name="valorCriterioPedido" id="valorCriterioPedido" value="${flash.paramPedido}" />
+			</td>
+			<td>
+				<input type="radio" name="param" id="param" checked="checked" value="id"><span>&{'form.admin.pedido'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="dataPedido" title="(DD/MM/YYYY) ex.: 01/10/2013">
+				<span title="(DD/MM/YYYY) ex.: 01/10/2013">&{'form.admin.mypage.date'} &{'form.admin.pedido'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="cliente"><span>&{'form.order.customer'}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="param" id="param" value="dataEntrega" title="(DD/MM/YYYY) ex.: 01/10/2013">
+				<span title="(DD/MM/YYYY) ex.: 01/10/2013">&{'form.date.delivery'}</span>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<br />
+<br />
+<br />
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="left" width="7%">
+				<a href="/pedidos/order/id/1?criterioPedido=${flash.param}&valorCriterioPedido=${flash.paramPedido}" title="Ordenar" class="a1">Pedido</a>
+			</td>
+			<td align="left" width="14%">
+				<a href="/pedidos/order/cliente.nome/1?criterioPedido=${flash.param}&valorCriterioPedido=${flash.paramPedido}" title="Ordenar" class="a1">Cliente</a>
+			</td>
+			<td align="left" width="8%">Data</td>
+			<td align="left" width="13%">
+				<a href="/pedidos/order/valorPedido/0?criterioPedido=${flash.param}&valorCriterioPedido=${flash.paramPedido}" title="Ordenar" class="a1">Valor Pedido</a>
+			</td>
+			<td align="left" width="9%">Desconto</td>
+			<td align="center" width="7%">&{'form.label.frete'}</td>
+			<td align="center" width="11%">Valor Total</td>
+			<td align="center" width="15%">
+				<a href="/pedidos/order/codigoEstadoPedido/0?criterioPedido=${flash.param}&valorCriterioPedido=${flash.paramPedido}" title="Ordenar" class="a1">Status</a>
+			</td>
+			<td align="center" width="15%">
+				<a href="/pedidos/order/dataEntrega/1?criterioPedido=${flash.param}&valorCriterioPedido=${flash.paramPedido}" title="Ordenar" class="a1">&{'form.order.date.delivery'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="9">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{if (vPedidos==null)}
+					<tr>
+						<td colspan="8" align="center">
+							<span class="fontGreen2">&{'message.norecordfound'}</span>
+						</td>
+					</tr>
+					#{/if}
+					#{else}
+					#{paginate.list items:vPedidos, as:'pedido'}
+						<tr class="#{if (pedido.cliente.estaNaCapital())}even#{/if}#{else}orange#{/else}">
+							<td width="7%" align="center">
+								<a href="javascript:openNewWindow('/pedidos/info/${pedido.id}', 'Visualizar Pedido de ${pedido.cliente.nome}', '800', '600', 'no')";>
+									<span title="&{'form.order.observacao'}: ${pedido.observacao}">${pedido.id}</span>
+								</a>
+							</td>
+							<td align="left">
+								<span title="${pedido.cliente.nome}">
+								#{if (pedido.cliente.nome.length()>=15)}
+									${pedido.cliente.nome.substring(0, 15)}
+								#{/if}
+								#{else}
+									${pedido.cliente.nome}
+								#{/else}
+								</span>
+							</td>
+							<td width="12%" align="center" title="${new Date(pedido.dataPedido.getTime()).format('dd/MM/yyyy HH:mm')}">
+								${new Date(pedido.dataPedido.getTime()).format('dd/MM/yyyy')}
+							</td>
+							<td width="9%" align="center">${pedido.valorPedido.formatCurrency('BRL').raw()}</td>
+							<td width="9%" align="center">
+								<span title="${pedido.desconto?.porcentagem}%">${pedido.desconto?.valorDesconto.formatCurrency('BRL').raw()}</span>
+							</td>
+							<td width="10%" align="center">
+								<span>${(pedido.frete==null || pedido.frete.valor==null) ? 'R$ 0' : pedido.frete.valor.formatCurrency('BRL').raw()}</span>
+							</td>
+							<td width="9%" align="center">${pedido.getValorTotal().formatCurrency('BRL').raw()}</td>
+							<td width="18%" align="center">
+								${pedido.codigoEstadoPedido.estado}
+							</td>
+							<td width="15%" align="center">${pedido.dataEntrega!=null ? new Date(pedido.dataEntrega.getTime()).format('dd/MM/yyyy HH:mm') : pedido.dataEntrega}</td>
+						</tr>
+					#{/paginate.list}
+					#{/else}
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td colspan="4" align="center">#{paginate.summary items:vPedidos/}</td>
+			<td colspan="5" align="center">#{paginate.controls items:vPedidos /}</td>
+		</tr>
+	</table>
+</div>
+<br />
+<script type="text/javascript" charset="UTF-8">
+function pesquisar() {
+	var valor = document.getElementById('paramPedido');
+	var parametro = $("input[name='param']:checked").val();
+
+	try {
+		if(valor.value=="") {
+			alert("Digite um valor correto para a pesquisa!");
+			valor.focus();
+			
+		}else { 
+
+			if(parametro=="id" && isNaN(valor.value)) {
+				alert("Digite somente números!");
+				valor.focus();
+				
+			}else {
+				document.getElementById('searchOrderForm').submit();
+			} 
+		}
+	}catch(e) {
+		alert("Erro ao tentar pesquisar o pedido: " + e);
+	}
+}
+
+function openNewWindow(action, nomeJanela, width, height, scrollbars) {
+	try {
+		var windowProps = "width="+width+",height="+height+",scrollbars="+scrollbars+",left=300,top=40,fullscreen=no,menubar=no,status=no,resizable=no";
+	
+		window.open(action, nomeJanela, windowProps, false);
+
+	}catch(e) {
+		alert("Erro ao tentar abrir a nova janela: " + e);
+	}
+}
+</script>

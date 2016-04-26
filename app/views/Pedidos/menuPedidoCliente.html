@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="pt-br" />
+		<meta name="description" content="Vida Saudável Orgânicos, loja online de produtos orgânicos, integrais e naturais." />
+		<title>Pedido Cliente</title>
+	    <link rel="stylesheet" media="screen" href="&{'application.static.content'}/stylesheets/main.css">
+        <link rel="stylesheet" media="screen" href="&{'application.static.content'}/stylesheets/vidasaudavel.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/jquery-ui-1.8.17.custom.css">
+        #{get 'moreStyles' /}
+        <script src="&{'application.static.content'}/javascripts/carrinho.js" type="text/javascript" charset="utf-8"></script>
+        <script src="&{'application.static.content'}/javascripts/jquery-1.5.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="&{'application.static.content'}/javascripts/jquery_cookie.js" type="text/javascript" charset="utf-8"></script>
+        #{get 'moreScripts' /}
+	</head>
+	<body class="body">
+	<div style="width: 100%; float: left" class="fontGreen1">
+	<div>
+		<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" class="top_layout">
+			<tr height="110px">
+				<td colspan="100%">
+					<img alt="Logo Vida Saudável Orgânicos" src="&{'application.static.content'}/images/logo.jpg" border="0" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+	<div id="menuAdm">
+		#{if (pedido!=null) }
+			<a href="@{Pedidos.infoPedidoCliente(pedido.id)}"><span class="menuAdm">&{'form.order.edit'}</span></a>
+			<a href="/pedidos/produtos/show/${pedido.id}"><span class="menuAdm">&{'form.order.btnViewProducts'}</span></a>
+			#{if (pedido.podeAlterarMetodoPagamento())}
+			<a href="@{Pedidos.alterarMetodoPagamento(pedido.id)}"><span class="menuAdm">&{'form.order.alterar.metodoPagamento'}</span></a>
+			#{/if}
+			<a href="@{Pedidos.findUltimosPedidos(pedido.id, pedido.cliente.id, 25)}"><span class="menuAdm">&{'form.order.last'}</span></a>
+			<a href="@{Relatorios.gerarNotaFiscal(pedido.id)}"><span class="menuAdm">&{'form.order.notaFiscal'}</span></a>
+		#{/if}
+	</div>
+	<div style="width: 100%; height 1px; background-color: #DDDDDD;">
+		&nbsp;
+	</div>
+	<br />
+	#{doLayout /}
+</body>
+</html>

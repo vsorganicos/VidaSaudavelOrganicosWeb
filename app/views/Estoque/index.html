@@ -1,0 +1,112 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Cadastrar Estoque
+#{/set}
+
+<div class="defaultContentSize">
+	<div>
+	#{form @Estoque.cadastrar(), id:'formCadastroEstoque', method:'POST'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<span>&{'form.button.cadastro'}&nbsp;&{'form.estoque.title'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="right" width="35%">&{'form.product.title'}</td>
+			<td align="left">
+				#{select 'estoque.produto.id', items:produtos, valueProperty:'id', labelProperty:'nome', class:"select fontGreen1"}*
+				#{/select}
+		</td>
+		<tr>
+			<td align="right" width="35%">&{'form.global.price'}</td>
+			<td align="left">
+				<input type="text" readonly="readonly" disabled="disabled" class="textBox1" name="estoque.preco" id="estoque.preco" 
+						size="15" maxlength="8" value="${estoque.preco}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="35%">&{'form.label.quantidade'}</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="estoque.quantidade" id="estoque.quantidade" 
+						size="15" maxlength="6" value="${estoque.quantidade}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="35%">&{'form.product.dataValidade'}</td>
+			<td align="left">
+				<input type="text" class="datePicker" name="dataValidade" id="dataValidade" 
+						size="15" value="${estoque.produto?.dataValidade}" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="35%">&{'form.estoque.sendReport'}</td>
+			<td align="left">
+				#{select 'estoque.enviarRelatorio', value:estoque.enviarRelatorio, class:"select fontGreen1"}*
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}Não#{/option}
+				#{/select}
+		</td>
+		<tr>
+			<td colspan="2" align="center">
+				<span>&{'form.campo.obrigatorio'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">
+				#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+				<span>|</span>
+				<a href="javascript:cadastrar();" class="fontBrown">&{'form.button.next'}</a>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">&nbsp;
+				#{ifErrors}
+				<div style="width: 50%;" align="center">
+					<div style="width: 100%; border: 1px #FF0000 solid; background-color: red;">
+						<span class="fontWhite">&{'validation.failed'}</span>
+					</div>
+					<br />
+					#{errors}
+						<span class="fontRed">${error}</span><br />
+					#{/errors}
+				</div>
+				#{/ifErrors}
+			</td>
+		</tr>
+	</table>
+	</div>
+	#{/form}
+</div>
+<script charset="utf-8">
+	function cadastrar() {
+		try {
+			var formulario = document.getElementById('formCadastroEstoque')
+			
+			formulario.submit();
+		
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	function consultarPreco() {
+		try {
+			var = #{jsAction @Produtos.consultarPreco(':id') /}
+			
+			alert($("#estoque.produto.id"));
+		
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	$(".datePicker").datepicker({dateFormat:'dd/mm/yy', showAnim:'fadeIn'})
+</script>

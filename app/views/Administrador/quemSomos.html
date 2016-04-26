@@ -1,0 +1,22 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'form.quemsomos.title'}
+#{/set}
+<div>
+<br />
+<div class="txt_titulo_institucional">&{'form.quemsomos.title'}</div>
+<br />
+<div id="quemSomosContent" style="padding-left: 1%;padding-right: 1%;">
+	<span class="fontGreen1">&{'form.quemsomos.content'}</span><br />
+	<span class="fontGreen1">&{'form.quemsomos.missao.title'}</span>
+	<span class="fontGreen1">&{'form.quemsomos.missao'}</span><br />
+	<span class="fontGreen1">&{'form.quemsomos.valores.title'}</span>
+	<span class="fontGreen1">&{'form.quemsomos.valores'}</span><br />
+	<span class="fontGreen1">&{'form.quemsomos.moreAboutUs.title'}</span><br />
+	<span class="fontGreen1">&{'form.quemsomos.felipe'}</span><br />
+</div>
+</div>
+<div align="right">
+	#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+</div>
+<br />

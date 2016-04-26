@@ -1,0 +1,47 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Pedido Finalizado
+#{/set}
+
+<div class="defaultContentSize">
+	<img height="1" width="1" alt="" src="http://www.googleadservices.com/pagead/conversion/949451343/imp.gif?value=0&amp;label=29bDCPmtnQUQz_TdxAM&amp;guid=ON&amp;script=0" />
+	<br /><br />
+	<div align="center">
+		<span class="txt_titulo_01">&{'form.final.order.delivery'}</span>
+	</div>
+	<br />
+	<div align="center">
+		<div style="background-color: #DDD; width: 37%; padding: 3px;">
+			<span class="fontGreen3">&{'form.order.orderSuccess', pedido.id}</span><br /><br />
+			<span class="fontGreen3">
+			#{if (pedido.cliente.estaNaCapital())}
+				&{'form.order.deliveryDate', new Date(pedido.getDataAproximadaEntrega().getTime()).format('dd/MM/yyyy')}
+			#{/if}
+			#{else}
+				&{'form.order.delivery.country'}
+			#{/else}
+			</span>
+			<br />
+		</div>
+	</div>
+	<br /><br />
+	<div align="center">
+		<span class="txt_titulo_01">&{'form.final.order.faleConosco', cliente.nome, cliente.usuario.email}</span>
+	</div>
+</div>
+<div align="right">
+	#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+	<span>|</span>
+	<a href="/pedidos/${session.clienteId}" class="fontBrown">&{'form.admin.consulta'}</a>
+</div>
+<br />
+<script type="text/javascript" charset="utf-8">
+	var documento = $("#body");
+	
+	documento.ready(
+		$(function() {
+			if("${responderQuestionario}"=="true")
+				$("#responderQuestionario").triggerHandler('click');
+	})
+	);
+</script>

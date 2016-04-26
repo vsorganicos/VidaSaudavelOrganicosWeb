@@ -1,0 +1,211 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Editar Meus Dados
+#{/set}
+
+<div class="defaultContentSize">
+	<div>
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+		<tr>
+			<td colspan="2" align="center">
+				<span class="fontGreen3">&{'form.title.edit.pessoafisica'}</span>
+			</td>
+		</tr>
+		<tr>
+			<input type="hidden" name="cliente.id" id="cliente.id" value="${cliente.id}" />
+			<input type="hidden" name="cliente.usuario.id" id="cliente.usuario.id" value="${cliente.usuario.id}" />
+			<input type="hidden" name="cliente.ativo" id="cliente.ativo" value="${cliente.ativo}" />
+			<td width="40%" align="right">&{'form.label.nome'}&nbsp;</td>
+			<td align="left"><input type="text" class="textBox1" name="cliente.nome" id="cliente.nome" size="40" value="${cliente.nome}"/>*</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.cpf'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="cliente.cpf" id="cliente.cpf" size="15" maxlength="11" value="${cliente.cpf}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.rg'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="cliente.rg" id="cliente.rg" size="15" maxlength="10" value="${cliente.rg}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.sexo'}&nbsp;</td>
+			<td align="left">
+				#{select 'sexo', value:cliente.sexo, class:"select1 textBox1", id:'sexo'}*
+					#{option ''}Selecione#{/option}
+					#{option 'F'}Feminino#{/option}
+					#{option 'M'}Masculino#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.estadoCivil'}&nbsp;</td>
+			<td align="left">
+				#{select 'estadoCivil', value:cliente.estadoCivil, class:"select1 textBox1", id:'estadoCivil'}*
+					#{option ''}Selecione#{/option}
+					#{option 'Solteiro'}Solteiro#{/option}
+					#{option 'Casado'}Casado#{/option}
+					#{option 'Divorciado'}Divorciado#{/option}
+					#{option 'Viúvo'}Vi&uacute;vo#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.customer.dataNascimento'}&nbsp;</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="cliente.dataNascimento" 
+						id="cliente.dataNascimento" size="11" maxlength="10" value="${new Date(cliente.dataNascimento.getTime()).format('dd/MM/yyyy')}" onkeyup="mascaraData(this);" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.email'}&nbsp;</td>
+			<td align="left">
+				<input type="text" readonly="readonly" class="textBox1" name="cliente.email" id="cliente.usuario.email" size="45" maxlength="300" value="${cliente.usuario.email}" />*
+			</td>
+		</tr>
+		#{if (session.isAdmin!=null && session.isAdmin=='true') }
+		<tr>
+			<td align="right">&{'form.label.status'}&nbsp;</td>
+			<td align="left">
+				#{select 'ativo', id:'ativo', value:cliente.ativo, class:"fontGreen1"}*
+					#{option 'true'}Ativo#{/option}
+					#{option 'false'}Inativo#{/option}
+				#{/select}
+			</td>
+		</tr>
+		#{/if}
+		<tr>
+			<td align="right">&{'form.customer.mailing.active'}&nbsp;</td>
+			<td align="left">
+				#{select 'recebeMail', id:'recebeMail', value:cliente.usuario.recebeMail, class:"fontGreen1"}*
+					#{option 'true'}Sim#{/option}
+					#{option 'false'}N&atilde;o#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="left">
+				<a href="/ajaxEndereco?height=380&width=550&id=${cliente.enderecos[0].id}" class="thickbox fontBrown">&{'form.title.endereco'}</a>
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:atualizarDadosCliente();">&{'form.button.next'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.login.oldPassword'}</td>
+			<td align="left">
+				<input type="password" class="textBox1" name="senhaAntiga" id="senhaAntiga" size="15" maxlength="300" value="${cliente.usuario.senha}" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.login.newPassword'}</td>
+			<td align="left">
+				<input type="password" class="textBox1" name="cliente.usuario.senha" id="cliente.usuario.senha" size="15" maxlength="300" value="" />*
+			</td>
+		</tr>
+		<tr>
+			<td align="right">&{'form.login.confirmPassword'}</td>
+			<td align="left">
+				<input type="password" class="textBox1" name="senha" id="senha" size="15" value="" maxlength="300" />*
+			</td>
+		</tr>
+		#{if (session.isAdmin!=null && session.isAdmin=='true') }
+		<tr>
+			<td align="right">&{'form.customer.grupo'}&nbsp;</td>
+			<td align="left">
+				#{select 'idGrupo', id:'idGrupo', items:grupos, valueProperty:id, labelProperty:'nome', value:cliente.usuario.grupo?.id, class:"fontGreen1"}						
+				#{/select}
+			</td>
+		</tr>
+		#{/if}
+		#{else}
+			<input type="hidden" name="cliente.usuario.grupo.id" id="cliente.usuario.grupo.id" value="${cliente.usuario.grupo?.id}" />
+			<input type="hidden" name="cliente.usuario.grupo.nome" id="cliente.usuario.grupo.nome" value="${cliente.usuario.grupo?.nome}" />
+		#{/else}
+		<tr>
+			<td colspan="2" align="center">&{'form.campo.obrigatorio'}</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center">
+				&nbsp;
+				#{ifErrors}
+					#{errors}
+					<li>
+						<span class="fontRed">${error}</span>
+					</li>
+					#{/errors}
+				#{/ifErrors}
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="left">
+				<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:atualizarDadosUsuario();">&{'form.button.next'}</a>
+			</td>
+		</tr>
+	</table>
+	</div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+#{if (params.message!=null)}
+	alert("&{'form.customer.update.success'}");
+#{/if}
+
+function atualizarDadosUsuario() {
+	try {
+		var ehAdmin = "${session.isAdmin}"; 
+		
+		if(document.getElementById("senhaAntiga").value!="" && document.getElementById("cliente.usuario.senha").value!=""
+			&& document.getElementById("senhaAntiga").value!=document.getElementById("cliente.usuario.senha").value) {
+			if(ehAdmin=="")
+				var _idGrupo = document.getElementById("cliente.usuario.grupo.id").value;
+			else
+				var _idGrupo = $("#idGrupo option:selected").val();
+	
+				$.post('@{Clientes.atualizarDadosUsuario()}', {idUsuario:document.getElementById("cliente.usuario.id").value, 
+															senha:document.getElementById("cliente.usuario.senha").value, 
+															confirmaSenha:document.getElementById("senha").value,
+															idGrupo:_idGrupo},
+				function(data) {
+					alert(data)
+				})
+				
+		}else {
+			alert("&{'message.form.login.senhas'}");
+		}
+		
+	}catch(e) {
+		alert("Erro: " + e);
+	}
+}
+
+function atualizarDadosCliente() {
+	try {
+		$.post('@{Clientes.atualizarDadosCliente()}', {id:document.getElementById('cliente.id').value, nome:document.getElementById('cliente.nome').value, 
+														cpf:document.getElementById("cliente.cpf").value, 
+														rg:document.getElementById("cliente.rg").value, 
+														sexo:$("#sexo option:selected").val(), 
+														estadoCivil:$("#estadoCivil option:selected").val(), 
+														dataNascimento:document.getElementById("cliente.dataNascimento").value + " 00:00",
+														status:$("#ativo option:selected").val(),
+														recebeMail:$("#recebeMail option:selected").val()}, 
+			function(data) {
+				alert(data)
+			})
+
+	}catch(e) {
+		alert("Erro: " + e);
+	}
+} 
+</script>
+

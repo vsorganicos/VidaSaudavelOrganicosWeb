@@ -1,0 +1,66 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Fornecedores Cadastrados
+#{/set}
+
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+
+<div class="boxConsultaDefault">
+	<form id="fornecedorForm">
+	<table width="100%" cellpadding="1" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="center" width="30%">&{'form.label.nome'}</td>
+			<td align="center" width="15%">&{'form.fornecedor.cnpj'}</td>
+			<td align="center" width="25%">&{'form.email'}</td>
+			<td align="center">&{'form.label.status'}</td>
+			<td align="right" width="15%">&{'form.application.inativar'} &{'form.admin.produto'}(s)</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{paginate.list items:fornecs, as:'fornecedor'}
+					<tr class="${fornecs_parity}">
+						<td width="31%" align="left">
+							<a href="/fornecedor/${fornecedor.id}" class="a1">${fornecedor.nome}</a>
+						</td>
+						<td width="15%" align="center">${fornecedor.cnpj}</td>
+						<td width="30%" align="left">${fornecedor.emailContato}</td>
+						<td align="center">
+							${fornecedor.ativo ? 'Ativo' : 'Inativo'}
+						</td>
+						<td align="right" width="15%">
+							<a href="javascript:inativarProdutosPorFornecedor('${fornecedor.id}');">&{'form.application.inativar'}</a>
+						</td>
+					</tr>
+					#{/paginate.list}
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td colspan="2" align="center">#{paginate.summary items:fornecs /}</td>
+			<td colspan="3" align="center">#{paginate.controls items:fornecs /}</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<br />
+<script type="text/javascript" charset="utf-8">
+function inativarProdutosPorFornecedor(id) {
+	var url = '/fornecedor/produtos/inativar/';
+	
+	try {
+		if(confirm("Deseja realmente continuar?")) {
+			url += id;
+			
+			$("#fornecedorForm").attr('action', url);
+			
+			$("#fornecedorForm").submit();
+		}	
+	
+	}catch(e) {
+		alert("Erro na tentativa de inativar os produtos: ", e);
+	}
+}
+</script>

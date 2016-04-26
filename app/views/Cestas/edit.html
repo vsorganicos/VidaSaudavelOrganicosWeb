@@ -1,0 +1,166 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'form.edit'} &{'form.cesta.title'}
+#{/set}
+<br />
+<div class="defaultContentSize">
+	#{form @Cestas.atualizar(), method:'POST', id:'cestaForm'}
+	<table width="96%" cellpadding="4" cellspacing="6" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<span>&{'form.edit'} &{'form.cesta.title'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="hidden" name="cesta.id" id="cesta.id" value="${cesta.id}" />&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="16%" align="right">
+				<span>&{'form.questionario.titulo'}</span>
+			</td>
+			<td align="left">
+				<input type="text" class="textBox1" name="cesta.titulo" id="cesta.titulo" size="40" autocomplete="on" value="${cesta.titulo}">
+			</td>
+		</tr>
+		<tr>
+			<td width="16%" align="right">&{'form.label.valorVenda'}&nbsp;</td>
+			<td align="left">
+				<input type="text" maxlength="10" class="textBox1" name="cesta.valorVenda" id="cesta.valorVenda" 
+						size="10" value="${cesta.valorVenda}" />*</td>
+		</tr>
+		<tr>
+			<td width="16%" align="right">
+				<span>&{'form.date.delivery'}</span>
+			</td>
+			<td align="left">
+				<input type="text" class="textBox1" maxlength="20" name="cesta.dataProximaEntrega" 
+							id="cesta.dataProximaEntrega" size="15" value="${cesta.dataProximaEntrega?.format('dd/MM/yyyy')}">
+			</td>
+		</tr>
+		<tr>
+			<td width="16%" align="right">
+				<span>&{'form.label.imagem'}</span>
+			</td>
+			<td align="left">
+				<input type="text" class="textBox1"  name="cesta.caminhoImagem" id="cesta.caminhoImagem" size="35" value="${cesta.caminhoImagem}">&{'form.product.type.image'}
+			</td>
+		</tr>
+		<tr>
+			<td width="13%" align="right">&{'form.product.title'}&nbsp;</td>
+			<td align="left">
+			<div style="position: relative; float: left">
+				<div style="position: relative; float: left">
+					#{select 'produtosAtivos', id:'produtosAtivos', items:produtosAtivos, valueProperty:id, class:"selectOptionTransfer", multiple:'multiple'}						
+					#{/select}
+				</div>
+				<div class="arrowSelectOptionTransfer" id="arrowSelectOptionTransfer">
+					<br /><br /><a id="addItemAtivo" title="&{'form.application.add'}" href="#">&gt;&gt;</a>
+					<br /><br /><a id="removeItemAtivo" title="&{'form.excluir'}" href="#">&lt;&lt;</a>
+				</div>
+				<div style="position: relative; float: left">
+					#{select 'produtosDisponiveis', id:'produtosDisponiveis', items:produtosDisponiveis, valueProperty:nome, class:"selectOptionTransfer", multiple:'multiple'}						
+					#{/select}
+				</div>
+			</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="13%" align="right">&{'form.order.observacao'}&nbsp;</td>
+			<td align="left">
+				<textarea cols="35" rows="5" name="cesta.observacao" id="cesta.observacao">${cesta.observacao}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="16%" align="right">
+				<span>&{'form.estoque.date.lastUpdate'}</span>
+			</td>
+			<td align="left">
+				<span>${cesta.dataAlteracao?.format('dd/MM/yyyy HH:mm')}</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="16%" align="right">
+				<span>&{'form.label.valorPago'}</span>
+			</td>
+			<td align="left">
+				<span>${cesta.valorCustoCesta.formatCurrency('BRL')}</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="right">&{'form.label.status'}&nbsp;</td>
+			<td align="left">
+				#{select 'ativo', id:'ativo', value:cesta.ativo, class:"fontGreen1"}*
+					#{option 'true'}Ativo#{/option}
+					#{option 'false'}Inativo#{/option}
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<a href="javascript:history.go(-1);" class="fontBrown">&{'form.button.back'}</a>
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:selectTransferOption();">&{'form.button.next'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="center">
+				#{ifErrors}
+					#{errors}
+					<li>
+						<span class="fontRed">${error}</span>
+					</li>
+					#{/errors}
+				#{/ifErrors}
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+<script type="text/javascript" charset="UTF-8">
+$().ready(function() {  
+   $('#addItemAtivo').click(function() {  
+    return !$('#produtosAtivos option:selected').remove().appendTo('#produtosDisponiveis');  
+   });  
+   $('#removeItemAtivo').click(function() {  
+    return !$('#produtosDisponiveis option:selected').remove().appendTo('#produtosAtivos');  
+   });
+   
+    $('#addItemDisponivel').click(function() {  
+    return !$('#produtosDisponiveis option:selected').remove().appendTo('#produtosDisponiveisSelecionados');  
+   });  
+   $('#removeItemDisponivel').click(function() {  
+    return !$('#produtosDisponiveisSelecionados option:selected').remove().appendTo('#produtosDisponiveis');  
+   });    
+  });
+  
+function selectTransferOption() {
+	try {
+		if("${cesta.id!=null}"=="true") {
+			$("#produtosDisponiveis").find("option").attr("selected","selected");
+		}
+		
+		document.getElementById('cesta.dataProximaEntrega').value = document.getElementById('cesta.dataProximaEntrega').value + ' 00:00';
+		document.getElementById('cestaForm').submit();
+	
+	}catch(e) {
+		alert("Erro ao tentar enviar os dados: " + e);
+	}
+}
+</script>

@@ -1,0 +1,6 @@
+Ocorreu o seguinte erro na aplicação: ${e.getMessage()}
+
+Detalhe:
+
+${e.getCause()}
+

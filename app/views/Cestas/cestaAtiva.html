@@ -1,0 +1,114 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Assinar Cesta
+#{/set}
+
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/ui.jqgrid.css">
+<script src="&{'application.static.content'}/javascripts/jquery.jqGrid.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="&{'application.static.content'}/javascripts/i18n/grid.locale-pt-br.js" type="text/javascript" charset="utf-8"></script>
+
+#{form @Cestas.associar(), method:'POST', id:'cestaAssociarForm'}
+<div>
+	<br />
+	<div class="txt_titulo_institucional">&{'form.cesta.assign'}</div>
+	<br />
+	<div style="margin-left: 3%;">
+		<table id="list47"></table><div id="plist47"></div>
+	</div>
+ 	<br />
+	<div id="btn-next"><a href="#" id="associarCesta"></a></div>
+	<br />
+	<div>
+		#{ifErrors}
+			#{errors}
+			<li>
+				<span class="fontRed">${error}</span>
+			</li>
+			#{/errors}
+		#{/ifErrors}
+		#{if (message!=null)}
+		<script type="text/javascript">
+			alert("${message.raw()}");
+		</script>
+		#{/if}
+	</div>
+</div>
+<br />
+#{/form}
+
+<script>
+jQuery("#body").ready(
+	$.post('@{Cestas.produtosDisponiveis()}', {idCesta:${cesta.id}},
+			(function(data) 
+			{
+				var mydata = data;
+				
+				jQuery("#list47").jqGrid({
+					data: 
+						mydata, 
+						datatype: "local", 
+						height: 'auto',
+						width: "96%",
+						align: "center",
+						cellEdit: true,
+						cellsubmit: 'clientArray',
+						afterSaveCell : function(rowid,name,val,iRow,iCol) 
+										{
+											jQuery("#list47").jqGrid('setSelection',rowid);
+										}, 
+						rowNum: 300, 
+						colNames:["&{'form.label.codigoProduto'}","Imagem", "Produto", "Valor", "Prioridade", "&{'form.label.quantidade'}", "&{'form.cesta.info'}", "Seção"], 
+						colModel:[ 
+									{name:'codigo',index:'codigo', width:45, sorttype:"int"}, 
+									{name:'imagem',index:'imagem', width:71, formatter:"string"}, 
+									{name:'produto',index:'produto', width:300, formatter:"string"}, 
+									{name:'valor', index:'valor', width:40, align:"right", formatter:"number"},
+									{name:'opcional', index:'opcional', width:100, align:"center", formatter:"boolean"},
+									{name:'quantidade', index:'quantidade', width:70, align:"center", formatter:"int", editable:true,editrules:{required:true,minValue:1}},
+									{name:'informacoes', index:'informacoes', width:230, align:"right", formatter:"string"},
+									{name:'secao', index:'secao', width:160, align:"right", formatter:"string"} 
+								], 
+						pager: "#plist47", viewrecords: true,
+						sortname: 'secao',
+						multiselect: true,
+						grouping:true, 
+						groupingView : { groupField : ['secao'], groupColumnShow : [false], groupCollapse : true, groupText : ['<b>{0} - {1} Produto(s)</b>'] },
+						caption: "${cesta.titulo}" 
+				});
+			
+			})
+	)
+);
+jQuery("#associarCesta").click(
+	function validar() {
+		try {
+			var selRows = jQuery("#list47").jqGrid('getGridParam', 'selarrrow');
+			var url = "/cestas/associar?";
+
+			if(selRows==null || selRows.length==0) {
+				alert("Por favor, selecione os produtos.");
+				
+			}else {
+				var valor_total;
+				var valor_minimo = "&{'application.order.minValue'}";
+					
+				for(i=0; i<selRows.length; i++) {
+					var row = jQuery("#list47").jqGrid('getRowData', selRows[i]);
+					
+					var ehOpcional = row.opcional.substr(0, 1)=="P" ? false : true;
+					
+					if(i==0)
+						url += "produtos["+i+"].produto.id=" + row.codigo + "&produtos["+i+"].opcional="+ehOpcional + "&produtos["+i+"].quantidade="+row.quantidade;
+					else
+						url += "&produtos["+i+"].produto.id=" + row.codigo + "&produtos["+i+"].opcional="+ehOpcional + "&produtos["+i+"].quantidade="+row.quantidade;
+				}
+				$("#cestaAssociarForm").attr('action', url);
+
+				$("#cestaAssociarForm").submit();
+			}
+
+		}catch(e) {
+			alert("Erro ao tentar associar a cesta: " + e);
+		}
+});
+</script>

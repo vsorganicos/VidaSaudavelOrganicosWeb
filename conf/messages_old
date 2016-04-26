@@ -1,0 +1,594 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+validation.object=
+validation.failed=Ocorreram alguns erros ao tentar processar sua requisição: 
+
+application.tilte=Vida Saudável Orgânicos, a sua loja de produtos orgânicos, integrais e naturais...
+application.subtilte=Vida Saudável Orgânicos |
+application.path.upload.images=/Library/WebServer/Documents/static
+application.path.report=/public/jasper/
+application.path.upload.archives=arquivos/
+#application.path.report=/home/vidasaud/public_html/static/relatorios/
+#application.path.upload.images=/home/vidasaud/public_html/static/images/
+#application.path.upload.archives=/home/vidasaud/public_html/static/arquivos/
+application.path.termoCompromisso=/html/termo_compromisso.html
+application.path.images.width=420
+application.path.images.height=384
+application.path.public.images=/images/
+application.path.carrinho=comprar.jpg
+application.path.comprar=btn_comprar.jpg
+application.message.basket.empty=O Carrinho está vazio ou sua sessão expirou!
+application.message.notAuthenticated=Por favor, para prosseguir entre com seu e-mail e senha.
+
+#Tratamento de Exceção
+application.message.error=Desculpe, ocorreu um erro indesperado ao tentar processar sua requisição.
+
+#Conteúdo Estático
+#application.static.content=http://www.static.vidasaudavelorganicos.com.br
+application.static.content=https://s3-sa-east-1.amazonaws.com/vsorganicos
+
+application.layout.foot.playText=<span class='fontBoldWhite1'><i>Powered by</i><span> 
+application.layout.foot.playImg=<img src='/images/logo_play.png' width='50' height='27' />
+
+application.layout.foot.design.sithes= <a href='http://www.sithes.com' target='_blank'><img src='http://www.sithes.com/sithes_logo.jpg' border='0' width='75' height='18' /></a>
+
+application.captcha.title=Digite os caractéres que você vê nessa imagem
+application.captcha.error=Por favor, preencha exatamente o que vê na imagem 
+
+form.edit=Editar
+form.excluir=Excluir
+form.atualizar=Atualizar
+form.comprar=Comprar
+
+form.campo.obrigatorio=* Campo(s) obrigatório(s)
+
+message.products.notfound=Nenhum pedido encontrado.
+message.welcome.user=Bem Vindo, 
+message.home.doLogin=Bem vindo, faça o<a href='/login' class='a1'>login</a> ou <a href='/cliente' class='a1'>cadastre-se</a>.
+message.customer.edit.data=Editar Cadastro
+message.customer.myPage=Ver minha página
+message.secao.em=Você está em:
+message.secao.navegacao=Navegação Rápida
+
+message.required.cliente.nome=O Nome é obrigatório
+message.required.cliente.cpf=O CPF é obrigatório
+message.required.cliente.rg=O RG é obrigatório
+message.required.cliente.email=O e-mail é obrigatório
+message.required.cliente.dataNascimento=A data de nascimento é obrigatória
+message.required.cliente.sexo=Preencha o campo sexo
+message.required.cliente.estadoCivil=Preencha seu estado civil
+message.cpf.existente=O CPF informado já está cadastrado para outro cliente
+
+#Mensagens de Produto
+message.required.product.nome=O Nome do Produto é obrigatório
+message.required.product.descricao=A Desrição é obrigatória
+message.required.product.codigo=O Código do Produto é obrigatório
+message.required.product.valorPago=O valor pago pelo produto é obrigatório
+message.required.product.valorVenda=O Valor de Venda é obrigatório
+message.required.product.imagem=Selecione uma imagem
+message.notfound.product=Nenhum produto encontrado.
+message.required.product.fornecedor=Selecione o fornencedor
+
+message.error.estoque.produto=Produto em questão já existe no estoque!
+application.error.estoque=Desculpe, não foi possível finalizar seu pedido: %s.
+
+#Mensagens de Seção
+message.required.secao.descricao=Por favor, preencha o nome da Seção
+message.required.secao.ativo=Por favor, ative ou desative a Seção
+
+form.product.type.image=<i>(*.jpeg)</i>
+
+message.required.endereco.logradouro=O Logradouro é obrigatório
+message.required.endereco.numero=O Número é obrigatório
+message.validation.endereco.numero=Digite um número válido
+message.required.endereco.bairro=O Bairro é obrigatório
+message.required.endereco.cidade=O Cidade é obrigatório
+message.required.endereco.uf=A UF é obrigatória
+message.required.endereco.cep=O CEP é obrigatório
+message.minsize.endereco.cep=O CEP deve conter 8 números
+message.required.endereco.tipo=Selecione o tipo do endereço
+
+message.required.phone.prefixo=O prefixo do Telefone é obrigatório
+message.required.phone.numero=O campo Telefone é obrigatório
+
+message.required.login.username=Digite o seu login
+message.required.login.password=Digite a sua senha
+
+message.user.password.minsize=A senha deve conter 6 caractéres no mínimo.
+message.user.login.minsize=O Login deve conter 6 caractéres no mínimo.
+
+message.basket.order.assessor.required=Por favor, selecione o Cliente paraa o qual deseja realizar a compra.
+
+message.send.mail=A senha foi enviada para o seu email com sucesso!
+
+#Basket
+message.product.required=Por favor, selecione algum produto!
+form.mybasket=MEU CARRINHO
+form.basket.carrinho.assessor=Pedido vai ser atribuído ao Cliente?
+
+form.validation.password.notEquals=As senhas digitadas não são iguais
+form.validation.email.exists=O e-mail digitado já está cadastrado para outro usuário
+
+form.customer.nome=Nome
+form.customer.cpf=CPF
+form.customer.rg=RG
+form.customer.sexo=Sexo
+form.customer.estadoCivil=Estado Civil
+form.customer.dataNascimento=Data de Nascimento
+form.customer.mask.dataNascimento=(ex.: 19/08/1955)
+form.customer.mask.password=(mínimo de 6 caractéres)
+form.customer.grupo=Grupo
+form.customer.dicaCep=não sabe o seu CEP? <a href='http://www.buscacep.correios.com.br/' target='_blank'>Clique aqui</a>.
+form.customer.mailing.active=Desejo receber e-mails com promoções e informações.
+
+form.customer.export.email=Exportar e-mails
+
+form.user.title=Como gostaria de ser chamado?
+
+form.phone=Telefone
+form.phone.type=Tipo
+
+form.address.logradouro=Logradouro
+form.address.complemento=Complemento
+form.address.bairro=Bairro
+form.address.cidade=Cidade
+form.address.uf=UF
+form.address.cep=CEP
+
+form.customer.success=Cadastro inserido com sucesso!
+form.customer.update.success=Cadastro atualizado com sucesso!
+form.secao.success=Seção %s com sucesso!
+
+form.login.title.isCustomer=JÁ SOU CLIENTE
+form.login.user=Login
+form.login.password=Senha
+form.login.oldPassword=Senha antiga
+form.login.newPassword=Nova Senha
+form.login.confirmPassword=Confirme a Senha
+form.login.leave=Sair
+form.login.title.newCustomer=NOVO CLIENTE
+form.login.title.sendMail=ENVIAR SENHA
+form.email=E-mail
+form.sms=SMS
+
+form.login.logon.failed=Usuário ou senha não encontrado
+form.login.forget.password=<a href='/lembrarSenha' class='a2'>Esqueci minha senha</a>
+
+#PRODUTO
+form.product.title=Produto
+form.title.cadastrar.produto=Cadastrar Produto
+form.title.editar.produto=Editar Produto
+form.label.nome=Nome
+form.label.descricao=Descrição
+form.label.codigoProduto=Código
+form.label.valorPago=Valor Pago
+form.label.valorVenda=Valor de Venda
+form.label.imagem=Imagem
+form.label.status=Status
+form.label.imagem.tooltip=Visualizar
+form.label.view=Ver
+form.label.detail=Detalhe
+form.imgBasket.alt=Adicionar ao carrinho
+form.product.isBasket=Cesta
+form.product.lastUpdate=Última Atualização
+form.product.dataValidade=Data de Validade
+form.product.envioCorreio=Pode enviar por Correio?
+form.product.imagemDetalhe=Imagem meramente ilustrativa.
+form.product.envioProdutoCorreio=Despachamos por Correio
+form.product.refrigeracao=Exige Refrigeração?
+
+form.label.valorUnitario=Valor Unitário
+form.label.quantidade=Quantidade
+form.label.subtotal=Sub-Total
+form.label.total=Total
+form.label.frete=Frete
+form.label.valorCompra=Valor do Pedido
+form.label.valorCusto=Custo do Pedido
+
+#Valor Compra sem Frete
+application.frete.valor=15000.00
+application.order.minValue=70.00
+application.frete.interior.valor=9.90
+message.validation.order.minValue=Não foi possível prosseguir: o valor mínímo da compra é de R$ 70,00.
+
+form.button.next=Continuar
+form.button.cadastro=Cadastrar
+form.button.enviar=Enviar
+form.button.back=Voltar
+
+form.title.cadastro.pessoafisica=Cadastro Pessoa Física
+form.title.edit.pessoafisica=Editar Cadastro
+form.title.endereco=Dados de Endereço
+form.title.numero=Número
+
+message.error.email.notfound=E-mail não encontrado
+
+#Administrador Menu
+form.admin.title=Administrador
+form.admin.produto=Produto
+form.admin.consulta=Consultar
+form.admin.secao=Seção
+form.admin.secao.description=Nome da Seção
+form.admin.secao.cadastrar=Cadastrar Seção
+form.admin.secao.edit=Editar Seção
+form.admin.secao.pai=Seção Pai
+
+form.admin.clearCache=Limpar Cache
+form.admin.produto.cadastro.success=Produto %s com sucesso!
+form.admin.pedido=Pedido
+form.admin.customer=Cliente
+form.admin.layout=Layout
+form.admin.banner.home=Banner/Arquivo
+
+form.admin.mypage.home=MINHA PÁGINA
+form.admin.mypage.imgMeusDados=<img src="http://www.static.vidasaudavelorganicos.com.br/images/mydata.gif" />
+form.admin.mypage.meusDados=Meu Cadastro
+form.admin.mypage.alterarDados=Alterar Dados
+
+form.admin.mypage.imgMeusPedidos=<img src="http://www.static.vidasaudavelorganicos.com.br/images/orders.gif" />
+form.admin.mypage.meusPedidos=Meus Pedidos
+form.admin.mypage.date=Data
+form.admin.button.clear=Limpar
+
+#Promoção
+form.admin.promocao=Promoção?
+form.admin.promocao.retirar=Retirar produtos da promoção
+
+form.application.ativar=Ativar
+form.application.inativar=Inativar
+form.application.products.all=todos os produtos.
+form.application.upload.error=Selecione um arquivo.
+form.application.vendas=Vendas
+form.application.comercial=Comercial
+
+form.application.add=Adicionar
+
+#Pagamento
+form.payment.title=Selecione a forma de pagamento
+form.date.delivery=Data de Entrega
+
+#Pedido
+form.order.edit=Editar Pedido
+form.order.number=Número do Pedido
+form.order.value=Valor do Pedido
+form.order.desconto=Desconto
+form.order.code=Código
+form.order.date=Data do Pedido
+form.order.date.delivery=Data de Entrega
+form.order.hour.delivery=Hora
+form.order.customer=Cliente
+form.order.btnViewProducts=Ver Produtos
+form.order.orderSuccess=Pedido %s finalizado com sucesso!
+form.order.dateDelivery.wrong=A data de entrega não pode ser menor que a data do pedido.
+form.order.endereco.delivery=Caso deseje alterá-lo, clique <a href='/ajaxEndereco?height=360&width=550&id=%s' class='thickbox fontBrown'>aqui</a>.
+form.order.edit.products=Alterar Produtos
+form.order.observacao=Observação
+form.order.mypage.newOrder=Comprar Novamente 
+form.order.produtoNaoEntregue=Faltou na Entrega?
+form.order.removerEntrega=Remover Entrega
+form.order.alterar.metodoPagamento=Forma de Pagamento
+form.order.last=Últimos Pedidos
+form.order.debitos=Pedidos pendentes:
+form.order.creditos=Créditos pendentes:
+form.order.notaFiscal=Nota Fiscal
+form.order.outrasDespesas=Outras Despesas
+form.order.creditosDebitos=Atualizar Débitos/Créditos
+form.order.saldo=Saldo
+form.order.customer.credit=Créditos
+form.order.deliveryDate=Data prevista da entrega: %s
+
+#Questionário
+form.questionario.title=Questionário
+form.questionario.titulo=Título
+form.questionario.pergunta=Pergunta
+form.questionario.resposta=Resposta
+form.questionario.novo=Novo
+form.questionario.tip=Mantenho o CTRL pressionado para selecionar vários
+form.questionario.todos=Todos
+form.questionario.texto=Caro Cliente, para a melhoria do nosso atendimento, gostaríamos que respondesse o questionário abaixo.
+
+#Estoque
+form.estoque.title=Estoque
+form.estoque.date.lastUpdate=Data Alteração
+form.estoque.user.lastUpdate=Usuário
+form.estoque.sendReport=Enviar Relatório
+application.estoque.pedido=Ao selecionar essa opção, os produtos do pedido voltarão ao estoque.
+application.min.estoque=1
+form.estoque.img.indisponivel=btn_indisponivel.jpg
+form.estoque.report=Relatório de Posição de Estoque
+
+#Lote
+form.lote.title=Lote
+message.required.lote.quantidade=Por favor, preencha a quantidade
+message.error.lote.codigo=Já existe um lote cadastrado com esse código
+message.error.produto.codigo=Já existe um produto cadastrado para esse lote
+
+message.questionario.error=É necessário cadastrar ao menos uma %s 
+
+form.order.termoCompromisso=Li e aceito o <a href='/ajaxTermoCompromisso?height=500&width=650' onclick='javascript:checkTermoCompromisso()' title='Termo de Compromisso' class='thickbox'>Termo de Compromisso</a>
+application.url.termoCompromisso=http://www.static.vidasaudavelorganicos.com.br/html/termo_compromisso.html
+
+validation.required=O campo %s é obrigatório
+
+validation.data.success=Dados atualizados com sucesso!
+form.insert.data.success=Dados cadastrados com sucesso!
+
+message.norecordfound=Nenhum registro encontrado.
+
+#JavaScript Messages
+message.clearBasket=Deseja realmente excluir os ítens do carrinho?
+message.form.login.senhas=Por favor, verifique se a senha antiga e a nova coincidem ou se estão vazias.
+message.ativar.inativar.todos=Deseja realmente continuar com essa operação?
+
+#Institucional
+form.intitucional.link=<a href='/quem-somos'>Quem Somos</a><span> | </span><a href='/o-que-sao-organicos'>O que são <strong>Orgânicos</strong>?</a><span> | </span><a href='/politica-de-entrega'>Política de Entrega</a><span> | </span><a href='/faleconosco'>Fale Conosco</a> | </span><a href='/fornecedores'>Fornecedores</a> | </span><a href='/na-midia'>Na Mídia</a><span> | </span><a href='/parceiros'>Parceiros</a><span>
+#form.intitucional.foot.link=<a href='/quem-somos'>Quem Somos</a><span> | </span><a href='/o-que-sao-organicos'>O que são <strong>Orgânicos</strong>?</a><span> | </span><a href='/politica-de-entrega'>Política de Entrega</a><span> | </span><a href='/faleconosco'>Fale Conosco</a> | </span><a href='/fornecedores'>Fornecedores</a> | </span><a href='/parceiros'>Parceiros</a><span> | </span><a href='/na-midia'>Na Mídia</a><span>
+form.faleConosco.title=Fale Conosco
+form.faleConosco.text=<p><h3>Seu contato é muito importante para nós.</h3><br /><h4>Envie suas críticas, sugestões ou deixe-nos uma mensagem para que possamos melhorar nossos serviços.</h4></p>
+form.faleConosco.phoneNumber=<p>Se preferir entrar em contato por telefone: <strong>(11) 2308-8160</strong>
+form.faleConosco.message=Mensagem
+message.faleConosco.success=Seu contato foi registrado com sucesso! Em breve ele será respondido.
+form.final.order.faleConosco=Para que possamos melhorar nossos serviços, gostaríamos nos enviasse sua opinião, crítica ou sugestão <a href='/faleconosco?nome=%s&email=%s'><u>clicando aqui</u></a>.
+form.final.order.delivery=<p>Atenção, as informações pertinentes ao seu pedido, foram enviadas por e-mail.<span style='visibility: hidden;'><a href='/ajaxResponderQuestionario?height=260&width=470' id='responderQuestionario' class='thickbox'>|</a><span></p>
+form.final.order.previsaoEntrega:
+
+form.oquesao.title=O que são Orgânicos?
+form.quemsomos.title=Quem Somos
+form.politicaEntrega.title=Política de Entrega
+form.application.close=Fechar
+
+form.quemsomos.content=<p>A <strong>Vida Saudável Orgânicos</strong> nasceu da idéia de estimular a produção e o consumo de alimentos mais saudáveis e que ao mesmo tempo proporcionem o desenvolvimento sócio-ambiental de forma mais justa e sustentável.</p><br /><p>Como os alimentos <strong>orgânicos</strong> são produzidos seguindo padrões em que não somente respeita-se o meio-ambiente, como também estabelecem melhores relações de trabalho, percebemos que eles se encaixam perfeitamente ao nosso propósito.</p><br /><p>A <strong>Vida Saudável Orgânicos</strong> age de acordo com os preceitos da economia solidária, fortalecendo e incentivando todos os envolvidos: parceiros, produtores e consumidores conscientes, praticando um comércio justo; promovendo a sustentabilidade da vida no campo e facilitando o crescimento do pequeno produtor, uma vez que a produção de nossos orgânicos provém de núcleos familiares, os quais inúmeras vezes têm na terra sua única fonte de sustento. Desse modo, favorece a melhor distribuição de renda e evita êxodo rural.</p>
+form.quemsomos.moreAboutUs.title=<p><h3>Um pouco mais sobre nós...</h3></p>
+form.quemsomos.alexandre=<p><h4><strong>Alexandre Viola</strong></h4>Pós graduado em Yoga â€“ FMU , graduado em Ciências Sociais â€“ USP, é professor de hatha-yoga desde 2004. Atualmente leciona a modalidade em espaços públicos, privados e ongâ€™s.<p>Contato: <a href='mailto:alexandre@vidasaudavelorganicos.com.br'>alexandre@vidasaudavelorganicos.com.br</a></p></p>
+form.quemsomos.thais=<p><h4><strong>Thaís Petroff Garcia</strong></h4>Formada em Psicologia pela PUC-SP, mestranda no IPQ-FMUSP.Psicoterapeuta e Coach. Cursando aprimoramento em Fitoterapia. Praticante de Kundalini Yoga e Medicina Ayurvédica. Parou de comer carne em janeiro de 2011 e cada vez mais busca formas saudáveis e naturais de se alimentar.<p>Contato: <a href='mailto:thais@vidasaudavelorganicos.com.br'>thais@vidasaudavelorganicos.com.br</a></p></p>
+form.quemsomos.felipe=<p><h4><strong>Felipe Guerra de Oliveira</strong></h4>Formado em Processamento de Dados pela Fatec-SP, atua na área de desenvolvimento de software na plataforma Java desde 2005.<p>Contato: <a href='mailto:felipe@vidasaudavelorganicos.com.br'>felipe@vidasaudavelorganicos.com.br</a></p></p>
+form.quemsomos.neimar=<p><h4><strong>Neimar Viola</strong></h4>Economista.<p>Contato: <a href='mailto:neimar@vidasaudavelorganicos.com.br'>neimar@vidasaudavelorganicos.com.br</a></p></p>
+form.quemsomos.missao.title=<p><h3>Missão da Empresa</h3></p>
+form.quemsomos.missao=<p><i>Promover a produção e o consumo de alimentos <strong>orgânicos</strong>, incentivando escolhas conscientes e levando maior qualidade de vida para as pessoas.</i></p>
+form.quemsomos.valores.title=<p><h3>Valores</h3></p>
+form.quemsomos.valores=<p><i>Respeito à natureza, cooperação, justiça social, qualidade de vida, responsabilidade, ética.</i></p>
+
+form.oquesao.content=<p>A definição utilizada pela EMBRAPA (Empresa Brasileira de Pesquisa Agropecuária) para agricultura orgânica é: "sistema de manejo sustentável da unidade de produção, com enfoque holístico que privilegia a preservação ambiental, a agrobiodiversidade, os ciclos biológicos e a qualidade de vida do homem, visando a sustentabilidade social, ambiental e econômica no tempo e no espaço. Baseia-se na conservação dos recursos naturais e não utiliza fertilizantes de alta solubilidade, agrotóxicos, antibióticos, aditivos químico-sintéticos, hormônios, organismos transgênicos e radiações ionizantes."</p>
+form.oquesao.vantagens.title=<p><h3>Saiba das vantagens em consumir esses produtos:</h3></p>
+form.oquesao.vantagens.topic1.title=<p><h4>Mais Ecologia</h4></p>
+form.oquesao.vantagens.topic1=<p>Os alimentos <strong>orgânicos</strong> estão em harmonia com a natureza pois, diferente daqueles que são cultivados de modo convencional, não levam o uso de agrotóxicos e fertilizantes. Desse modo, não poluem os rios e lençóis freáticos com substâncias químicas, que seriam ingeridas pelos animais e também pelos seres humanos que vivem na região. Além disso, os alimentos <strong>orgânicos</strong> são livres de material geneticamente modificado (transgênicos), uma vez que novas formas artificiais de vida não possuem desenvolvimento natural e ainda não se sabe quais os impactos destes no meio ambiente.</p>
+form.oquesao.vantagens.topic2.title=<p><h4>Mais sustentabilidade</h4></p>
+form.oquesao.vantagens.topic2=<p>O cultivo de <strong>orgânicos</strong> mantém o solo vivo, fértil e preservado, pois utiliza os próprios resíduos naturais (compostagem e esterco) como fonte de adubo para a terra. Com esse mesmo intuito, faz-se uso da rotação de cultura, na qual ao fim do ciclo daquela espécie (colheita) será plantada outra em seu lugar. Como as raízes possuem profundidades diferentes e as espécies necessidades variadas de nutrientes, cada qual irá aproveitar o solo de maneira diversificada, não desgastando-o e evitando a erosão. Além disso, mantem-se a possibilidade das gerações futuras usufruírem da terra e de seus benefícios.</p>
+form.oquesao.vantagens.topic3.title=<p><h4>Mais confiável</h4></p>
+form.oquesao.vantagens.topic3=<p>A certificação (comprovada pelo selo de qualidade) garante que o produto é de procedência orgânica e confirma que a propriedade e os meios pelo qual o alimento é produzido e comercializado estão de acordo com as diretrizes estipuladas pelo órgão certificador e pelas normas nacionais e internacionais.</p>
+form.oquesao.vantagens.topic4.title=<p><h4>Melhor uso do dinheiro</h4></p>
+form.oquesao.vantagens.topic4=<p>Eliminam-se custos ambientais com recuperação do meio ambiente degradado pelo cultivo e consumo de alimentos convencionais; reduzem-se gastos médicos com tratamentos de saúde; desse modo os produtos <strong>orgânicos</strong> têm melhor relação custo-benefício.</p>
+form.oquesao.vantagens.topic5.title=<p><h4>Mais sabor</h4></p>
+form.oquesao.vantagens.topic5=<p>O sabor e aroma dos alimentos <strong>orgânicos</strong> são mais intensos, uma vez que não há produtos químicos para alterá-los, nem fertilizantes químicos que fazem com que os alimentos 'inchem' e fiquem com sabor e aroma mais 'diluídos'. Nas frutas, por exemplo, a presença de frutose é maior, deixando-as mais doces.</p>
+form.oquesao.vantagens.topic6.title=<p><h4>Mais saúde</h4></p>
+form.oquesao.vantagens.topic6=<p>Pesquisas demonstram que os agrotóxicos são prejudiciais aos organismos vivos e os resíduos que permanecem nos alimentos podem provocar diversos problemas de saúde, tais como reações alérgicas, problemas respiratórios, distúrbios hormonais, alterações neurológicas e até câncer. Como os alimentos <strong>orgânicos</strong> são cultivados sem substâncias químicas o consumidor não precisa ter essa preocupação.</p>
+form.oquesao.vantagens.topic7.title=<p><h4>Mais nutrição</h4></p>
+form.oquesao.vantagens.topic7=<p>Os alimentos frescos <strong>orgânicos</strong> possuem em sua maioria menor quantidade de água em sua composição (20 por cento menos). Desse modo os nutrientes ficam mais concentrados. Além disso, o fato destes serem produzidos em solos mais ricos e nutridos com adubo natural faz com que esses alimentos tenham maior presença de nutrientes, comparados com os cultivados de modo convencional.</p>
+form.oquesao.vantagens.topic8.title=<p><h4>Mais consciência</h4></p>
+form.oquesao.vantagens.topic8=<p>O consumo de alimentos <strong>orgânicos</strong> aumenta a consciência sobre a natureza e seus ciclos. As frutas, legumes e verduras tem sua época e na Antroposofia explica-se que é nesse momento que é mais saudável consumi-los.  Optar pelo consumo de orgânicos economiza energia, uma vez que os agrotóxicos e fertilizantes químicos são preparados utilizando petróleo, além de reduzir o aquecimento global.</p>
+form.oquesao.vantagens.topic9.title=<p><h4>Mais praticidade</h4></p>
+form.oquesao.vantagens.topic9=<p>Você pode ter todas essas vantagens na sua casa; sem perder a comodidade e sem precisar pegar o carro para ir ao mercado. Os produtos saem da terra e chegam fresquinhos em seu lar, entre 24 e 36 horas.</p>
+
+form.politicaEntrega.order.title=<p><h3>Pedidos</h3></p>
+form.politicaEntrega.order=<p>Ao acessar a loja virtual da <strong>Vida Saudável Orgânicos</strong> pela primeira vez, você pode fazer seu cadastro antes de iniciar suas compras, ou no momento em que concluí-las. Se você já é nosso cliente, basta fazer seu <a href='/login'>login</a> utilizando o e-mail e senha cadastrados.</p>
+form.politicaEntrega.entrega.title=<p><h3>Entrega</h3></p>
+form.politicaEntrega.entrega=<p>Os pedidos fechados até Domingo, <b>23:00hs</b>, serão entregues na <strong>Terça-feira</strong> seguinte. <p>Já os pedidos que forem feitos após o Domingo, <strong>até Terça-feira, 22hs</strong>, serão entregues na <strong>Quinta-Feira</strong>.</p><font color="#FF0000"><br /><b>Cancelamentos:</b> Eventuais cancelamentos deverão ser comunicados até Domingo, 23:00hs. O estorno será feito integralmente para os pedidos pagos com antecedência.</font></p><br /><p>O valor mínimo da compra é de <strong>R$ 70,00</strong> e será cobrada uma taxa de entrega de acordo com o município:<br /><ul><li class='li-1'><p><strong>São Paulo:</strong> R$8,00<p></li><li class='li-1'><p><strong>Alphaville / Tamboré :</strong> R$11,00. <strong>(Entregas somente às Terças)</strong></p></li></ul><br />Compras acima de <strong>R$ 200,00</strong> e com opção de pagamento <strong>Dinheiro</strong> ou <strong>Cheque</strong>, terão <b>%s</b> de desconto no valor do pedido.</p><br /><p><b><u>Importante</u>:</b> No ato da entrega poderá haver a falta de algum produto, em função de condições climáticas ou outros fatores, como por exemplo, imprevistos no transporte.</p>
+form.politicaEntrega.bairros.title=<p><h3><a href='#bairros' class='txt_titulo_06'>Bairros Atendidos</a> (São Paulo)</h3></p>
+form.politicaEntrega.bairros=Bairros Atendidos
+form.politicaEntrega.pagamento.title=Forma de Pagamento
+form.politicaEntrega.pagamento=<p>Seu pedido pode ser pago de duas maneiras:</p><br /><ul><li class='li-1'><strong>Dinheiro</strong> ou <strong>Cheque</strong> no ato da entrega.</li><li class='li-1'>Pedidos acima de R$ 80,00 podem ser pagos usando o <strong>PayPal*</strong> ou o <strong>PagSeguro**</strong>.</li></ul><br />
+form.politicaEntrega.pagamento.paypal=<a href='https://www.paypal-brasil.com.br/' target='_blank'><img src='%s/images/paypal_logo.gif' alt='paypal logo' border='0' /></a><br />*Basta selecionar a opção PayPal na hora de fechar seu pedido, então você será redirecionado para a <b>área segura</b> do site para utilizar os dados da sua conta PayPal.<br /><br /><img src='%s/images/logo_pagseguro.gif' alt='pagseguro logo' border='0' /><br />**Basta selecionar a opção PagSeguro na hora de fechar seu pedido, então você será redirecionado para a <b>área segura</b> do site e poderá digitar seu cartão de crédito.
+form.politicaEntrega.baixada=<p>Seu <b>bairro</b> não está na lista? Clique <a href='/faleconosco?assunto=Meu bairro ainda não é atendido!'>aqui</a> e nos envie uma mensagem!</p>
+form.politicaEntrega.desconto=<i>(com %s de desconto)</i>
+form.politicaEntrega.observacao=<p><font color="#FF0000">Caso haja a necessidade de troco para pedidos feitos com <b>PagSeguro/PayPal</b>, devolveremos no momento da entrega ou deixaremos como crédito para futuras compras.</font></p>
+
+#Fornecedor
+form.fornecedor.title=Fornecedor
+form.fornecedor.cnpj=CNPJ
+form.fornecedores.title=Fornecedores
+form.fornecedor.contato=Contato
+
+form.fornecedores.1=Sítio A Boa Terra
+form.fornecedores.1.img=/images/fornecedores/sitio_a_boa_terra.jpg
+form.fornecedores.1.link=http://www.aboaterra.com.br
+form.fornecedores.2=Nata da Serra
+form.fornecedores.2.link=http://www.natadaserra.com.br
+form.fornecedores.2.img=/images/fornecedores/nata_da_serra.jpg
+form.fornecedores.3=Orgânicos da Mantiqueira
+form.fornecedores.3.link=http://www.organicosdamantiqueira.com.br
+form.fornecedores.3.img=/images/fornecedores/organicos_da_mantiqueira.jpg
+form.fornecedores.4=Jatobá Orgânico
+form.fornecedores.4.link=http://www.jatobaorganico.com.br
+form.fornecedores.4.img=/images/fornecedores/jatoba_organico.jpg
+form.fornecedores.5=Pão do Céu
+form.fornecedores.5.link=http://www.paoorganico.com.br
+form.fornecedores.5.img=/images/fornecedores/pao_do_ceu.jpg
+form.fornecedores.6=Refazenda
+form.fornecedores.6.link=http://www.refazendagrumo.com.br
+form.fornecedores.6.img=/images/fornecedores/refazenda.jpg
+form.fornecedores.7=PilÃµes Agro indústria
+form.fornecedores.7.link=http://piloesagro.com.br/
+form.fornecedores.7.img=/images/fornecedores/piloes.jpg
+
+#Parceiros
+form.parceiros.title=Parceiros
+form.parceiros.1=Cozinha Iluminada
+form.parceiros.1.link=http://cozinhailuminada.wordpress.com/
+form.parceiros.1.img=/images/cozinha.jpg
+
+form.parceiros.2=Nutricionista - Alimentação Integral e Integrada
+form.parceiros.2.link=http://flaviazanatta.blogspot.com/
+form.parceiros.2.img=/images/fornecedores/logo_flavia.jpg
+
+form.parceiros.3=Acta Imprensa
+form.parceiros.3.link=http://www.actaimprensa.com.br/
+form.parceiros.3.img=/images/fornecedores/logo_acta.jpg
+
+form.parceiros.upload.archive=Enviar Arquivo
+form.parceiros.archive=Arquivo
+form.parceiros.path.notConfigured=O diretório de arquivos não está configurado, contacte o administrador
+form.parceiros.upload.archive.maxLength=1048576
+form.parceiros.error.archive.maxLength=O arquivo é maior que o máximo permitido (1Mb). 
+
+#Na mídia
+form.midia.title=Vida Saudável Orgânicos na Mídia
+
+form.midia.folha.1=Planejar o cardápio da semana ajuda a economizar tempo e dinheiro - Folha de S. Paulo, 21 de Outubro de 2012
+form.midia.folha.1.image=/images/na-midia-folha-sao-paulo.jpeg
+form.midia.folha.1.link=http://www1.folha.uol.com.br/saopaulo/1172118-planejar-o-cardapio-da-semana-ajuda-a-economizar-tempo-e-dinheiro-veja-dicas.shtml
+
+form.midia.forum.1=Uma Porção de Saúde - Fórum de Sustentabilidade - Ano 2, nº 2 - 2012
+form.midia.forum.1.image=/images/na-midia-revista-sustentabilidade.jpeg
+
+form.midia.diariosp.1=Orgânico gera oportunidades - Diário de São Paulo, 2 de Setembro de 2012
+form.midia.diariosp.1.image=/images/na-midia-jornal-diario-sp.jpg
+
+
+message.required.fornecedor.nome=Por favor, digite o Nome do Fornecedor
+message.minsize.fornecedor.cnpj=Por favor, o campo CNPJ deve conter 11 dígitos no mínimo
+message.minsize.value.desconto=Por favor, digite somente valores positivos
+message.error.value.desconto=O Valor do desconto não pode ser superior ao valor do pedido
+
+form.subject.text=Assunto
+form.global.price=Preço
+
+#Módulo de Relatórios
+form.report.title=Relatórios
+form.report.pedidoPorFornecedor=Produtos por Fornecedor
+form.report.pedidoAguardandoEntrega=Pedidos Aguardando Entrega
+form.report.enderecoPedidoAguardandoEntrega=Endereços
+application.form.export=Exportar
+application.form.report.format.excel=Excel
+application.form.report.format.csv=CSV
+application.form.report.format.csv.mac=CSV (Mac)
+application.form.report.format.pdf=PDF
+application.form.select=Selecione
+application.form.sendMessage=Enviar Mensagem
+
+#E-mail Marketing
+form.mail.mkt.title=E-mail Marketing
+form.mail.mkt.to=Destinatários
+form.mail.mkt.to.mask=(E-mails separados por ;)
+application.mail.mkt.path=https://s3-sa-east-1.amazonaws.com/vsorganicos/images/%s
+application.mail.img=email_marketing.jpg
+form.mail.mkt.remove=Caso não deseje mais receber nossos e-mails, responda com o assunto "retirar". 
+
+application.email.admin=felipe@vidasaudavelorganicos.com.br
+
+#Facebook
+application.btnFacebook=btn_facebook.gif
+application.btnFacebook.width=23
+application.btnFacebook.height=23
+application.link.facebook=http://www.facebook.com/VidaSaudavelOrganicosDelivery
+application.link.instagram=http://instagram.com/vidasaudavelorganicos
+
+#Cestas
+form.cesta.title=Cesta
+form.cesta.previsao.text=Previsão da Semana - Entrega:
+form.cesta.assign.title=Assinaturas
+form.cesta.personal=Minha Cesta
+form.cesta.available=Disponível
+form.cesta.active=Ativo
+form.cesta.principal=Primeira Opção
+form.cesta.second=Segunda Opção
+form.cesta.info=Informações
+form.cesta.assign=Assinar Cesta
+form.cesta.interval=Periodicidade
+form.cesta.properties=Preencha as opções abaixo
+form.cesta.startDate=Início
+form.cesta.hasAssign=Você já possui uma assinatura ativa, é necessário inativar a existente para assinar uma nova.
+form.cesta.delivery=Entrega
+form.cesta.nextDelivery=Próxima Entrega
+form.cesta.success=Assinatura realizada com sucesso!
+form.cesta.order.delivery=<p>Atenção, as informações pertinentes à assinatura da cesta, foram enviadas por e-mail.</p>
+form.cesta.email=Caro(a) Cliente,<br /><br />Obrigado por realizar a assinatura de sua cesta.<br /><br />Att,<br /><b><a href='http://www.vidasaudavelorganicos.com.br'>Vida Saud&aacute;vel Org&acirc;nicos</a></b>
+form.cesta.create.order=Gerar Pedidos
+form.cesta.create.order.message=Os pedidos para as assinaturas de cestas estão sendo processados.
+
+#Serviços
+form.services.title=Serviços
+form.services.obs.2=** As alterações e o cancelamento da entrega mais próxima deverão ocorrer antes das 23hs do Domingo.
+form.services.obs.1=* Disponível para clientes com no mínimo três pedidos já realizados
+
+#Overwrite Play! Messages
+validation.email=E-mail informado não é válido
+validation.invalid=Um valor digitado não é válido para o campo informado
+validation.min=O valor não pode ser menor que %2$d
+
+application.form.find=Pesquisar
+
+#PayPal Pagamento
+application.service.url.paypal=https://api-3t.paypal.com/2.0/
+application.signature.url.paypal=AFcWxV21C7fd0v3bYYYRCpSSRl31AuzRijNuF1eAf5aFXe1Z-fOBUtqW
+application.username.url.paypal=felipe_api1.vidasaudavelorganicos.com.br
+application.password.url.paypal=UDP6U4UHHLUDTX3K
+application.checkout.url.paypal=https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=
+application.return.url.paypal=http://www.vidasaudavelorganicos.com.br/pedido/paypal/finalizar
+application.cancel.url.paypal=http://www.vidasaudavelorganicos.com.br/pedido/paypal/cancelar
+#application.service.url.paypal=https://api-3t.sandbox.paypal.com/2.0/
+#application.signature.url.paypal=AitIwFu-3.DXRLYSY0rw6nvBxXFpAeTZQuoQ6k8SQ4wcqFNPtI2ahon5
+#application.username.url.paypal=vender_1349716917_biz_api1.gmail.com
+#application.password.url.paypal=1349716939
+#application.checkout.url.paypal=https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=
+#application.return.url.paypal=http://localhost:8001/pedido/paypal/finalizar
+#application.cancel.url.paypal=http://localhost:8001/pedido/paypal/cancelar
+application.error.paymentMethod=Por favor, selecione a forma de pagamento.
+application.pedido.paypal.desconto=5.00
+
+#PagSeguro
+application.url.pagseguro=https://ws.pagseguro.uol.com.br/v2/checkout
+application.username.pagseguro=felipe@vidasaudavelorganicos.com.br
+application.token.pagseguro=8D96365337A04FC99809187EB0137863
+application.redirectUrl.pagseguro=https://pagseguro.uol.com.br/v2/checkout/payment.html?code=%s
+application.return.url.pagseguro=http://www.vidasaudavelorganicos.com.br/pedido/pagseguro/finalizar/%s
+
+application.minValue.gateways=70.00
+
+application.valor.pedido.desconto=200.00
+
+#Google Maps
+application.route.title=Trajeto
+application.google.maps.key=AIzaSyA1Gt5e8k5LNGqghHFD35vj4yvPwuW-J_Y
+application.google.maps.sensor=false
+application.google.maps.origin=Av. Francisco Matarazzo, 455, São Paulo, 05001-900
+application.google.maps.origin.title=Origem
+application.google.maps.destination=Av. Mutinga, 3914, São Paulo, Brasil
+application.google.maps.destination.title=Destino Final
+application.google.maps.route.title=Rota
+
+form.paypal.info.token=Token da Transação
+form.paypal.error=Erro da Transação
+form.paypal.loading.payment=Aguarde enquanto estamos processando seu pagamento...
+form.paypal.cancel.order=Você optou por cancelar o pagamento. Caso deseje mudar a forma de pagamento, entre em contato conosco.
+form.paypal.error.token.notfound=Dados não encontrados para o token: %s
+
+#CRM - Novas funcionalidade
+application.crm.cupom.desconto.title=Gerar Cupom
+application.crm.cupom.desconto.validade=Validade (dias)
+application.crm.cupom.desconto.email.subject=Indicação Saudável
+application.crm.cupom.desconto.email.text=Indicando a <strong>Vida Saudável Orgânicos</strong> você e a pessoa indicada desfrutam de um super desconto em suas compras!
+application.crm.cupom.desconto.max.time=10
+application.crm.cupom.desconto.max.time.title=Quantidade Uso
+application.crm.cupom.desconto.success=Os cupons foram enviados aos clientes com sucesso!
+application.crm.cupom.desconto.fail=Já existem cupons ativos cadastrados para os clientes na base
+application.crm.cupom.flag.all=Enviar para todos clientes?
+
+#AWS Configuration
+application.aws.region=sa-east-1
+application.aws.accesKeyId=AKIAJOTSICICGD3TOWWQ
+application.aws.secretKey=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
+application.aws.bucketName=vsorganicos
+
+play-paginate.first=&laquo;&nbsp;Primeira
+play-paginate.prev=&lsaquo;&nbsp;Anterior
+play-paginate.next=Próxima&nbsp;&rsaquo;
+play-paginate.last=Última&nbsp;&raquo;
+
+play-paginate.summary.display=Exibindo 
+play-paginate.summary.to=até
+play-paginate.summary.from=do total de
+play-paginate.summary.entries=registros.
+
+#404
+application.page.notfound=A página que você estava procurando não existe!

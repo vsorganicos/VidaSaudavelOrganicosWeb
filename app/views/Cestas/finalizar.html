@@ -1,0 +1,158 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Fechar Assinatura Cesta
+#{/set}
+<div class="defaultContentSize">
+	#{form @Cestas.fecharCesta(), method:'POST', id:'cestaUsuarioForm'}
+	<br />
+	<table width="97%" border="0" id="showProdutosCarrinho" cellpadding="0" cellspacing="2" align="center" style="border-bottom-width: 1px; border-bottom-style: dashed; border-bottom-style: solid;">
+		<input type="hidden" name="clienteId" id="clienteId" value="${clienteId}" />
+		<tr class="tr1" height="19px">
+			<td align="center" colspan="2">
+				<span>&{'form.label.descricao'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.quantidade'}</span>
+			</td>
+			<td align="center">
+				<span>&{'form.label.valorUnitario'}</span>
+			</td>
+		</tr>
+		#{list items:cestaAssinatura.listCestaAssinaturaProduto, as:'item'}
+		<tr>
+			<td width="12%">
+				<a href="/ajaxView?height=370&width=450&id=${item.produto.id}" title="${item.produto.descricao}" class="thickbox">
+					<img width="50" height="43" src="&{'application.static.content'}&{'application.path.public.images'}${item.produto.imagemProduto}" 
+						title="${item.produto.descricao}" alt="${item.produto.descricao}" class="imgBasket" />
+				
+				</a>
+			</td>
+			<td>				
+				<span class="fontBlackMainHome">&nbsp;${item.produto.descricao}</span><br />
+			</td>
+			<td width="11%" align="center">				
+				<span class="fontBlackMainHome">&nbsp;${item.quantidade}</span><br />
+			</td>
+			<td width="11%" align="center">
+				#{if (item.opcional)}
+					<span class="fontBlackMainHome" style="background-color: #FF0000;">&{'form.cesta.second'}</span><br />
+				#{/if}
+				#{else}	
+					<span class="fontBlackMainHome">${item.produto.valorVenda.formatCurrency('BRL').raw()}</span><br />
+				#{/else}
+			</td>
+		</tr>
+		#{/list}
+	</table>
+	<table width="97%" border="0" id="showCestaAssinatura" cellpadding="0" cellspacing="0" align="center">
+		<tr class="tr1">
+			<td>
+				<div style="width: 100%; float: left; position:relative;">
+					<div style="width:80%; float: left; border: 0px solid; position: relative; text-align: center;">&{'form.label.total'}</div>
+					<div style="width:10%; float: right; text-align: center; border: 0px solid; position: relative;">
+						<span class="fontBlackMainHome">${cestaAssinatura.valorCesta.formatCurrency('BRL').raw()}</span>&nbsp;
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">&nbsp;
+			#{ifErrors}
+				#{errors}
+					<span class="fontRed">${error}</span><br />
+				#{/errors}
+			#{/ifErrors}
+			</td>
+		</tr>
+	</table>
+	#{ifnot errors}
+	<div id="payment-address" class="tabPaymentAddressMain">
+		<div class="tabPaymentAddressContent">
+			<table width="100%" border="0" cellspacing="3" cellpadding="2">
+				<thead>
+					<tr>
+						<td style="background-color: #DDDDDD;" align="center">
+							<span class="fontDefaultBlack"><b>&{'form.title.endereco'}</b></span>
+						</td>
+					</tr>
+				</thead>
+				#{if (endereco!=null) }
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">${endereco.logradouro}, ${endereco.numero}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">${endereco.bairro}</span>
+						<span>-</span>
+						<span class="fontBlackMainHome">${endereco.cidade}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">&{'form.address.cep'}:&nbsp;${endereco.cep}</span>
+						<span>-</span>
+						<span class="fontBlackMainHome">${endereco.uf}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="fontBlackMainHome">&{'form.order.endereco.delivery', endereco.id}</span>
+					</td>
+				</tr>
+				#{/if}
+			</table>
+		</div>
+		<div class="tabPaymentAddressContent">
+			<table width="100%" border="0" cellspacing="3" cellpadding="2">
+				<thead>
+					<tr>
+						<td colspan="2" style="background-color: #DDDDDD;" align="center">
+							<span class="fontDefaultBlack"><b>&{'form.cesta.properties'}</b></span>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="5%" align="center">							
+							<input type="radio" name="formaPagamento" id="formaPagamento" checked="checked" value="${pagamento.getFormaPagamento('Dinheiro')}" />
+						</td>
+						<td>
+							<span class="fontBlackMainHome">${pagamento.getFormaPagamento('DINHEIRO').descricao}</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="fontBlackMainHome">&{'form.cesta.startDate'}</span>
+						</td>
+						<td>
+							<input type="text" size="10" readonly="readonly" class="textBox1" name="cestaAssinatura.dataInicio" id="cestaAssinatura.dataInicio" value="${cestaAssinatura.dataInicio.format('dd/MM/yyyy')}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="fontBlackMainHome">&{'form.cesta.interval'}</span>
+						</td>
+						<td>
+							#{select 'cestaAssinatura.periodo', items:periodos, labelProperty:'descricao', value:periodo, class:"fontGreen1"}*
+							#{/select}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br />
+	#{/ifnot}
+	<div align="right" style="width: 97%;">
+		<div id="btn-end">
+			<a href="javascript:document.getElementById('cestaUsuarioForm').submit();"><span>&nbsp;</span></a>
+		</div>
+		<div id="btn-back">
+			<a href="javascript:history.go(-1);"><span>&nbsp;</span></a>
+		</div>
+	</div>
+	<br /><br />
+	#{/form}
+</div>

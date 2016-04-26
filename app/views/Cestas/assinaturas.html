@@ -1,0 +1,82 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Assinaturas
+#{/set}
+
+<link rel="stylesheet" type="text/css" media="screen" href="&{'application.static.content'}/stylesheets/play-pagination.css">
+<br />
+<div class="boxConsultaDefault">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="fontGreen2">
+		<tr class="tr1">
+			<td align="left" width="20%">
+				<span>&{'form.admin.customer'}</span>
+			</td>
+			<td align="left" width="13%"><span>&{'form.cesta.interval'}</span></td>
+			<td align="left" width="13%">
+				<span>&{'form.cesta.startDate'}</span>
+			</td>
+			<td align="left" width="9%">Envio</td>
+			<td align="center" width="12%"><span>&{'form.label.valorCompra'}</span></td>
+			<td align="center"><span>&{'form.order.alterar.metodoPagamento'}</span></td>
+			<td align="left" width="20%">
+				<span>&{'form.label.status'}</span>
+			</td>
+			<td width="11%">
+				<span>&nbsp;</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="9">
+				<div style="position:relative; height: 340px; overflow: auto;">
+					<table width="100%" border="0" cellpadding="2">
+					#{if (cestas==null)}
+					<tr>
+						<td colspan="8" align="center">
+							<span class="fontGreen2">&{'message.norecordfound'}</span>
+						</td>
+					</tr>
+					#{/if}
+					#{else}
+					#{paginate.list items:cestas, as:'cestaAssinatura'}
+					<tr>
+						<td align="left" width="20%">
+							<span title="${cestaAssinatura.cliente.nome}">
+							#{if (cestaAssinatura.cliente.nome.length()>=25)}
+								${cestaAssinatura.cliente.nome.substring(0, 25)}
+							#{/if}
+							#{else}
+								${cestaAssinatura.cliente.nome}
+							#{/else}
+							</span>
+						</td>
+						<td width="10%" align="center">${cestaAssinatura.periodo?.descricao}</td>
+						<td width="10%" align="center">${cestaAssinatura.dataInicio!=null ? new Date(cestaAssinatura.dataInicio.getTime()).format('dd/MM/yyyy') : cestaAssinatura.dataInicio}</td>
+						<td width="10%" align="center">${cestaAssinatura.dataEnvio!=null ? new Date(cestaAssinatura.dataEnvio.getTime()).format('dd/MM/yyyy') : cestaAssinatura.dataEnvio}</td>
+						<td width="12%" align="center">
+							<span>${cestaAssinatura.valorCesta?.formatCurrency('BRL').raw()}</span>
+						</td>
+						<td align="center">${cestaAssinatura.pagamento?.formaPagamento}</td>
+						<td width="20%" align="center">
+							#{a @Cestas.changeStatusAssinatura(cestaAssinatura.id, true), title:"Ativar/Inativar"}
+								<span>${cestaAssinatura.ativo ? 'Suspender Entrega' : 'Ativar Entrega'}</span>
+							#{/a}
+						</td>
+						<td align="right">
+							<a href="/ajaxCesta?height=520&width=750&idCestaAssinatura=${cestaAssinatura.id}" class="thickbox fontBrown">
+								&{'form.order.btnViewProducts'}
+							</a>
+						</td>
+					</tr>
+					#{/paginate.list}
+					#{/else}
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr class="tr1">
+			<td colspan="4" align="center">#{paginate.summary items:cestas /}</td>
+			<td colspan="5" align="center">#{paginate.controls items:cestas /}</td>
+		</tr>
+	</table>
+</div>
+<br />

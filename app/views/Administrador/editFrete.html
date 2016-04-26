@@ -1,0 +1,48 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Editar Frete
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @Administrador.alterarFrete(), method:'POST', id:'freteForm'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="100%" align="center" class="fontGreen3">Editar Frete</td>
+			<input type="hidden" name="frete.id" id="frete.id" value="${frete?.id}" />
+		</tr>
+		<tr>
+			<td colspan="100%" align="center" class="fontGreen3">&nbsp;
+			#{ifErrors}
+				#{errors}
+				<li>
+					<span class="fontRed">${error}</span>
+				</li>
+				#{/errors}
+			#{/ifErrors}
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">Valor</td>
+			<td align="left">
+				<input type="text"
+						name="frete.valor" id="frete.valor" value="${frete?.valor}"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<a href="javascript:document.getElementById('freteForm').submit();" class="fontBrown">&{'form.button.next'}</a>
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+#{if (params.message!=null)}
+<script type="text/javascript" charset="utf-8">
+	alert("${params.message}");
+	window.location = "/index";
+</script>
+#{/if}

@@ -1,0 +1,44 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Ver Cestas
+#{/set}
+
+<div class="defaultContentSize">
+	<br />
+	#{if (flash.success!=null) }
+	<div align="right" style="width:96%; background-color: #DDDDDD; position: relative; float: left">
+		<span class="fontBlackNormal">&{'message.secao.em'}&nbsp;${flash.success.raw()}</span>
+	</div>
+	<br />
+	#{/if}
+	<br />
+	<div style="width: 100%; margin-bottom: 5px; float: left">
+		#{if (!cestas.isEmpty())}
+		#{list items:cestas, as:'cesta'}
+		<div class="boxMainProduct">
+			<div style="float: left">
+				<a href="/cesta/detail/${cesta.id}/${cesta.titulo.slugify()}">
+					<img src="${cesta.caminhoImagem}" title="${cesta.titulo}" 
+						height="&{'application.path.images.height'}" width="&{'application.path.images.width'}"
+						alt="${cesta.titulo}" class="imgBoxMain" />
+				</a>
+			</div>
+			<a class="a1" href="/cesta/detail/${cesta.id}/${cesta.titulo.slugify()}">${cesta.titulo}</a>
+			<br />
+			<span class="fontBlackMainHome" id="valorVenda">&nbsp;${cesta.valorVenda.formatCurrency('BRL')}</span><br />
+			<img src="&{'application.static.content'}&{'application.path.public.images'}&{'application.path.carrinho'}" 
+					style="cursor: pointer;" alt="&{'form.imgBasket.alt'}" title="&{'form.imgBasket.alt'}" 
+					onclick="javascript:window.open('/cesta/detail/${cesta.id}/${cesta.titulo.slugify()}', '_parent')"/>
+			<input type="hidden" id="quantidade[${cesta.id}]" name="quantidade[${cesta.id}]" value="1" />
+			<br />
+		</div>	
+		#{/list}
+		#{/if}
+		#{else}
+		<div align="center">
+			<br /><br />
+			<span class="fontGreen3">&{'message.notfound.product'}</span>
+		</div>
+		#{/else}
+	</div>
+</div>

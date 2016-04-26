@@ -1,0 +1,63 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} &{'form.admin.secao.cadastrar'}
+#{/set}
+#{if (params.message!=null)}
+<script type="text/javascript" charset="utf-8">
+	alert("${params.message}");
+</script>
+#{/if}
+
+<div class="defaultContentSize">
+	#{form @SecaoProdutos.salvar()}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center">
+				<span class="fontGreen3">&{'form.admin.secao.cadastrar'}</span>
+			</td>
+		</td>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" name="secao.ativo" id="secao.ativo" value="true" />
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">
+				<span>&{'form.admin.secao.description'}</span>
+			</td>
+			<td>
+				<input type="text" id="secao.descricao" name="secao.descricao" value="${secao.descricao}" maxlength="120" size="40" class="textBox1" />*
+			</td>
+		</tr>
+		#{if (!secoes.isEmpty())}
+		<tr>
+			<td align="right">&{'form.admin.secao.pai'}</td>
+			<td align="left">
+				#{select 'secao.secaoPai.id', items:secoes, labelProperty:'descricao', valueProperty:secao.id, value:secao.secaoPai, class:"select1 fontGreen1"}
+					#{option ''}Selecione#{/option}						
+				#{/select}
+			</td>
+		</tr>
+		#{/if}
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+				#{ifErrors}
+					#{errors}
+					<li>
+						<span>${error}</span>
+					</li>
+					#{/errors}
+				#{/ifErrors}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" value="&{'form.button.next'}" class="btnGreen" />
+				&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>

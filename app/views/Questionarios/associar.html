@@ -1,0 +1,84 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} Criar Questionário
+#{/set}
+
+<div class="defaultContentSize">
+	#{form @Questionarios.salvarAssociacao(), id:'cadastroQuestionario', method:'POST'}
+	<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontGreen2">
+		<tr>
+			<td colspan="2" align="center" class="fontGreen3">
+				<span>&{'form.questionario.title'}</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">&{'form.questionario.titulo'}</td>
+			<td align="left">
+				<input type="text" maxlength="100" class="textBox1" name="questionario.titulo" id="questionario.titulo" 
+						size="35" value="${questionario.titulo}"/>*
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">
+				<span>&{'form.questionario.pergunta'}</span>
+			</td>
+			<td align="left">
+				#{select 'pergunta.id', id:'pergunta.id', items:perguntas, valueProperty:id, labelProperty:'questao', class:"fontGreen1"}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td width="40%" align="right">
+				<span>&{'form.questionario.resposta'}</span>
+			</td>
+			<td align="left">
+				#{select 'respostas', id:'respostas', items:respostas, valueProperty:id, labelProperty:'descricao', class:"fontGreen1", multiple:'multiple'}						
+				#{/select}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="left">
+				<span class="fontDefaultBlack"><i>&{'form.questionario.tip'}</i></span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+				<span>|</span>
+				<a href="#" class="fontBrown" onclick="javascript:document.getElementById('cadastroQuestionario').submit();">&{'form.button.next'}</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+			<td align="left">
+				#{ifErrors}
+					#{errors}
+						<span class="fontRed">${error}</span><br />
+					#{/errors}
+				#{/ifErrors}
+			</td>
+		</tr>
+	</table>
+	#{/form}
+</div>
+
+<script type="text/javascript">
+<!--
+	
+//-->
+</script>

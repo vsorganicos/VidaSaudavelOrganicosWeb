@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="pt-br" />
+		<meta name="description" content="Vida Saudável Orgânicos, loja online de produtos orgânicos, integrais e naturais." />
+		<meta name="author" content="Felipe Guerra" />
+		<meta name="title" content="Vida Saudável Orgânicos, alimentos e produtos orgânicos, são paulo" />
+		<link rel="stylesheet" media="screen" href="&{'application.static.content'}/stylesheets/main.css">
+		<script src="&{'application.static.content'}/javascripts/jquery-1.5.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>&{'application.subtilte'} Aguarde</title>
+	</head>
+	<body>
+		#{form @Carrinho.finalizar(), id:"finalizarForm"}
+		<div>
+			<table width="100%" cellpadding="4" cellspacing="4" border="0" class="fontDefaultBlack">
+				<tr>
+					<td align="center" class="fontGreen3">
+						<input type="hidden" id="sessionId" name="sessionId" value="${sessionId}" />
+						<input type="hidden" id="formaPagamento" name="formaPagamento" value="${formaPagamento}" />
+						<img alt="Vida Saudável Orgânicos Logo" width="72" height="56"
+							src="&{'application.static.content'}&{'application.path.public.images'}logo-relatorio.jpg" border="0" />
+						#{if (formaPagamento!='PagSeguro')}
+							<img src="&{'application.static.content'}&{'application.path.public.images'}paypal_logo.gif" alt="paypal logo" />
+						#{/if}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="center" class="fontGreen3">
+						<span class="fontBlackMainHome">&{'form.paypal.loading.payment'}</span><br /><br />
+						<img src="&{'application.static.content'}&{'application.path.public.images'}ajax-loader.gif" alt="loading" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		#{/form}
+	</body>
+<script type="text/javascript" charset="utf-8">
+$(window).load(function() {
+      document.getElementById("finalizarForm").submit();
+});
+</script>
+</html>
+

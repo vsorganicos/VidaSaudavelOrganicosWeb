@@ -2,7 +2,7 @@
 bin/
 /db
 .eclipse
-/lib/
+/.settings/
 /logs/
 /modules
 /project/target
@@ -13,3 +13,6 @@ server.pid
 *.eml
 /dist/
 .cache
+/conf/messages
+.DS_Store
+/precompiled/

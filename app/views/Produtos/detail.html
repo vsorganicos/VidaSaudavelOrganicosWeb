@@ -1,0 +1,68 @@
+#{extends 'layout.html' /}
+#{set 'title'}
+&{'application.subtilte'} ${produto.nome}
+#{/set}
+
+<div class="defaultContentSize">
+	<br />
+	<div align="right" style="background-color: #DDDDDD; width: 95%">
+		<span class="fontBlackNormal">&{'message.secao.em'}&nbsp;${flash.success.raw()}</span>
+	</div>
+	<table width="90%" cellpadding="4" cellspacing="4" border="0" align="center">
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+		#{if (produto.ehCesta==false)}
+		<tr>
+			<td width="40%" align="center">
+				<img src="&{'application.static.content'}&{'application.path.public.images'}${produto.imagemProduto}"
+					width="&{'application.path.images.width'}"
+					height="&{'application.path.images.height'}" 
+					alt="${produto.imagemProduto}" class="imgDetail" />
+			</td>
+			<td>
+				<span class="fontBoldBrown">${produto.nome}</span><br /><br />
+				<span class="fontGreen3">${produto.valorVenda.formatCurrency('BRL').raw()}</span>
+				<input type="hidden" id="quantidade[${produto.id}]" name="quantidade[${produto.id}]" value="1" />&nbsp;
+				#{if (produto.isAvailable())}
+					<img src="&{'application.static.content'}&{'application.path.public.images'}&{'application.path.carrinho'}" 
+						style="cursor: pointer;" alt="&{'form.imgBasket.alt'}" title="&{'form.imgBasket.alt'}"
+						onclick="javascript:adicionarProdutoCarrinho(${produto.id}, document.getElementById('quantidade[${produto.id}]'), '${produto.valorVenda}')" />
+				#{/if}
+				#{else}
+					<img src="&{'application.static.content'}&{'application.path.public.images'}&{'form.estoque.img.indisponivel'}" />
+				#{/else}
+				<br /><br />
+				<span class="fontGreen2"><b>&{'form.label.detail'}: </b></span><span class="fontBlackNormal">${produto.detalhe.raw()}</span>
+				<br /><br />
+				#{if (produto.podeEnviarPorCorreio)}
+				<img src="&{'application.static.content'}&{'application.path.public.images'}logo-correios.jpg" 
+						alt="&{'form.product.envioProdutoCorreio'}" title="&{'form.product.envioProdutoCorreio'}" />
+				#{/if}
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<span class="fontBlackNormal"><i>&{'form.product.imagemDetalhe'}</i></span>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		#{/if}
+		<tr>
+			<td colspan="2">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+</div>
+<div align="right" style="width: 95%">
+	<div align="center" class="fb-comments" data-href="http://www.vidasaudavelorganicos.com.br${request.path}" data-width="800" data-numposts="5" data-colorscheme="light"></div>
+</div>
+<div align="right">
+	#{a @Home.index(), class:"fontBrown"}&{'form.button.back'}#{/a}
+</div>
+<br />
+
+
