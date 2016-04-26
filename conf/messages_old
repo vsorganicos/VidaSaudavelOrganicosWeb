@@ -576,8 +576,8 @@ application.crm.cupom.flag.all=Enviar para todos clientes?
 
 #AWS Configuration
 application.aws.region=sa-east-1
-application.aws.accesKeyId=AKIAJOTSICICGD3TOWWQ
-application.aws.secretKey=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
+application.aws.accesKeyId=
+application.aws.secretKey=
 application.aws.bucketName=vsorganicos
 
 play-paginate.first=&laquo;&nbsp;Primeira
